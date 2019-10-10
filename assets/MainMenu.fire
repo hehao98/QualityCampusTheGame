@@ -15,9 +15,6 @@
     "_children": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 11
       }
     ],
     "_active": true,
@@ -66,13 +63,16 @@
       },
       {
         "__id__": 5
+      },
+      {
+        "__id__": 10
       }
     ],
     "_active": true,
     "_level": 0,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 19
       }
     ],
     "_prefab": null,
@@ -255,7 +255,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 100,
+      "y": 96,
       "z": 0
     },
     "_scale": {
@@ -400,55 +400,38 @@
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
-    "_verticalCenter": 100,
+    "_verticalCenter": 0.15,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
+    "_isAbsVerticalCenter": false,
     "_originalWidth": 0,
     "_originalHeight": 0,
     "_id": "05akI/5ipL36SJiUgi4bcq"
-  },
-  {
-    "__type__": "cc.Canvas",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "_designResolution": {
-      "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
-    },
-    "_fitWidth": false,
-    "_fitHeight": true,
-    "_id": "178ghKMO5PbZ1jCGfv2JeB"
   },
   {
     "__type__": "cc.Node",
     "_name": "BtnStartGame",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 1
+      "__id__": 2
     },
     "_children": [
       {
-        "__id__": 12
+        "__id__": 11
       }
     ],
     "_active": true,
     "_level": 1,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 17
       },
       {
-        "__id__": 17
+        "__id__": 18
       }
     ],
     "_prefab": null,
@@ -462,7 +445,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
+      "width": 384,
       "height": 100
     },
     "_anchorPoint": {
@@ -472,8 +455,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 480,
-      "y": 270,
+      "x": 0,
+      "y": -64,
       "z": 0
     },
     "_scale": {
@@ -499,11 +482,11 @@
     "_name": "Background",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 11
+      "__id__": 10
     },
     "_children": [
       {
-        "__id__": 13
+        "__id__": 12
       }
     ],
     "_active": true,
@@ -511,6 +494,9 @@
     "_components": [
       {
         "__id__": 15
+      },
+      {
+        "__id__": 16
       }
     ],
     "_prefab": null,
@@ -524,7 +510,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
+      "width": 384,
       "height": 100
     },
     "_anchorPoint": {
@@ -561,12 +547,15 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 12
+      "__id__": 11
     },
     "_children": [],
     "_active": true,
     "_level": 3,
     "_components": [
+      {
+        "__id__": 13
+      },
       {
         "__id__": 14
       }
@@ -582,8 +571,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
-      "height": 40
+      "width": 307.2,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -619,7 +608,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 13
+      "__id__": 12
     },
     "_enabled": true,
     "_materials": [
@@ -640,16 +629,43 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 1,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": "8dAM2xFNZODaiFSnUxsfVk"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 12
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0.1,
+    "_right": 0.1,
+    "_top": 0.1,
+    "_bottom": 0.1,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
+    "_isAbsTop": false,
+    "_isAbsBottom": false,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 200,
+    "_originalHeight": 40,
+    "_id": "festUvh5xFPIHZtQEm0cdn"
   },
   {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 12
+      "__id__": 11
     },
     "_enabled": true,
     "_materials": [
@@ -677,11 +693,38 @@
     "_id": "6e9rvNvCNEF7Fq48btL7ta"
   },
   {
-    "__type__": "cc.Button",
+    "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 11
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 300,
+    "_originalHeight": 100,
+    "_id": "d0ppO9uAtMzp3I4GSXYkq+"
+  },
+  {
+    "__type__": "cc.Button",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 10
     },
     "_enabled": true,
     "duration": 0.1,
@@ -752,7 +795,7 @@
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },
     "_N$target": {
-      "__id__": 12
+      "__id__": 11
     },
     "_id": "7e8xPgEwlPv44a/nUz0uqn"
   },
@@ -761,26 +804,43 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 11
+      "__id__": 10
     },
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 18,
-    "_left": 0,
-    "_right": 0,
+    "_alignFlags": 42,
+    "_left": 0.3,
+    "_right": 0.3,
     "_top": 0,
     "_bottom": 0,
-    "_verticalCenter": -50,
+    "_verticalCenter": -0.1,
     "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
+    "_isAbsLeft": false,
+    "_isAbsRight": false,
     "_isAbsTop": true,
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
+    "_isAbsVerticalCenter": false,
+    "_originalWidth": 300,
     "_originalHeight": 0,
     "_id": "fa4IH7sJZGzrhNWAiBapb0"
+  },
+  {
+    "__type__": "cc.Canvas",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_designResolution": {
+      "__type__": "cc.Size",
+      "width": 960,
+      "height": 640
+    },
+    "_fitWidth": false,
+    "_fitHeight": true,
+    "_id": "178ghKMO5PbZ1jCGfv2JeB"
   }
 ]
