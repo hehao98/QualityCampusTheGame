@@ -87,7 +87,7 @@
 
 核心循环是与任何一款策略游戏是一样的：玩家投入资源进行某项决策->某项决策产生正面/负面的结果->产生各种难以预料的事件->与玩家的目标又更进了一步。
 
-更具体地说，我们采用回合制，
+
 
 ### Objectives and Progression
 
@@ -103,7 +103,10 @@
 
 > *What systems are needed to make this game? Which ones are internal (simulation, etc.) and which does the player interact with?*
 
-建设
+#### 时间系统
+
+我们选择基于Tick的时间系统（类似P社四萌），一个tick是一秒钟，一天5个tick，分别对应上午、中午、下午
+晚上、凌晨。一学期共20周，一年两个学期，这样一年的游戏时长就是大约20分钟，一局需要10-50年完成。此外，我们希望玩家可以自行调整游戏的速度。
 
 ### Interactivity
 
