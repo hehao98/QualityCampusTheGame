@@ -1,0 +1,21 @@
+{
+    "fundModifiers": [
+        {
+            "name": "start_fund",
+            "type": "once",
+            "amount": 500
+        },
+        {
+            "name": "semester_base_fund",
+            "type": "interval",
+            "amount": 50,
+            "interval": "semester"
+        },
+        {
+            "name": "weekly_fund",
+            "type": "interval",
+            "amount": 10,
+            "interval": "week"
+        }
+    ]
+}
