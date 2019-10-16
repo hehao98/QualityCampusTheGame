@@ -1,20 +1,13 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+// Core manager class.
+// Serve as the entry point for managing all kinds of game logic
 
-const TICKS_SEMESTER = 20 * 7 * 5;
-const TICKS_WEEK = 7 * 5;
+export const TICKS_SEMESTER = 20 * 7 * 5;
+export const TICKS_WEEK = 7 * 5;
 
-cc.Class({
+let Game = cc.Class({
     extends: cc.Component,
 
-    properties: {
+    properties: () => ({
         // Properties for time management
         currentTick: 0,
         speedModifier: 1,
@@ -22,21 +15,25 @@ cc.Class({
         isPaused: false,
         timeString: "",
 
-        // Properties for resource management
-        fund: 0,
-        fundModifiers: {
-            default: [],
-            type: [cc.Object]
-        },
-    },
+        // resources
+        fund: require("Resource"),
+        influence: require("Resource"),
+
+        buildingManager: require("BuildingManager"),
+    }),
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad () { // Initialize all game objects from here
         let that = this;
         cc.loader.loadRes('InitialData', function (err, jsonAsset) {
             jsonAsset.json.fundModifiers.forEach((modifier) => {
-                that.addFundModifier(modifier);
+                that.fund.addModifier(modifier);
+                that.fund.updateResource(0);
+            });
+            jsonAsset.json.influenceModifiers.forEach((modifier) => {
+                that.influence.addModifier(modifier);
+                that.influence.updateResource(0);
             });
         });
     },
@@ -55,7 +52,8 @@ cc.Class({
                 this.timeString = this.getTickString();
 
                 // Update corresponding game logic
-                this.updateResource(this.currentTick);
+                this.fund.updateResource(this.currentTick);
+                this.influence.updateResource(this.currentTick);
             }
         }
     },
@@ -82,36 +80,6 @@ cc.Class({
         let day = dayTimeStr[this.currentTick % 5];
         return semester + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
     },
-
-    updateResource(tick) {
-        let that = this;
-        let toBeRemoved = [];
-        this.fundModifiers.forEach(modifier => {
-            if (modifier.type === "once") {
-                that.fund += modifier.amount;
-                toBeRemoved.push(modifier.name);
-            } else if (modifier.type === "interval") {
-                if (modifier.interval === "semester" && tick % TICKS_SEMESTER === 0) {
-                    that.fund += modifier.amount;
-                }
-                if (modifier.interval === "week" && tick % TICKS_WEEK === 0) {
-                    that.fund += modifier.amount;
-                }
-            }
-        });
-        toBeRemoved.forEach(name => { this.removeFundModifier(name) });
-    },
-
-    addFundModifier(modifier) {
-        // Apply sanity checks
-        console.assert(modifier.hasOwnProperty("name"));
-        console.assert(modifier.hasOwnProperty("type"));
-        console.assert(modifier.hasOwnProperty("amount"));
-
-        this.fundModifiers.push(modifier);
-    },
-
-    removeFundModifier(modifierName) {
-        this.fundModifiers = this.fundModifiers.filter(modifier => (modifier.name !== modifierName));
-    }
 });
+
+module.exports = Game;

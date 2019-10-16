@@ -12,10 +12,30 @@
             "interval": "semester"
         },
         {
-            "name": "weekly_fund",
+            "name": "weekly_base_fund",
             "type": "interval",
             "amount": 10,
             "interval": "week"
+        }
+    ],
+    "influenceModifiers": [
+        {
+            "name": "start_influence",
+            "type": "once",
+            "amount": 10
+        },
+        {
+            "name": "weekly_base_influence",
+            "type": "interval",
+            "amount": 1,
+            "interval": "week"
+        }
+    ],
+    "buildings": [
+        {
+            "name": "第一教学楼",
+            "type": "teaching_building",
+            "class": "bad_teaching_building"
         }
     ]
 }
