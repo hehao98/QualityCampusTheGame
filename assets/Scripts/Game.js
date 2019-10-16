@@ -1,9 +1,6 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
-export const TICKS_SEMESTER = 20 * 7 * 5;
-export const TICKS_WEEK = 7 * 5;
-
 let Game = cc.Class({
     extends: cc.Component,
 
@@ -27,13 +24,13 @@ let Game = cc.Class({
     onLoad () { // Initialize all game objects from here
         let that = this;
         cc.loader.loadRes('InitialData', function (err, jsonAsset) {
+            that.fund.value = jsonAsset.json.startFund;
             jsonAsset.json.fundModifiers.forEach((modifier) => {
                 that.fund.addModifier(modifier);
-                that.fund.updateResource(0);
             });
+            that.influence.value = jsonAsset.json.startInfluence;
             jsonAsset.json.influenceModifiers.forEach((modifier) => {
                 that.influence.addModifier(modifier);
-                that.influence.updateResource(0);
             });
         });
     },
@@ -83,3 +80,5 @@ let Game = cc.Class({
 });
 
 module.exports = Game;
+module.exports.TICKS_SEMESTER = 20 * 7 * 5;
+module.exports.TICKS_WEEK = 7 * 5;

@@ -1,10 +1,6 @@
 {
+    "startFund": 500,
     "fundModifiers": [
-        {
-            "name": "start_fund",
-            "type": "once",
-            "amount": 500
-        },
         {
             "name": "semester_base_fund",
             "type": "interval",
@@ -18,12 +14,8 @@
             "interval": "week"
         }
     ],
+    "startInfluence": 10,
     "influenceModifiers": [
-        {
-            "name": "start_influence",
-            "type": "once",
-            "amount": 10
-        },
         {
             "name": "weekly_base_influence",
             "type": "interval",
@@ -34,8 +26,18 @@
     "buildings": [
         {
             "name": "第一教学楼",
-            "type": "teaching_building",
+            "type": "teach",
             "class": "bad_teaching_building"
+        },
+        {
+            "name": "学一食堂",
+            "type": "canteen",
+            "class": "bad_canteen"
+        },
+        {
+            "name": "学生宿舍一号楼",
+            "type": "dorm",
+            "class": "bad_dorm"
         }
     ]
 }
