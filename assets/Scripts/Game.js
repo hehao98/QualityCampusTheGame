@@ -1,43 +1,48 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+// Core manager class.
+// Serve as the entry point for managing all kinds of game logic
 
-cc.Class({
+let Game = cc.Class({
     extends: cc.Component,
 
-    properties: {
+    properties: () => ({
+        universityName: "XX大学",
+
         // Properties for time management
         currentTick: 0,
         speedModifier: 1,
         timeSinceLastUpdate: 0,
         isPaused: false,
         timeString: "",
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-    },
+
+        // Properties for game objective management
+        researchIndex: 0,
+        teachIndex: 0,
+        careerIndex: 0,
+        studentSatisfication: 0,
+        professorSatisfication: 0,
+
+        // resources
+        fund: require("Resource"),
+        influence: require("Resource"),
+
+        buildingManager: require("BuildingManager"),
+    }),
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () { // Initialize all game objects from here
+        let that = this;
+        cc.loader.loadRes('InitialData', function (err, jsonAsset) {
+            that.fund.value = jsonAsset.json.startFund;
+            jsonAsset.json.fundModifiers.forEach((modifier) => {
+                that.fund.addModifier(modifier);
+            });
+            that.influence.value = jsonAsset.json.startInfluence;
+            jsonAsset.json.influenceModifiers.forEach((modifier) => {
+                that.influence.addModifier(modifier);
+            });
+        });
+    },
 
     start () {
         this.timeString = this.getTickString();
@@ -51,6 +56,10 @@ cc.Class({
                 this.currentTick++;
                 this.timeSinceLastUpdate -= this.speedModifier;
                 this.timeString = this.getTickString();
+
+                // Update corresponding game logic
+                this.fund.updateResource(this.currentTick);
+                this.influence.updateResource(this.currentTick);
             }
         }
     },
@@ -76,5 +85,9 @@ cc.Class({
         let weekDay = Math.floor((this.currentTick % (7 * 5)) / 5);
         let day = dayTimeStr[this.currentTick % 5];
         return semester + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
-    }
+    },
 });
+
+module.exports = Game;
+module.exports.TICKS_SEMESTER = 20 * 7 * 5;
+module.exports.TICKS_WEEK = 7 * 5;

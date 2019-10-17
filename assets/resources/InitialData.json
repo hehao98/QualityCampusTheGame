@@ -1,0 +1,49 @@
+{
+    "startFund": 500,
+    "fundModifiers": [
+        {
+            "name": "semester_base_fund",
+            "type": "interval",
+            "amount": 50,
+            "interval": "semester"
+        },
+        {
+            "name": "weekly_base_fund",
+            "type": "interval",
+            "amount": 10,
+            "interval": "week"
+        }
+    ],
+    "startInfluence": 10,
+    "influenceModifiers": [
+        {
+            "name": "weekly_base_influence",
+            "type": "interval",
+            "amount": 1,
+            "interval": "week"
+        }
+    ],
+    "buildings": [
+        {
+            "name": "第一教学楼",
+            "type": "teach",
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
+        },
+        {
+            "name": "学一食堂",
+            "type": "canteen",
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
+        },
+        {
+            "name": "学生宿舍一号楼",
+            "type": "dorm",
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
+        }
+    ]
+}
