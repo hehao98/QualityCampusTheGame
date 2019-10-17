@@ -1,5 +1,11 @@
 # UniversitySim
 
+何昊 1600012742
+
+廖明洋 1600012768
+
+童派 1600011606
+
 ## Development Environment
 
 Cocos Creator 2.1.3
