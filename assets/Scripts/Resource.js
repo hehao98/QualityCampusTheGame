@@ -30,18 +30,10 @@ let Resource = cc.Class({
                 }
             }
         });
-        toBeRemoved.forEach(name => { this.removeModifier(name) });
+        toBeRemoved.forEach(name => { this.removeModifier(name); });
     },
 
     addModifier(modifier) {
-        // Apply sanity checks
-        console.assert(modifier.hasOwnProperty("name"));
-        console.assert(modifier.hasOwnProperty("type"));
-        console.assert(modifier.hasOwnProperty("amount"));
-        if (modifier.type === "interval") {
-            console.assert(modifier.hasOwnProperty("interval"));
-        }
-
         this.modifiers.push(modifier);
     },
 

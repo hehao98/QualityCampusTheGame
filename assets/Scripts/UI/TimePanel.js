@@ -16,13 +16,13 @@ cc.Class({
 
     },
 
-    update (dt) {
+    update () {
         let mapping = {
             2: 1,
             1: 2,
             0.5: 3,
             0.25: 4,
-        }
+        };
 
         this.timeLabel.string = this.game.timeString;
         this.currentHighlightBtn = mapping[this.game.speedModifier];

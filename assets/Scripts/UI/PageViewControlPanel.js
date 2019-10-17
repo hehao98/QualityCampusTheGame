@@ -12,7 +12,7 @@ cc.Class({
         this.updateButtonColor(this.pageView.getCurrentPageIndex());
     },
 
-    handlePageViewChange (event, customEventData) {
+    handlePageViewChange (event) {
         let idx = event.getCurrentPageIndex();
         this.updateButtonColor(idx);
     },

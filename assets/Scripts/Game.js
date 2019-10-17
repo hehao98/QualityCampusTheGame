@@ -32,7 +32,7 @@ let Game = cc.Class({
 
     onLoad () { // Initialize all game objects from here
         let that = this;
-        cc.loader.loadRes('InitialData', function (err, jsonAsset) {
+        cc.loader.loadRes("InitialData", function (err, jsonAsset) {
             that.fund.value = jsonAsset.json.startFund;
             jsonAsset.json.fundModifiers.forEach((modifier) => {
                 that.fund.addModifier(modifier);
