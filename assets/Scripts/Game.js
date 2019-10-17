@@ -5,12 +5,21 @@ let Game = cc.Class({
     extends: cc.Component,
 
     properties: () => ({
+        universityName: "XX大学",
+
         // Properties for time management
         currentTick: 0,
         speedModifier: 1,
         timeSinceLastUpdate: 0,
         isPaused: false,
         timeString: "",
+
+        // Properties for game objective management
+        researchIndex: 0,
+        teachIndex: 0,
+        careerIndex: 0,
+        studentSatisfication: 0,
+        professorSatisfication: 0,
 
         // resources
         fund: require("Resource"),

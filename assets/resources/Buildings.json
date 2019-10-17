@@ -1,3 +1,60 @@
 {
-    
+    "types": ["teaching", "canteen", "dorm"],
+    "teaching": [
+        {
+            "name": "破旧的教学楼",
+            "class": "bad",
+            "cost": 100,
+            "capacity": 1000,
+            "constructTime": 100,
+            "description": "啊！饮水机上竟然有蟑螂！",
+            "buffs": [],
+            "availableComponents": []
+        },
+        {
+            "name": "普通的教学楼",
+            "class": "normal",
+            "cost": 200,
+            "capacity": 1000,
+            "constructTime": 100,
+            "description": "好困...不想上课...",
+            "buffs": [],
+            "availableComponents": []
+        },
+        {
+            "name": "豪华的教学楼",
+            "class": "good",
+            "cost": 300,
+            "capacity": 1000,
+            "constructTime": 100,
+            "description": "光华楼大概也就这个水平吧",
+            "buffs": [],
+            "availableComponents": []
+        }
+    ],
+    "canteen": [
+        {
+            "name": "普通的食堂",
+            "class": "normal",
+            "cost": 200,
+            "capacity": 1000,
+            "constructTime": 100,
+            "description": "",
+            "buffs": [],
+            "availableComponents": []
+        }
+    ],
+    "dorm": [
+        {
+            "name": "普通的宿舍",
+            "class": "normal",
+            "cost": 200,
+            "capacity": 1000,
+            "constructTime": 100,
+            "description": "",
+            "buffs": [],
+            "availableComponents": []
+        }
+    ],
+    "components": []
 }

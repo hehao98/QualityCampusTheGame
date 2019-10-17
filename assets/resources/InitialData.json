@@ -27,17 +27,23 @@
         {
             "name": "第一教学楼",
             "type": "teach",
-            "class": "bad_teaching_building"
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
         },
         {
             "name": "学一食堂",
             "type": "canteen",
-            "class": "bad_canteen"
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
         },
         {
             "name": "学生宿舍一号楼",
             "type": "dorm",
-            "class": "bad_dorm"
+            "metaDataId": 0,
+            "constructionFinished": true,
+            "constructionRemainingTime": 0
         }
     ]
 }
