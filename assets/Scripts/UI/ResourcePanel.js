@@ -19,7 +19,7 @@ cc.Class({
         influenceLabel: cc.Label,
     },
 
-    update (dt) { 
+    update () { 
         this.fundLabel.string = "￥" + this.game.fund.value + "万";
         this.influenceLabel.string = this.game.influence.value;
     },
