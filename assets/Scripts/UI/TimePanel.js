@@ -5,6 +5,7 @@ cc.Class({
 
     properties: {
         game: Game,
+        nameLabel: cc.Label,
         timeLabel: cc.Label,
         chosenColor: cc.Color,
         notChosenColor: cc.Color,
@@ -24,6 +25,7 @@ cc.Class({
             0.25: 4,
         };
 
+        this.nameLabel.string = this.game.universityName;
         this.timeLabel.string = this.game.timeString;
         this.currentHighlightBtn = mapping[this.game.speedModifier];
         if (this.game.isPaused) this.currentHighlightBtn = 0;

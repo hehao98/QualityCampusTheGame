@@ -81,10 +81,11 @@ let Game = cc.Class({
         let weekStr = ["一", "二", "三", "四", "五", "六", "日"];
         let dayTimeStr = ["上午", "中午", "下午", "晚上", "凌晨"];
         let semester = Math.floor(this.currentTick / (20 * 7 * 5)) + 1;
+        let year = 2018 + Math.floor(semester / 2);
         let week = Math.floor(this.currentTick % (20 * 7 * 5) / 35) + 1;
         let weekDay = Math.floor((this.currentTick % (7 * 5)) / 5);
         let day = dayTimeStr[this.currentTick % 5];
-        return semester + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
+        return year + "学年第" + (semester % 2 ? "一" : "二") + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
     },
 });
 

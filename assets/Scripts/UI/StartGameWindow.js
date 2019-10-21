@@ -20,7 +20,11 @@ cc.Class({
 
     startGame() {
         this.game.isPaused = false;
-        this.game.universityName = this.universityName.string;
+        if (this.universityName.string === "") {
+            this.game.universityName = this.universityName.placeholder;
+        } else {
+            this.game.universityName = this.universityName.string;
+        }
         this.node.active = false;
     }
 });

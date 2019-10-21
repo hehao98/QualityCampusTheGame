@@ -1,0 +1,34 @@
+{
+  "ver": "2.3.3",
+  "uuid": "f2638b3b-0c92-4884-a7e9-feea97987b38",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "platformSettings": {},
+  "subMetas": {
+    "Professor": {
+      "ver": "1.0.4",
+      "uuid": "7f27f4f5-43ba-42ce-af4e-29605e79055c",
+      "rawTextureUuid": "f2638b3b-0c92-4884-a7e9-feea97987b38",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -15,
+      "trimX": 0,
+      "trimY": 30,
+      "width": 512,
+      "height": 486,
+      "rawWidth": 512,
+      "rawHeight": 516,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
