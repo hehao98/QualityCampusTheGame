@@ -16,13 +16,13 @@ cc.Class({
         });
         this.loadingWindow.active = true;
         let label = this.loadingLabel;
-        let cnt = 1;
+        let count = 1;
         label.schedule(() => {
             label.string = "加载中";
-            for (let i = 0; i < cnt % 4; ++i) {
+            for (let i = 0; i < count % 4; ++i) {
                 label.string += ".";
             }
-            cnt += 1;
+            count += 1;
         }, 0.5);
     }
 });

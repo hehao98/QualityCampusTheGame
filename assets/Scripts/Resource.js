@@ -39,6 +39,16 @@ let Resource = cc.Class({
 
     removeModifier(modifierName) {
         this.modifiers = this.modifiers.filter(modifier => (modifier.name !== modifierName));
+    },
+
+    getModificationAmount() {
+        let result = 0;
+        this.modifiers.forEach(modifier => {
+            if (modifier.type === "interval" && modifier.interval === "week") {
+                result += modifier.amount;
+            }
+        });
+        return result;
     }
 });
 
