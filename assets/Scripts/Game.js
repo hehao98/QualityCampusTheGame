@@ -1,11 +1,13 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
+let Globals = require("Globals");
+
 let Game = cc.Class({
     extends: cc.Component,
 
     properties: () => ({
-        universityName: "XX大学",
+        universityName: "",
 
         // Properties for time management
         currentTick: 0,
@@ -26,6 +28,7 @@ let Game = cc.Class({
         influence: require("Resource"),
 
         buildingManager: require("BuildingManager"),
+        worldRankManager: require("WorldRankManager")
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -45,7 +48,15 @@ let Game = cc.Class({
     },
 
     start () {
+        this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
+
+        this.worldRankManager.addPlayerUniversity(
+            this.universityName, 
+            this.teachIndex, 
+            this.researchIndex, 
+            this.careerIndex
+        );
     },
 
     update (dt) { // dt is in seconds
@@ -60,6 +71,9 @@ let Game = cc.Class({
                 // Update corresponding game logic
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
+                if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                    this.worldRankManager.updateRanking();
+                }
             }
         }
     },
@@ -80,15 +94,13 @@ let Game = cc.Class({
         // 晚上、凌晨。一学期共20周，一年两个学期，这样一年的游戏时长就是大约20分钟
         let weekStr = ["一", "二", "三", "四", "五", "六", "日"];
         let dayTimeStr = ["上午", "中午", "下午", "晚上", "凌晨"];
-        let semester = Math.floor(this.currentTick / (20 * 7 * 5)) + 1;
+        let semester = Math.floor(this.currentTick / Globals.TICKS_SEMESTER) + 1;
         let year = 2018 + Math.floor(semester / 2);
-        let week = Math.floor(this.currentTick % (20 * 7 * 5) / 35) + 1;
-        let weekDay = Math.floor((this.currentTick % (7 * 5)) / 5);
-        let day = dayTimeStr[this.currentTick % 5];
+        let week = Math.floor(this.currentTick % Globals.TICKS_SEMESTER / Globals.TICKS_WEEK) + 1;
+        let weekDay = Math.floor((this.currentTick % Globals.TICKS_WEEK) / Globals.TICKS_DAY);
+        let day = dayTimeStr[this.currentTick % Globals.TICKS_DAY];
         return year + "学年第" + (semester % 2 ? "一" : "二") + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
     },
 });
 
 module.exports = Game;
-module.exports.TICKS_SEMESTER = 20 * 7 * 5;
-module.exports.TICKS_WEEK = 7 * 5;
