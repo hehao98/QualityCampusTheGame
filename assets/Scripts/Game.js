@@ -26,6 +26,7 @@ let Game = cc.Class({
         influence: require("Resource"),
 
         buildingManager: require("BuildingManager"),
+        worldRankManager: require("WorldRankManager")
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -46,6 +47,12 @@ let Game = cc.Class({
 
     start () {
         this.timeString = this.getTickString();
+        this.worldRankManager.addPlayerUniversity(
+            this.universityName, 
+            this.teachIndex, 
+            this.researchIndex, 
+            this.careerIndex
+        );
     },
 
     update (dt) { // dt is in seconds

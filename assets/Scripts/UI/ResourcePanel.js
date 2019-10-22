@@ -11,9 +11,17 @@ cc.Class({
         fundChangeLabel: cc.Label,
         influenceLabel: cc.Label,
         influenceChangeLabel: cc.Label,
+        statusLabel: cc.Label,
+        worldRankLabel: cc.Label,
+        researchIndexLabel: cc.Label,
+        teachIndexLabel: cc.Label,
+        careerIndexLabel: cc.Label,
+        studentSatisfactionlabel: cc.Label,
+        professorStatisfactionLabel: cc.Label,
     },
 
     update () { 
+        if (this.game.isPaused) return;
         this.fundLabel.string = this.game.fund.value + "万";
         let value = this.game.fund.getModificationAmount();
         let suffix = "+";
@@ -23,7 +31,7 @@ cc.Class({
             this.fundChangeLabel.node.color = cc.Color.RED;
             suffix = "-";
         }
-        this.fundChangeLabel.string = "(" + suffix + value + ")";
+        this.fundChangeLabel.string = "(" + suffix + value + "万)";
 
         value = this.game.influence.getModificationAmount();
         if (value >= 0) {
@@ -35,5 +43,13 @@ cc.Class({
         }
         this.influenceLabel.string = this.game.influence.value;
         this.influenceChangeLabel.string = "(" + suffix + value + ")";
+
+        this.researchIndexLabel = this.game.researchIndex;
+        this.teachIndexLabel = this.game.teachIndex;
+        this.careerIndexLabel = this.game.careerIndex;
+
+        let rank = this.game.worldRankManager.getCurrentRanking(this.game.universityName);
+        let total = this.game.worldRankManager.getUniversityCount();
+        this.worldRankLabel.string = rank + "/" + total;
     },
 });
