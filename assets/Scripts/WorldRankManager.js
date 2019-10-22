@@ -62,7 +62,6 @@ cc.Class({
                 - a.researchIndex - a.teachIndex - a.careerIndex;
         });
         this.universities.forEach((univ, i) => { univ.rank = i + 1; });
-        console.log(this);
     },
 
     getCurrentRanking(univName) {
