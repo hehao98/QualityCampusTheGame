@@ -1,16 +1,32 @@
 // The class that implements all main menu related functions
 
+let Globals = require("Globals");
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
+        configWindow: cc.Node,
         loadingWindow: cc.Node,
         loadingLabel: cc.Label,
+        universityNameInput: cc.EditBox,
     },
 
     start () {},
 
+    showConfigWindow() {
+        this.configWindow.active = true;
+    },
+
     startGame() {
+        if (this.universityNameInput.string === "") {
+            Globals.universityName = this.universityNameInput.placeholder;
+        } else {
+            Globals.universityName = this.universityNameInput.string;
+        }
+        
+        this.node.active = false;
+
         cc.director.preloadScene("Game", () => {
             cc.director.loadScene("Game");
         });

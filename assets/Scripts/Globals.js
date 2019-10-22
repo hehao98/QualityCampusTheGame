@@ -1,7 +1,11 @@
-// Declarations of all colors that should be used for UI here.
-// Color selection thanks to naive-ui(http://www.naiveui.com/)
+// The file that declares and stores all globals 
 
 module.exports = {
+    // globals that will be set in the main menu scene
+    // and will be loaded when initializing the game scene
+    universityName: "中关村文理学院",
+
+    // Globals that declares UI design colors
     FONT_COLOR1: new cc.Color(206, 207, 211),
     FONT_COLOR2: new cc.Color(30, 35, 51),
     EDGE_COLOR: new cc.Color(51, 56, 76),

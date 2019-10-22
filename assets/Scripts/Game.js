@@ -1,11 +1,13 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
+let Globals = require("Globals");
+
 let Game = cc.Class({
     extends: cc.Component,
 
     properties: () => ({
-        universityName: "XX大学",
+        universityName: "",
 
         // Properties for time management
         currentTick: 0,
@@ -46,6 +48,7 @@ let Game = cc.Class({
     },
 
     start () {
+        this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
         this.worldRankManager.addPlayerUniversity(
             this.universityName, 
