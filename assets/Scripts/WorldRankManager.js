@@ -6,35 +6,27 @@ cc.Class({
     properties: () => ({
         game: require("Game"),
         universities: [cc.Object],
-        playerUniversityName: "",
     }),
 
     onLoad () {
         let that = this;
         cc.loader.loadRes("CollegesGlobal", function(err, jsonAsset) {
-            jsonAsset.json.forEach(univ => {
+            jsonAsset.json.filter((x, i) => (i < 500)).forEach((univ, i) => {
+                if (univ.name === that.game.universityName) return;
+                if (that.universities.length >= 500) return;
                 that.universities.push({
                     name: univ.name,
-                    rank: Number.parseInt(univ.rank),
-                    teachIndex: 0,
-                    researchIndex: 0,
-                    careerIndex: 0
+                    rank: i,
+                    teachIndex: Math.floor(20000 / (i + 1)),
+                    researchIndex: Math.floor(20000 / (i + 1)),
+                    careerIndex: Math.floor(20000 / (i + 1))
                 });
             });
-            that.initRankingData();
+            that.updateRanking();
         });
     },
 
     start () {},
-
-    initRankingData() {
-        this.universities.forEach((univ, index) => {
-            univ.teachIndex = Math.floor(20000 / univ.rank);
-            univ.researchIndex = Math.floor(20000 / univ.rank);
-            univ.careerIndex = Math.floor(20000 / univ.rank);
-            this.universities[index] = univ;
-        });
-    },
 
     // should only be called in Game.js
     addPlayerUniversity(name, teachIndex, researchIndex, careerIndex) {
@@ -56,13 +48,20 @@ cc.Class({
     },
 
     updateRanking() {
+        this.universities.forEach((univ) => {
+            if (univ.name === this.game.universityName) {
+                return;
+            }
+            let fluctuation = (univ.teachIndex + univ.careerIndex + univ.researchIndex) * 0.03;
+            univ.teachIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+            univ.researchIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+            univ.careerIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+        });
         this.universities.sort((a, b) => {
             return b.teachIndex + b.researchIndex + b.careerIndex 
                 - a.researchIndex - a.teachIndex - a.careerIndex;
         });
-        this.universities.forEach((univ, i) => {
-            this.universities[i].rank = i + 1;
-        });
+        this.universities.forEach((univ, i) => { univ.rank = i + 1; });
         console.log(this);
     },
 

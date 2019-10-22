@@ -5,6 +5,10 @@ module.exports = {
     // and will be loaded when initializing the game scene
     universityName: "中关村文理学院",
 
+    // Constants related to game logic
+    TICKS_SEMESTER: 20 * 7 * 5,
+    TICKS_WEEK: 7 * 5,
+
     // Globals that declares UI design colors
     FONT_COLOR1: new cc.Color(206, 207, 211),
     FONT_COLOR2: new cc.Color(30, 35, 51),

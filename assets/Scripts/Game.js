@@ -50,6 +50,7 @@ let Game = cc.Class({
     start () {
         this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
+        
         this.worldRankManager.addPlayerUniversity(
             this.universityName, 
             this.teachIndex, 
@@ -70,6 +71,9 @@ let Game = cc.Class({
                 // Update corresponding game logic
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
+                if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                    this.worldRankManager.updateRanking();
+                }
             }
         }
     },
@@ -100,5 +104,3 @@ let Game = cc.Class({
 });
 
 module.exports = Game;
-module.exports.TICKS_SEMESTER = 20 * 7 * 5;
-module.exports.TICKS_WEEK = 7 * 5;
