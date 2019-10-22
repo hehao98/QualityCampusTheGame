@@ -8,6 +8,7 @@ module.exports = {
     // Constants related to game logic
     TICKS_SEMESTER: 20 * 7 * 5,
     TICKS_WEEK: 7 * 5,
+    TICKS_DAY: 5,
 
     // Globals that declares UI design colors
     FONT_COLOR1: new cc.Color(206, 207, 211),

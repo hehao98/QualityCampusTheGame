@@ -50,7 +50,7 @@ let Game = cc.Class({
     start () {
         this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
-        
+
         this.worldRankManager.addPlayerUniversity(
             this.universityName, 
             this.teachIndex, 
@@ -94,11 +94,11 @@ let Game = cc.Class({
         // 晚上、凌晨。一学期共20周，一年两个学期，这样一年的游戏时长就是大约20分钟
         let weekStr = ["一", "二", "三", "四", "五", "六", "日"];
         let dayTimeStr = ["上午", "中午", "下午", "晚上", "凌晨"];
-        let semester = Math.floor(this.currentTick / (20 * 7 * 5)) + 1;
+        let semester = Math.floor(this.currentTick / Globals.TICKS_SEMESTER) + 1;
         let year = 2018 + Math.floor(semester / 2);
-        let week = Math.floor(this.currentTick % (20 * 7 * 5) / 35) + 1;
-        let weekDay = Math.floor((this.currentTick % (7 * 5)) / 5);
-        let day = dayTimeStr[this.currentTick % 5];
+        let week = Math.floor(this.currentTick % Globals.TICKS_SEMESTER / Globals.TICKS_WEEK) + 1;
+        let weekDay = Math.floor((this.currentTick % Globals.TICKS_WEEK) / Globals.TICKS_DAY);
+        let day = dayTimeStr[this.currentTick % Globals.TICKS_DAY];
         return year + "学年第" + (semester % 2 ? "一" : "二") + "学期第" + week + "周星期" + weekStr[weekDay] + " " + day;
     },
 });
