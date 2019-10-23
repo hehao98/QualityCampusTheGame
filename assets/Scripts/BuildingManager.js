@@ -1,10 +1,12 @@
-// The class that manages all in-game buildings
+// Class BuildingManager manages all in-game buildings
+
+let createBuilding = require(createBuilding);
 
 let BuildingManager = cc.Class({
     extends: cc.Component,
 
     properties: () => ({
-        buildingMetaData: cc.Object,  
+        buildingMetaData: cc.Object,
         buildings: [cc.Object],
     }),
 
