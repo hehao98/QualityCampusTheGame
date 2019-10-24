@@ -2,6 +2,7 @@
 // Serve as the entry point for managing all kinds of game logic
 
 let Globals = require("Globals");
+let createBuildingManager = require("./BuildingManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -28,9 +29,9 @@ let Game = cc.Class({
         // Classes that manages game logic
         fund: require("Resource"),
         influence: require("Resource"),
-        buildingManager: require("BuildingManager"),
+
+        buildingManager: createBuildingManager(),
         worldRankManager: require("WorldRankManager"),
-        worldRankPanel: require("WorldRankPanel")
     }),
 
     // LIFE-CYCLE CALLBACKS:
