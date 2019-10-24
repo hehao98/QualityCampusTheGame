@@ -1,31 +1,60 @@
-// The class that manages all in-game buildings
+// Class BuildingManager manages all in-game buildings
 
-let BuildingManager = cc.Class({
-    extends: cc.Component,
+let _ = require("lodash");
+let createBuilding = require("Building");
 
-    properties: () => ({
-        buildingMetaData: cc.Object,  
-        buildings: [cc.Object],
-    }),
+/**
+ * constructor. param see createBuildingManager
+ */
+function BuildingManager(properties) {
+    // properties
+    this.nextBuildingID = 0;
+    this.buildings = [];
 
-    init () {
-        let that = this;
-        cc.loader.loadRes("Buildings", function(err, jsonAsset) {
-            that.buildingMetaData = jsonAsset.json;
-        });
-    },
+    // methods
+    /**
+     * 
+     * @param {Object} properties.type - The type of the building 
+     */
+    this.add = function (properties) {
+        let r = _.cloneDeep(properties);
+        r["id"] = this.nextBuildingID++;
+        this.buildings.push(createBuilding(r));
 
-    updateBuildings () {
+    };
 
-    },
+    /**
+     * 
+     * @param {Object} properties.id - ID of the building 
+     */
+    this.upgrade = function (properties) {
+        let target = _.find(
+            this.buildings,
+            function (building) { return building.id === properties.id; }
+        );
+        if (target === undefined) {
+            throw new ReferenceError("Building ID not exists.");
+        }
+        else {
+            target.upgrade();
+        }
+    };
 
-    addBuilding (buildingInfo) {
-        this.buildings.push(buildingInfo);
-    },
+    this.debugPrint = function () {
+        for (let b of this.buildings) {
+            console.log(b.debugPrint());
+        }
+    };
 
-    getBuildingMetaData (type, id) {
-        return this.buildingMetaData[type][id];
-    }
-});
+    // constructor left-overs
+    
+}
 
-module.exports = BuildingManager;
+/**
+ * warpped function for new BuildingManager(...)
+ */
+function createBuildingManager(properties) {
+    return new BuildingManager(properties || {});
+}
+
+module.exports = createBuildingManager;
