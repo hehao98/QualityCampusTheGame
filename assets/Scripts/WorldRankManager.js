@@ -5,16 +5,16 @@ cc.Class({
 
     properties: () => ({
         game: require("Game"),
-        universities: [cc.Object],
+        JSONAsset: cc.JsonAsset,
+        universities: [cc.Object]
     }),
 
-    onLoad () {
-        let that = this;
-        cc.loader.loadRes("CollegesGlobal", function(err, jsonAsset) {
-            jsonAsset.json.filter((x, i) => (i < 500)).forEach((univ, i) => {
-                if (univ.name === that.game.universityName) return;
-                if (that.universities.length >= 500) return;
-                that.universities.push({
+    onLoad() {
+        this.JSONAsset.json
+            .filter((x, i) => i < 500)
+            .forEach((univ, i) => {
+                if (univ.name === this.game.universityName) return;
+                this.universities.push({
                     name: univ.name,
                     rank: i,
                     teachIndex: Math.floor(20000 / (i + 1)),
@@ -22,11 +22,10 @@ cc.Class({
                     careerIndex: Math.floor(20000 / (i + 1))
                 });
             });
-            that.updateRanking();
-        });
+        this.updateRanking();
     },
 
-    start () {},
+    start() {},
 
     // should only be called in Game.js
     addPlayerUniversity(name, teachIndex, researchIndex, careerIndex) {
@@ -36,32 +35,44 @@ cc.Class({
             this.universities[index].researchIndex = researchIndex;
             this.universities[index].careerIndex = careerIndex;
         } else {
-            this.universities.push({
+            this.universities[this.universities.length - 1] = {
                 name: name,
                 rank: -1,
                 teachIndex: teachIndex,
                 researchIndex: researchIndex,
                 careerIndex: careerIndex
-            });
+            };
         }
         this.updateRanking();
     },
 
     updateRanking() {
-        this.universities.forEach((univ) => {
+        this.universities.forEach(univ => {
             if (univ.name === this.game.universityName) {
                 return;
             }
-            let fluctuation = (univ.teachIndex + univ.careerIndex + univ.researchIndex) * 0.03;
+            let fluctuation =
+                (univ.teachIndex + univ.careerIndex + univ.researchIndex) *
+                0.03;
             univ.teachIndex += Math.floor((Math.random() - 0.5) * fluctuation);
-            univ.researchIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+            univ.researchIndex += Math.floor(
+                (Math.random() - 0.5) * fluctuation
+            );
             univ.careerIndex += Math.floor((Math.random() - 0.5) * fluctuation);
         });
         this.universities.sort((a, b) => {
-            return b.teachIndex + b.researchIndex + b.careerIndex 
-                - a.researchIndex - a.teachIndex - a.careerIndex;
+            return (
+                b.teachIndex +
+                b.researchIndex +
+                b.careerIndex -
+                a.researchIndex -
+                a.teachIndex -
+                a.careerIndex
+            );
         });
-        this.universities.forEach((univ, i) => { univ.rank = i + 1; });
+        this.universities.forEach((univ, i) => {
+            univ.rank = i + 1;
+        });
     },
 
     getCurrentRanking(univName) {

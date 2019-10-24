@@ -10,6 +10,8 @@ let Game = cc.Class({
     properties: () => ({
         universityName: "",
 
+        // Initial Data
+
         // Properties for time management
         currentTick: 0,
         speedModifier: 1,
@@ -24,7 +26,7 @@ let Game = cc.Class({
         studentSatisfication: 0,
         professorSatisfication: 0,
 
-        // resources
+        // Classes that manages game logic
         fund: require("Resource"),
         influence: require("Resource"),
 
@@ -58,6 +60,8 @@ let Game = cc.Class({
             this.researchIndex, 
             this.careerIndex
         );
+
+        this.worldRankPanel.updateInfo();
     },
 
     update (dt) { // dt is in seconds
@@ -72,8 +76,10 @@ let Game = cc.Class({
                 // Update corresponding game logic
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
+
                 if (this.currentTick % Globals.TICKS_WEEK === 0) {
                     this.worldRankManager.updateRanking();
+                    this.worldRankPanel.updateInfo();
                 }
             }
         }
