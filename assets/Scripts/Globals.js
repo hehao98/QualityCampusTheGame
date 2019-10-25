@@ -21,4 +21,7 @@ module.exports = {
     MAIN_COLOR_DISABLED: new cc.Color(72, 111, 106),
     INFO_COLOR: new cc.Color(125, 186, 222),
     INPUT_BACkGROUND: new cc.Color(110, 117, 137),
+
+    // set to true to enable Test Mode. default: [false]
+    TEST_MODE: true,
 };

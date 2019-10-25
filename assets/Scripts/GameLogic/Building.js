@@ -1,5 +1,6 @@
 // Building abstruct all in-game buildings
 let BuildingSpecifications = require("BuildingSpecifications");
+let createBuildingComponent = require("BuildingComponent");
 /**
  * see createBuilding
  */
@@ -7,28 +8,41 @@ function Building(properties) {
     // properties
     this.type = properties.type;
     this.id = properties.id;
-    this.rank = 0;
+    this.components = [];
+    this.tier = 0;
 
     // methods
     this.loadSpecifications = function () {
         let specification =
-            BuildingSpecifications[this.type][this.rank].defaultProperties;
+            BuildingSpecifications[this.type][this.tier].defaultProperties;
         for (let property in specification) {
             this[property] = specification[property];
         }
     };
     this.upgrade = function () {
-        this.rank++;
+        this.tier++;
         this.loadSpecifications();
     };
 
+    /**
+     *
+     */
+    this.addComponent = function (properties) {
+        this.components.push(
+            createBuildingComponent(properties));
+    };
+
     this.debugPrint = function () {
-        console.log(this);
+        console.log(`[${this.id}] ` +
+            `${this.type} Lv.${this.tier} ` +
+            `[${this.components.length} components]`);
+        for (let c of this.components) {
+            c.debugPrint({ indent: 4 });
+        }
     };
 
     // constructor left-overs
     this.loadSpecifications();
-
 
 }
 

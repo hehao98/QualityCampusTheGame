@@ -9,6 +9,7 @@ let createBuilding = require("Building");
 function BuildingManager(properties) {
     // properties
     this.nextBuildingID = 0;
+    this.nextBuildingComponentID = 0;
     this.buildings = [];
 
     // methods
@@ -40,14 +41,39 @@ function BuildingManager(properties) {
         }
     };
 
-    this.debugPrint = function () {
-        for (let b of this.buildings) {
-            console.log(b.debugPrint());
+    /**
+     * 
+     * @param {Object} properties.buildingID - ID of the building
+     * 
+     */
+    this.addComponent = function (properties) {
+        let target = _.find(
+            this.buildings,
+            function (building) {
+                return building.id === properties.buildingID;
+            }
+        );
+        if (target === undefined) {
+            throw new ReferenceError("Building ID not exists.");
+        }
+        else {
+            let properties_revised = _.cloneDeep(properties);
+            properties_revised["id"] = this.nextBuildingComponentID++;
+            target.addComponent(properties_revised);
         }
     };
 
+    this.debugPrint = function () {
+        console.log("[BuildingManager DebugPrint]");
+        console.log("building number: " + this.buildings.length);
+        for (let b of this.buildings) {
+            b.debugPrint();
+        }
+        console.log("------------------------------------------------------");
+    };
+
     // constructor left-overs
-    
+
 }
 
 /**
