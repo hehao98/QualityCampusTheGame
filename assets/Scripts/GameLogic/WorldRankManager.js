@@ -45,6 +45,15 @@ WorldRankManager.prototype.addPlayerUniversity = function(
 };
 
 WorldRankManager.prototype.updateRanking = function() {
+    let playerIndex = this.universities.findIndex(
+        univ => univ.name == this.game.universityName
+    );
+    if (playerIndex != -1) {
+        this.universities[playerIndex].teachIndex = this.game.teachIndex;
+        this.universities[playerIndex].researchIndex = this.game.researchIndex;
+        this.universities[playerIndex].careerIndex = this.game.careerIndex;
+    }
+
     this.universities.forEach(univ => {
         if (univ.name === this.game.universityName) {
             return;
