@@ -1,18 +1,18 @@
-// Building abstruct all in-game buildings
-let BuildingSpecifications = require("BuildingSpecifications");
+// BuildingComponent abstruct all in-game building components
+
+let BuildingComponentSpecifications = require("BuildingComponentSpecifications");
 /**
- * see createBuilding
+ * see createBuildingComponent
  */
-function Building(properties) {
+function BuildingComponent(properties) {
     // properties
     this.type = properties.type;
-    this.id = properties.id;
     this.tier = 0;
 
     // methods
     this.loadSpecifications = function () {
         let specification =
-            BuildingSpecifications[this.type][this.tier].defaultProperties;
+            BuildingComponentSpecifications[this.type][this.tier].defaultProperties;
         for (let property in specification) {
             this[property] = specification[property];
         }
@@ -29,7 +29,6 @@ function Building(properties) {
     // constructor left-overs
     this.loadSpecifications();
 
-
 }
 
 /**
@@ -37,8 +36,8 @@ function Building(properties) {
  * @param {Object} properties.type - The type of the building 
  * @param {Object} properties.id - ID of the building 
  */
-function createBuilding(properties) {
-    return new Building(properties || {});
+function createBuildingComponent(properties) {
+    return new BuildingComponent(properties || {});
 }
 
-module.exports = createBuilding;
+module.exports = createBuildingComponent;
