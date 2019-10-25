@@ -1,18 +1,22 @@
 // BuildingComponent abstruct all in-game building components
 
-let BuildingComponentSpecifications = require("BuildingComponentSpecifications");
+let BuildingComponentSpecifications =
+    require("BuildingComponentSpecifications");
+
 /**
  * see createBuildingComponent
  */
 function BuildingComponent(properties) {
     // properties
     this.type = properties.type;
+    this.id = properties.id;
     this.tier = 0;
 
     // methods
     this.loadSpecifications = function () {
         let specification =
-            BuildingComponentSpecifications[this.type][this.tier].defaultProperties;
+            BuildingComponentSpecifications[
+                this.type][this.tier].defaultProperties;
         for (let property in specification) {
             this[property] = specification[property];
         }
@@ -22,8 +26,10 @@ function BuildingComponent(properties) {
         this.loadSpecifications();
     };
 
-    this.debugPrint = function () {
-        console.log(this);
+    this.debugPrint = function (properties) {
+        console.log(" ".repeat(properties.indent) +
+            `[${this.id}] ` +
+            `${this.type} Lv.${this.tier}`);
     };
 
     // constructor left-overs

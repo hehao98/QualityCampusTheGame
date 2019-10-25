@@ -13,7 +13,7 @@ let Game = cc.Class({
         universityName: "",
 
         // Initial Data
-        initialData: cc.JsonAsset, 
+        initialData: cc.JsonAsset,
         universityData: cc.JsonAsset,
 
         // Properties for time management
@@ -42,7 +42,7 @@ let Game = cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () { // Initialize all game objects from here
+    onLoad() { // Initialize all game objects from here
         let that = this;
         cc.loader.loadRes("InitialData", function (err, jsonAsset) {
             that.fund.value = jsonAsset.json.startFund;
@@ -56,29 +56,35 @@ let Game = cc.Class({
         });
 
         // Initialize all game objects
-        this.fund = createResource({name: "fund"});
-        this.influence = createResource({name: "influence"});
+        this.fund = createResource({ name: "fund" });
+        this.influence = createResource({ name: "influence" });
         this.worldRankManager = createWorldRankManager({
-            game: this, 
+            game: this,
             universityData: this.universityData
         });
+        this.buildingManager = createBuildingManager();
+
+        if (Globals.TEST_MODE) {
+            let test = require('test_basic.js');
+            test();
+        }
     },
 
-    start () {
+    start() {
         this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
 
         this.worldRankManager.addPlayerUniversity(
-            this.universityName, 
-            this.teachIndex, 
-            this.researchIndex, 
+            this.universityName,
+            this.teachIndex,
+            this.researchIndex,
             this.careerIndex
         );
 
         this.worldRankPanel.updateInfo();
     },
 
-    update (dt) { // dt is in seconds
+    update(dt) { // dt is in seconds
         // Manage time 
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
