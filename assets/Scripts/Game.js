@@ -12,7 +12,7 @@ let Game = cc.Class({
     properties: () => ({
         universityName: "",
 
-        // Initial Data
+        // External data
         initialData: cc.JsonAsset,
         universityData: cc.JsonAsset,
 
@@ -24,11 +24,13 @@ let Game = cc.Class({
         timeString: "",
 
         // Properties for game objective management
+        gameObjectives: Object,
+        currentObjective: 0,
         researchIndex: 0,
         teachIndex: 0,
         careerIndex: 0,
-        studentSatisfication: 0,
-        professorSatisfication: 0,
+        studentSatisfaction: 0,
+        professorSatisfaction: 0,
 
         // Classes that manages game logic
         fund: Object,
@@ -43,25 +45,25 @@ let Game = cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() { // Initialize all game objects from here
-        let that = this;
-        cc.loader.loadRes("InitialData", function (err, jsonAsset) {
-            that.fund.value = jsonAsset.json.startFund;
-            jsonAsset.json.fundModifiers.forEach((modifier) => {
-                that.fund.addModifier(modifier);
-            });
-            that.influence.value = jsonAsset.json.startInfluence;
-            jsonAsset.json.influenceModifiers.forEach((modifier) => {
-                that.influence.addModifier(modifier);
-            });
-        });
-
-        // Initialize all game objects
+        // Initialize Resource System
         this.fund = createResource({ name: "fund" });
         this.influence = createResource({ name: "influence" });
+        this.fund.value = this.initialData.json.startFund;
+        this.initialData.json.fundModifiers.forEach((modifier) => {
+            this.fund.addModifier(modifier);
+        });
+        this.influence.value = this.initialData.json.startInfluence;
+        this.initialData.json.influenceModifiers.forEach((modifier) => {
+            this.influence.addModifier(modifier);
+        });
+
+        this.gameObjectives = this.initialData.json.gameObjectives;
+
         this.worldRankManager = createWorldRankManager({
             game: this,
             universityData: this.universityData
         });
+
         this.buildingManager = createBuildingManager();
 
         if (Globals.TEST_MODE) {
@@ -101,6 +103,21 @@ let Game = cc.Class({
                     this.worldRankManager.updateRanking();
                     this.worldRankPanel.updateInfo();
                 }
+
+                // After all game logic HAVE been updated
+                // see whether we can update our game objectives
+                if (this.currentObjective < this.gameObjectives.length) {
+                    let nextObjective = this.gameObjectives[this.currentObjective];
+                    let flag = true;
+                    Object.keys(nextObjective.thresholds).forEach(key => {
+                        if (this[key] < nextObjective.thresholds[key]) {
+                            flag = false;
+                        }
+                    }, this);
+                    if (flag) {
+                        this.currentObjective++;
+                    }
+                }                
             }
         }
     },
