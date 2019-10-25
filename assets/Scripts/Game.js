@@ -2,6 +2,8 @@
 // Serve as the entry point for managing all kinds of game logic
 
 let Globals = require("Globals");
+let createResource = require("Resource");
+let createWorldRankManager = require("WorldRankManager");
 let createBuildingManager = require("BuildingManager");
 
 let Game = cc.Class({
@@ -11,6 +13,8 @@ let Game = cc.Class({
         universityName: "",
 
         // Initial Data
+        initialData: cc.JsonAsset, 
+        universityData: cc.JsonAsset,
 
         // Properties for time management
         currentTick: 0,
@@ -27,10 +31,12 @@ let Game = cc.Class({
         professorSatisfication: 0,
 
         // Classes that manages game logic
-        fund: require("Resource"),
-        influence: require("Resource"),
+        fund: Object,
+        influence: Object,
         buildingManager: Object,
-        worldRankManager: require("WorldRankManager"),
+        worldRankManager: Object,
+
+        // Classes that manages UI
         worldRankPanel: require("WorldRankPanel")
     }),
 
@@ -49,10 +55,13 @@ let Game = cc.Class({
             });
         });
 
-        let buildingManager = createBuildingManager();
-        // console.log(buildingManager);
-        // console.log(require("lodash").sum([1,3,4]));
-
+        // Initialize all game objects
+        this.fund = createResource({name: "fund"});
+        this.influence = createResource({name: "influence"});
+        this.worldRankManager = createWorldRankManager({
+            game: this, 
+            universityData: this.universityData
+        });
     },
 
     start () {
