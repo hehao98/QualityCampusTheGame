@@ -17,6 +17,7 @@ module.exports = {
     BG_COLOR1: new cc.Color(18, 24, 40),
     BG_COLOR2: new cc.Color(31, 36, 53),
     BG_COLOR3: new cc.Color(93, 101, 124),
+    BG_COLOR4: new cc.Color(40, 45, 64),
     MAIN_COLOR: new cc.Color(133, 223, 186),
     MAIN_COLOR_DISABLED: new cc.Color(72, 111, 106),
     INFO_COLOR: new cc.Color(125, 186, 222),

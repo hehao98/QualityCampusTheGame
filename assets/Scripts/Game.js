@@ -39,7 +39,9 @@ let Game = cc.Class({
         worldRankManager: Object,
 
         // Classes that manages UI
-        worldRankPanel: require("WorldRankPanel")
+        worldRankPanel: require("WorldRankPanel"),
+        resourcePanel: require("ResourcePanel"),
+        gameObjectivePanel: require("GameObjectivePanel"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -84,6 +86,8 @@ let Game = cc.Class({
         );
 
         this.worldRankPanel.updateInfo();
+        
+        this.refreshUI();
     },
 
     update(dt) { // dt is in seconds
@@ -104,6 +108,15 @@ let Game = cc.Class({
                     this.worldRankPanel.updateInfo();
                 }
 
+                // Just for testing game objectives
+                if (Globals.TEST_MODE) {
+                    this.teachIndex += 10;
+                    this.researchIndex += 10;
+                    this.careerIndex += 10;
+                    this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
+                    this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
+                }
+
                 // After all game logic HAVE been updated
                 // see whether we can update our game objectives
                 if (this.currentObjective < this.gameObjectives.length) {
@@ -117,9 +130,17 @@ let Game = cc.Class({
                     if (flag) {
                         this.currentObjective++;
                     }
-                }                
+                }
+                
+                // Finally Update all UIs
+                this.refreshUI();
             }
         }
+    },
+
+    refreshUI() {
+        this.resourcePanel.updatePanel();
+        this.gameObjectivePanel.updatePanel();
     },
 
     // callback for buttons that control time elapse

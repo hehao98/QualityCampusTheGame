@@ -48,7 +48,8 @@
   ],
   "gameObjectives": [
     {
-      "name": "达到二本标准",
+      "name": "达到二本标准！",
+      "nameShort": "二本",
       "thresholds": {
         "teachIndex": 100,
         "careerIndex": 100,
@@ -58,7 +59,8 @@
       }
     },
     {
-      "name": "达到一本标准",
+      "name": "达到一本标准！",
+      "nameShort": "一本",
       "thresholds": {
         "teachIndex": 500,
         "careerIndex": 500,
@@ -68,7 +70,8 @@
       }
     },
     {
-      "name": "达到211标准",
+      "name": "达到211标准！",
+      "nameShort": "211",
       "thresholds": {
         "teachIndex": 1000,
         "careerIndex": 1000,
@@ -78,7 +81,8 @@
       }
     },
     {
-      "name": "达到985标准",
+      "name": "达到985标准！",
+      "nameShort": "985",
       "thresholds": {
         "teachIndex": 2000,
         "careerIndex": 2000,
@@ -89,6 +93,7 @@
     },
     {
       "name": "公认的世界一流大学！",
+      "nameShort": "TOP!",
       "thresholds": {
         "teachIndex": 10000,
         "careerIndex": 10000,
