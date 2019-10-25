@@ -65,7 +65,7 @@ let Game = cc.Class({
         this.buildingManager = createBuildingManager();
 
         if (Globals.TEST_MODE) {
-            let test = require('test_basic.js');
+            let test = require("test_basic.js");
             test();
         }
     },

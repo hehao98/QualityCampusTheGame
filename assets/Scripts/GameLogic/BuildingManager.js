@@ -61,7 +61,7 @@ function BuildingManager(properties) {
             properties_revised["id"] = this.nextBuildingComponentID++;
             target.addComponent(properties_revised);
         }
-    }
+    };
 
     this.debugPrint = function () {
         console.log("[BuildingManager DebugPrint]");
