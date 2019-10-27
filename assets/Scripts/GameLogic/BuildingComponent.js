@@ -12,30 +12,30 @@ function BuildingComponent(properties) {
     this.id = properties.id;
     this.tier = 0;
 
-    // methods
-    this.loadSpecifications = function () {
-        let specification =
-            BuildingComponentSpecifications[
-                this.type][this.tier].defaultProperties;
-        for (let property in specification) {
-            this[property] = specification[property];
-        }
-    };
-    this.upgrade = function () {
-        this.tier++;
-        this.loadSpecifications();
-    };
-
-    this.debugPrint = function (properties) {
-        console.log(" ".repeat(properties.indent) +
-            `[${this.id}] ` +
-            `${this.type} Lv.${this.tier}`);
-    };
-
     // constructor left-overs
     this.loadSpecifications();
-
 }
+
+
+// methods
+BuildingComponent.prototype.loadSpecifications = function () {
+    let specification =
+        BuildingComponentSpecifications[
+            this.type][this.tier].defaultProperties;
+    for (let property in specification) {
+        this[property] = specification[property];
+    }
+};
+BuildingComponent.prototype.upgrade = function () {
+    this.tier++;
+    this.loadSpecifications();
+};
+
+BuildingComponent.prototype.debugPrint = function (properties) {
+    console.log(" ".repeat(properties.indent) +
+        `[${this.id}] ` +
+        `${this.type} Lv.${this.tier}`);
+};
 
 /**
  * warpped function for new Building(...)
