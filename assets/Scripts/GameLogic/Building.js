@@ -11,40 +11,42 @@ function Building(properties) {
     this.components = [];
     this.tier = 0;
 
-    // methods
-    this.loadSpecifications = function () {
-        let specification =
-            BuildingSpecifications[this.type][this.tier].defaultProperties;
-        for (let property in specification) {
-            this[property] = specification[property];
-        }
-    };
-    this.upgrade = function () {
-        this.tier++;
-        this.loadSpecifications();
-    };
-
-    /**
-     *
-     */
-    this.addComponent = function (properties) {
-        this.components.push(
-            createBuildingComponent(properties));
-    };
-
-    this.debugPrint = function () {
-        console.log(`[${this.id}] ` +
-            `${this.type} Lv.${this.tier} ` +
-            `[${this.components.length} components]`);
-        for (let c of this.components) {
-            c.debugPrint({ indent: 4 });
-        }
-    };
 
     // constructor left-overs
     this.loadSpecifications();
 
 }
+
+
+// methods
+Building.prototype.loadSpecifications = function () {
+    let specification =
+        BuildingSpecifications[this.type][this.tier].defaultProperties;
+    for (let property in specification) {
+        this[property] = specification[property];
+    }
+};
+Building.prototype.upgrade = function () {
+    this.tier++;
+    this.loadSpecifications();
+};
+
+/**
+ *
+ */
+Building.prototype.addComponent = function (properties) {
+    this.components.push(
+        createBuildingComponent(properties));
+};
+
+Building.prototype.debugPrint = function () {
+    console.log(`[${this.id}] ` +
+        `${this.type} Lv.${this.tier} ` +
+        `[${this.components.length} components]`);
+    for (let c of this.components) {
+        c.debugPrint({ indent: 4 });
+    }
+};
 
 /**
  * warpped function for new Building(...)
