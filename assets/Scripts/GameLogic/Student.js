@@ -23,9 +23,10 @@ Student.prototype.loadSpecifications = function () {
 };
 
 
-Student.prototype.debugPrint = function () {
-    console.log(`[${this.id}]`);
-    this.schedule.debugPrint();
+Student.prototype.debugPrint = function (properties) {
+    console.log(" ".repeat(properties.indent) +
+        `[${this.id}]`);
+    this.schedule.debugPrint({ indent: properties.indent + 4 });
 
 };
 

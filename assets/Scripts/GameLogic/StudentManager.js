@@ -37,8 +37,8 @@ StudentManager.prototype.add = function (properties) {
 StudentManager.prototype.debugPrint = function () {
     console.log("[StudentManager DebugPrint]");
     console.log("student number: " + this.students.length);
-    for (let b of this.students) {
-        b.debugPrint();
+    for (let s of this.students) {
+        s.debugPrint({ indent: 4 });
     }
     console.log("------------------------------------------------------");
 };

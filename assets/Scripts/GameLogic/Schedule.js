@@ -17,8 +17,9 @@ function Schedule(properties) {
 
 
 
-Schedule.prototype.debugPrint = function () {
-    console.log(`[${this.id}]`);
+Schedule.prototype.debugPrint = function (properties) {
+    console.log(" ".repeat(properties.indent) +
+        `[${this.id}]`);
 };
 
 /**
