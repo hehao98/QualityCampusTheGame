@@ -5,6 +5,8 @@ let Globals = require("Globals");
 let createResource = require("Resource");
 let createWorldRankManager = require("WorldRankManager");
 let createBuildingManager = require("BuildingManager");
+let createStudentManager = require("StudentManager");
+let createScheduleManager = require("ScheduleManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -36,6 +38,8 @@ let Game = cc.Class({
         fund: Object,
         influence: Object,
         buildingManager: Object,
+        StudentManager: Object,
+        scheduleManager: Object,
         worldRankManager: Object,
 
         // Classes that manages UI
@@ -67,6 +71,8 @@ let Game = cc.Class({
         });
 
         this.buildingManager = createBuildingManager();
+        this.StudentManager = createStudentManager();
+        this.ScheduleManager = createScheduleManager();
 
         if (Globals.TEST_MODE) {
             let test = require("test_basic.js");
