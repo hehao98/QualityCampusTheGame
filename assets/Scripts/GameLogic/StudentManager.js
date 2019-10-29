@@ -4,14 +4,14 @@ let _ = require("lodash");
 let createStudent = require("Student");
 
 /**
- * constructor. param see createBuildingManager
+ * constructor. param see createScheduleManager
  */
 function StudentManager(properties) {
     // properties
     this.nextStudentID = 0;
     // this.nextBuildingComponentID = 0;
     this.students = [];
-
+    this.scheduleManager = properties.scheduleManager;
 
     // constructor left-overs
 
@@ -19,12 +19,18 @@ function StudentManager(properties) {
 
 // methods
 /**
+ * @param {Object} properties.schedule 
+ *  - schedule assigned to this student
  * 
  */
 StudentManager.prototype.add = function (properties) {
-    let r = _.cloneDeep(properties);
-    r["id"] = this.nextStudentID++;
-    this.students.push(createStudent(r));
+    let propertiesRevised = _.cloneDeep(properties);
+    propertiesRevised["id"] = this.nextStudentID++;
+    propertiesRevised["schedule"] =
+        this.scheduleManager.getNewSchedule({
+            studentID: propertiesRevised["id"],
+        });
+    this.students.push(createStudent(propertiesRevised));
 
 };
 

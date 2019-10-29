@@ -3,10 +3,11 @@
 /**
  * see createStudent
  */
+
 function Student(properties) {
     // properties
     this.id = properties.id;
-    this.schedule = this.generateSchedule();
+    this.schedule = properties.schedule;
 
     // constructor left-overs
     // this.loadSpecifications();
@@ -16,10 +17,6 @@ function Student(properties) {
 
 // ------------------- methods ------------------- //
 
-Student.prototype.generateSchedule = function () {
-
-};
-
 
 Student.prototype.loadSpecifications = function () {
     // may not be needed
@@ -28,12 +25,14 @@ Student.prototype.loadSpecifications = function () {
 
 Student.prototype.debugPrint = function () {
     console.log(`[${this.id}]`);
+    this.schedule.debugPrint();
 
 };
 
 /**
  * warpped function for new Student(...)
  * @param {Object} properties.id - ID of the student 
+ * @param {Object} properties.schedule - schedule
  */
 function createStudent(properties) {
     return new Student(properties || {});

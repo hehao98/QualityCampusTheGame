@@ -1,5 +1,7 @@
 let createBuildingManager = require("BuildingManager");
 let createStudentManager = require("StudentManager");
+let createScheduleManager = require("ScheduleManager");
+
 
 let test = function () {
     let buildingManager = createBuildingManager();
@@ -12,11 +14,14 @@ let test = function () {
     });
     buildingManager.debugPrint();
 
-    let StudentManager = createStudentManager();
-    StudentManager.add({});
-    StudentManager.add({});
-    StudentManager.debugPrint();
-    
+    let scheduleManager = createScheduleManager();
+    let studentManager = createStudentManager({
+        scheduleManager: scheduleManager
+    });
+    studentManager.add({});
+    studentManager.add({});
+    studentManager.debugPrint();
+
 };
 
 module.exports = test;
