@@ -1,5 +1,7 @@
 // The class that manages the rankings of all in-game universities.
 
+let assert = require("assert");
+
 function WorldRankManager(properties) {
     this.game = properties.game;
     this.universities = [];
@@ -27,6 +29,8 @@ WorldRankManager.prototype.addPlayerUniversity = function(
     researchIndex,
     careerIndex
 ) {
+    assert(name === this.game.universityName);
+
     let index = this.universities.findIndex(univ => univ.name === name);
     if (index !== -1) {
         this.universities[index].teachIndex = teachIndex;
@@ -83,11 +87,21 @@ WorldRankManager.prototype.getCurrentRanking = function(univName) {
     return this.universities.filter(univ => univ.name === univName)[0].rank;
 };
 
+WorldRankManager.prototype.getUniversity = function(univName) {
+    return this.universities.filter(univ => univ.name === univName)[0];
+};
+
 WorldRankManager.prototype.getUniversityCount = function() {
     return this.universities.length;
 };
 
+/**
+ * Constructor, should only be called at game start
+ * @param {Object} properties.game the core Game object
+ * @param {Object} properties.universityData JSON
+ */
 function createWorldRankManager(properties) {
+    assert(properties.game && properties.universityData);
     return new WorldRankManager(properties);
 }
 

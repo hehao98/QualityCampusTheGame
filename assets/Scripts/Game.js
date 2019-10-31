@@ -1,7 +1,7 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
-let Globals = require("Globals");
+let Globals = require("GlobalVariables");
 let createResource = require("Resource");
 let createWorldRankManager = require("WorldRankManager");
 let createBuildingManager = require("BuildingManager");

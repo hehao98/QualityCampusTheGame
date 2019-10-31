@@ -162,7 +162,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 307.4390183434757
+      "z": 285.815446542733
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -5355,6 +5355,8 @@
     "fund": null,
     "influence": null,
     "buildingManager": null,
+    "StudentManager": null,
+    "scheduleManager": null,
     "worldRankManager": null,
     "worldRankPanel": {
       "__id__": 131
