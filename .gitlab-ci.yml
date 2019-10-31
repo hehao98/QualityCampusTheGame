@@ -1,5 +1,5 @@
 before_script:
-  - apt-get install npm nodejs
+  - apt install npm nodejs
   - npm i
 
 lint:
