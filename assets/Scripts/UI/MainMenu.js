@@ -1,6 +1,6 @@
 // The class that implements all main menu related functions
 
-let Globals = require("Globals");
+let Globals = require("GlobalVariables");
 
 cc.Class({
     extends: cc.Component,

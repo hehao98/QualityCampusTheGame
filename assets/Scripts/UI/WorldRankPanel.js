@@ -10,7 +10,7 @@ cc.Class({
         contentPool: [cc.Node],
     }),
 
-    onLoad() {
+    start() {
         this.contentPanel.removeAllChildren();
         for (let i = 0; i < 500; ++i) {
             let node = cc.instantiate(this.prefab);

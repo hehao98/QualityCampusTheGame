@@ -1,8 +1,12 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
-let Globals = require("Globals");
+let Globals = require("GlobalVariables");
+let createResource = require("Resource");
+let createWorldRankManager = require("WorldRankManager");
 let createBuildingManager = require("BuildingManager");
+let createStudentManager = require("StudentManager");
+let createScheduleManager = require("ScheduleManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -10,7 +14,9 @@ let Game = cc.Class({
     properties: () => ({
         universityName: "",
 
-        // Initial Data
+        // External data
+        initialData: cc.JsonAsset,
+        universityData: cc.JsonAsset,
 
         // Properties for time management
         currentTick: 0,
@@ -20,56 +26,77 @@ let Game = cc.Class({
         timeString: "",
 
         // Properties for game objective management
+        gameObjectives: Object,
+        currentObjective: 0,
         researchIndex: 0,
         teachIndex: 0,
         careerIndex: 0,
-        studentSatisfication: 0,
-        professorSatisfication: 0,
+        studentSatisfaction: 0,
+        professorSatisfaction: 0,
 
         // Classes that manages game logic
-        fund: require("Resource"),
-        influence: require("Resource"),
+        fund: Object,
+        influence: Object,
         buildingManager: Object,
-        worldRankManager: require("WorldRankManager"),
-        worldRankPanel: require("WorldRankPanel")
+        StudentManager: Object,
+        scheduleManager: Object,
+        worldRankManager: Object,
+
+        // Classes that manages UI
+        worldRankPanel: require("WorldRankPanel"),
+        resourcePanel: require("ResourcePanel"),
+        gameObjectivePanel: require("GameObjectivePanel"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () { // Initialize all game objects from here
-        let that = this;
-        cc.loader.loadRes("InitialData", function (err, jsonAsset) {
-            that.fund.value = jsonAsset.json.startFund;
-            jsonAsset.json.fundModifiers.forEach((modifier) => {
-                that.fund.addModifier(modifier);
-            });
-            that.influence.value = jsonAsset.json.startInfluence;
-            jsonAsset.json.influenceModifiers.forEach((modifier) => {
-                that.influence.addModifier(modifier);
-            });
+    onLoad() { // Initialize all game objects from here
+        // Initialize Resource System
+        this.fund = createResource({ name: "fund" });
+        this.influence = createResource({ name: "influence" });
+        this.fund.value = this.initialData.json.startFund;
+        this.initialData.json.fundModifiers.forEach((modifier) => {
+            this.fund.addModifier(modifier);
+        });
+        this.influence.value = this.initialData.json.startInfluence;
+        this.initialData.json.influenceModifiers.forEach((modifier) => {
+            this.influence.addModifier(modifier);
         });
 
-        let buildingManager = createBuildingManager();
-        // console.log(buildingManager);
-        // console.log(require("lodash").sum([1,3,4]));
+        this.gameObjectives = this.initialData.json.gameObjectives;
 
+        this.worldRankManager = createWorldRankManager({
+            game: this,
+            universityData: this.universityData
+        });
+
+        this.buildingManager = createBuildingManager();
+        this.StudentManager = createStudentManager();
+        this.ScheduleManager = createScheduleManager();
+
+        if (Globals.TEST_MODE) {
+            let test = require("test_basic.js");
+            test();
+        }
     },
 
-    start () {
+    start() {
         this.universityName = Globals.universityName;
         this.timeString = this.getTickString();
 
         this.worldRankManager.addPlayerUniversity(
-            this.universityName, 
-            this.teachIndex, 
-            this.researchIndex, 
+            this.universityName,
+            this.teachIndex,
+            this.researchIndex,
             this.careerIndex
         );
 
         this.worldRankPanel.updateInfo();
+        
+        this.refreshUI();
     },
 
-    update (dt) { // dt is in seconds
+    update(dt) { // dt is in seconds
         // Manage time 
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
@@ -86,8 +113,40 @@ let Game = cc.Class({
                     this.worldRankManager.updateRanking();
                     this.worldRankPanel.updateInfo();
                 }
+
+                // Just for testing game objectives
+                if (Globals.TEST_MODE) {
+                    this.teachIndex += 10;
+                    this.researchIndex += 10;
+                    this.careerIndex += 10;
+                    this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
+                    this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
+                }
+
+                // After all game logic HAVE been updated
+                // see whether we can update our game objectives
+                if (this.currentObjective < this.gameObjectives.length) {
+                    let nextObjective = this.gameObjectives[this.currentObjective];
+                    let flag = true;
+                    Object.keys(nextObjective.thresholds).forEach(key => {
+                        if (this[key] < nextObjective.thresholds[key]) {
+                            flag = false;
+                        }
+                    }, this);
+                    if (flag) {
+                        this.currentObjective++;
+                    }
+                }
+                
+                // Finally Update all UIs
+                this.refreshUI();
             }
         }
+    },
+
+    refreshUI() {
+        this.resourcePanel.updatePanel();
+        this.gameObjectivePanel.updatePanel();
     },
 
     // callback for buttons that control time elapse

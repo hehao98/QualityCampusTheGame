@@ -1,0 +1,10 @@
+before_script:
+  - npm i
+
+lint:
+  script:
+    - npm run lint
+
+test:
+  script:
+    - npm test
