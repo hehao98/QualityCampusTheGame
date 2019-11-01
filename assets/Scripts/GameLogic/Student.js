@@ -6,6 +6,12 @@
 
 class Student {
 
+    /**
+     * 
+     * @param {Object} properties
+     * @param {Number} properties.id
+     * @param {Schedule} properties.schedule
+     */
     constructor(properties) {
         // properties
         this.id = properties.id;

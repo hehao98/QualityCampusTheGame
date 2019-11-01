@@ -2,7 +2,7 @@
 
 let _ = require("lodash");
 let Student = require("Student");
-
+let GlobalSpecifications = require("GlobalSpecifications");
 /**
  * constructor. param  
  */
@@ -21,6 +21,7 @@ class StudentManager {
 }
 
 // methods
+
 /**
  * @param {Object} properties.schedule 
  *  - schedule assigned to this student
@@ -36,6 +37,16 @@ StudentManager.prototype.add = function (properties) {
     this.students.push(new Student(propertiesRevised));
 
 };
+
+/**
+ * 
+ * @param {String} difficulty - one of DIFFICULTY_*
+ */
+StudentManager.prototype.init = function (difficulty) {
+    for (let i = 0; i < GlobalSpecifications.initialStudentNumber; ++i) {
+        this.add({});
+    }
+}
 
 StudentManager.prototype.debugPrint = function () {
     console.log("[StudentManager DebugPrint]");

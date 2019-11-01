@@ -19,6 +19,7 @@ class Building {
 }
 
 // methods
+
 Building.prototype.loadSpecifications = function () {
     let specification =
         BuildingSpecifications[this.type][this.tier].defaultProperties;

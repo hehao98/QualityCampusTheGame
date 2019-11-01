@@ -73,6 +73,16 @@ BuildingManager.prototype.addComponent = function (properties) {
     }
 };
 
+/**
+ * 
+ * @param {String} difficulty - one of DIFFICULTY_*
+ */
+BuildingManager.prototype.init = function (difficulty) {
+    this.add({ type: "dorm" });
+    this.add({ type: "teaching" });
+    this.add({ type: "cafeteria" });
+}
+
 BuildingManager.prototype.debugPrint = function () {
     console.log("[BuildingManager DebugPrint]");
     console.log("building number: " + this.buildings.length);

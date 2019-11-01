@@ -10,6 +10,8 @@ module.exports = {
     TICKS_WEEK: 7 * 5,
     TICKS_DAY: 5,
 
+    DIFFICULTY_NORMAL: "normal",
+
     // Globals that declares UI design colors
     // FONT_COLOR1: new cc.Color(206, 207, 211),
     // FONT_COLOR2: new cc.Color(30, 35, 51),
@@ -24,5 +26,7 @@ module.exports = {
     // INPUT_BACkGROUND: new cc.Color(110, 117, 137),
 
     // set to true to enable Test Mode. default: [false]
-    TEST_MODE: true,
+    TEST_MODE: false,
+
+    LOG_LEVEL: "info",
 };

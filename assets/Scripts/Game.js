@@ -2,6 +2,7 @@
 // Serve as the entry point for managing all kinds of game logic
 
 let Globals = require("GlobalVariables");
+let utilities = require("utilities");
 let Resource = require("Resource");
 let WorldRankManager = require("WorldRankManager");
 let BuildingManager = require("BuildingManager");
@@ -35,6 +36,7 @@ let Game = cc.Class({
         professorSatisfaction: 0,
 
         // Classes that manages game logic
+        difficulty: Globals.DIFFICULTY_NORMAL,
         fund: Object,
         influence: Object,
         buildingManager: Object,
@@ -71,10 +73,16 @@ let Game = cc.Class({
         });
 
         this.buildingManager = new BuildingManager();
+        this.buildingManager.init(this.difficulty);
         this.scheduleManager = new ScheduleManager();
         this.studentManager = new StudentManager({
             scheduleManager: this.scheduleManager,
         });
+        this.studentManager.init(this.difficulty);
+        if (utilities.logPermitted("info")) {
+            this.buildingManager.debugPrint();
+            this.studentManager.debugPrint();
+        }
 
         if (Globals.TEST_MODE) {
             let test = require("testBasic.js");
