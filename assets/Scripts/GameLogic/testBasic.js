@@ -1,10 +1,10 @@
-let createBuildingManager = require("BuildingManager");
-let createStudentManager = require("StudentManager");
-let createScheduleManager = require("ScheduleManager");
+let BuildingManager = require("BuildingManager");
+let StudentManager = require("StudentManager");
+let ScheduleManager = require("ScheduleManager");
 let SatisfactionActive = require("SatisfactionActive");
 
 let test = function () {
-    let buildingManager = createBuildingManager();
+    let buildingManager = new BuildingManager();
     buildingManager.add({ type: "dorm" });
     buildingManager.add({ type: "teaching" });
     buildingManager.debugPrint();
@@ -14,8 +14,8 @@ let test = function () {
     });
     buildingManager.debugPrint();
 
-    let scheduleManager = createScheduleManager();
-    let studentManager = createStudentManager({
+    let scheduleManager = new ScheduleManager();
+    let studentManager = new StudentManager({
         scheduleManager: scheduleManager,
     });
     studentManager.add({});

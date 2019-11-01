@@ -9,7 +9,7 @@ class Satisfaction extends Index {
 
     /**
      * 
-     * @param - see createSatisfaction
+     * @param -  
      */
     constructor(properties) {
         // deligate

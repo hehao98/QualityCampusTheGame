@@ -1,16 +1,19 @@
 // Student abstruct all in-game students
 // let StudentSpecifications = require("StudentSpecifications");
 /**
- * see createStudent
+ *  
  */
 
-function Student(properties) {
-    // properties
-    this.id = properties.id;
-    this.schedule = properties.schedule;
+class Student {
 
-    // constructor left-overs
-    // this.loadSpecifications();
+    constructor(properties) {
+        // properties
+        this.id = properties.id;
+        this.schedule = properties.schedule;
+
+        // constructor left-overs
+        // this.loadSpecifications();
+    }
 
 }
 
@@ -30,13 +33,5 @@ Student.prototype.debugPrint = function (properties) {
 
 };
 
-/**
- * warpped function for new Student(...)
- * @param {Object} properties.id - ID of the student 
- * @param {Object} properties.schedule - schedule
- */
-function createStudent(properties) {
-    return new Student(properties || {});
-}
 
-module.exports = createStudent;
+module.exports = Student;

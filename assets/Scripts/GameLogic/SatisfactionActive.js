@@ -5,7 +5,7 @@ let Satisfaction = require("Satisfaction");
 // let SatisfactionSpecifications = require("SatisfactionSpecifications");
 /**
  * 
- * @param - see createSatisfaction
+ * @param -  
  */
 class SatisfactionActive extends Satisfaction {
 
@@ -28,13 +28,5 @@ class SatisfactionActive extends Satisfaction {
 // SatisfactionActive.prototype.debugPrint = function () {
 // };
 
-// /**
-//  * warpped function for new SatisfactionActive(...)
-//  * @param {Object} properties.value - The type of the satisfaction 
-//  * @param {Object} properties.studentID - ID of the satisfaction 
-//  */
-// function createSatisfactionActive(properties) {
-//     return new Satisfaction(properties || {});
-// }
 
 module.exports = SatisfactionActive;

@@ -2,7 +2,7 @@
 // let IndexSpecifications = require("IndexSpecifications");
 /**
  * 
- * @param - see createIndex
+ * @param -  
  */
 class Index {
     constructor(properties) {
@@ -26,13 +26,5 @@ Index.prototype.debugPrint = function () {
     console.log(this.value);
 };
 
-// /**
-//  * warpped function for new Index(...)
-//  * @param {Object} properties.value - The type of the index 
-//  * @param {Object} properties.studentID - ID of the index 
-//  */
-// function createIndex(properties) {
-//     return new Index(properties || {});
-// }
 
 module.exports = Index;
