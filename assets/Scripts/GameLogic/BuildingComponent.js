@@ -4,16 +4,18 @@ let BuildingComponentSpecifications =
     require("BuildingComponentSpecifications");
 
 /**
- * see createBuildingComponent
+ *  
  */
-function BuildingComponent(properties) {
-    // properties
-    this.type = properties.type;
-    this.id = properties.id;
-    this.tier = 0;
+class BuildingComponent {
+    constructor(properties) {
+        // properties
+        this.type = properties.type;
+        this.id = properties.id;
+        this.tier = 0;
 
-    // constructor left-overs
-    this.loadSpecifications();
+        // constructor left-overs
+        this.loadSpecifications();
+    }
 }
 
 
@@ -37,13 +39,5 @@ BuildingComponent.prototype.debugPrint = function (properties) {
         `${this.type} Lv.${this.tier}`);
 };
 
-/**
- * warpped function for new Building(...)
- * @param {Object} properties.type - The type of the building 
- * @param {Object} properties.id - ID of the building 
- */
-function createBuildingComponent(properties) {
-    return new BuildingComponent(properties || {});
-}
 
-module.exports = createBuildingComponent;
+module.exports = BuildingComponent;

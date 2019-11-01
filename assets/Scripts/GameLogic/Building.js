@@ -1,22 +1,22 @@
 // Building abstruct all in-game buildings
 let BuildingSpecifications = require("BuildingSpecifications");
-let createBuildingComponent = require("BuildingComponent");
-/**
- * see createBuilding
- */
-function Building(properties) {
-    // properties
-    this.type = properties.type;
-    this.id = properties.id;
-    this.components = [];
-    this.tier = 0;
+let BuildingComponent = require("BuildingComponent");
+
+class Building {
+
+    constructor(properties) {
+        // properties
+        this.type = properties.type;
+        this.id = properties.id;
+        this.components = [];
+        this.tier = 0;
 
 
-    // constructor left-overs
-    this.loadSpecifications();
+        // constructor left-overs
+        this.loadSpecifications();
+    }
 
 }
-
 
 // methods
 Building.prototype.loadSpecifications = function () {
@@ -36,7 +36,7 @@ Building.prototype.upgrade = function () {
  */
 Building.prototype.addComponent = function (properties) {
     this.components.push(
-        createBuildingComponent(properties));
+        new BuildingComponent(properties));
 };
 
 Building.prototype.debugPrint = function () {
@@ -48,13 +48,4 @@ Building.prototype.debugPrint = function () {
     }
 };
 
-/**
- * warpped function for new Building(...)
- * @param {Object} properties.type - The type of the building 
- * @param {Object} properties.id - ID of the building 
- */
-function createBuilding(properties) {
-    return new Building(properties || {});
-}
-
-module.exports = createBuilding;
+module.exports = Building;

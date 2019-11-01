@@ -1,20 +1,23 @@
 // Class BuildingManager manages all in-game buildings
 
 let _ = require("lodash");
-let createBuilding = require("Building");
+let Building = require("Building");
 
 /**
- * constructor. param see createBuildingManager
+ * constructor. param  
  */
-function BuildingManager(properties) {
-    // properties
-    this.nextBuildingID = 0;
-    this.nextBuildingComponentID = 0;
-    this.buildings = [];
+class BuildingManager {
+
+    constructor(properties) {
+        // properties
+        this.nextBuildingID = 0;
+        this.nextBuildingComponentID = 0;
+        this.buildings = [];
 
 
-    // constructor left-overs
+        // constructor left-overs
 
+    }
 }
 
 // methods
@@ -25,7 +28,7 @@ function BuildingManager(properties) {
 BuildingManager.prototype.add = function (properties) {
     let r = _.cloneDeep(properties);
     r["id"] = this.nextBuildingID++;
-    this.buildings.push(createBuilding(r));
+    this.buildings.push(new Building(r));
 
 };
 
@@ -79,11 +82,6 @@ BuildingManager.prototype.debugPrint = function () {
     console.log("------------------------------------------------------");
 };
 
-/**
- * warpped function for new BuildingManager(...)
- */
-function createBuildingManager(properties) {
-    return new BuildingManager(properties || {});
-}
 
-module.exports = createBuildingManager;
+
+module.exports = BuildingManager;

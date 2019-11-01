@@ -1,10 +1,10 @@
 let assert = require("assert");
-let createResource = require("Resource");
-let createWorldRankManager = require("WorldRankManager");
+let Resource = require("Resource");
+let WorldRankManager = require("WorldRankManager");
 let Globals = require("GlobalVariables");
 
 describe("Resource", function() {
-    let resource = createResource({ name: "test", value: 10 });
+    let resource = new Resource({ name: "test", value: 10 });
 
     it("can be created with name and value properties", function() {
         assert(resource.name === "test");
@@ -65,7 +65,7 @@ describe("WorldRankManager", function() {
         researchIndex: 456,
         careerIndex: 789
     };
-    let worldRankManager = createWorldRankManager({
+    let worldRankManager = new WorldRankManager({
         game: game,
         universityData: {
             json: [
