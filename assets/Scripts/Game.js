@@ -75,7 +75,7 @@ let Game = cc.Class({
         this.ScheduleManager = createScheduleManager();
 
         if (Globals.TEST_MODE) {
-            let test = require("test_basic.js");
+            let test = require("testBasic.js");
             test();
         }
     },
