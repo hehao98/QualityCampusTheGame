@@ -4,14 +4,15 @@
  * 
  * @param - see createIndex
  */
-function Index(properties) {
-    // properties
-    this.value = properties.value;
-    this.studentID = properties.studentID;
+class Index {
+    constructor(properties) {
+        // properties
+        this.value = properties.value;
+        this.studentID = properties.studentID;
 
-    // constructor left-overs
-    // this.loadSpecifications();
-
+        // constructor left-overs
+        // this.loadSpecifications();
+    }
 }
 
 
@@ -25,16 +26,13 @@ Index.prototype.debugPrint = function () {
     console.log(this.value);
 };
 
-/**
- * warpped function for new Index(...)
- * @param {Object} properties.value - The type of the index 
- * @param {Object} properties.studentID - ID of the index 
- */
-function createIndex(properties) {
-    return new Index(properties || {});
-}
+// /**
+//  * warpped function for new Index(...)
+//  * @param {Object} properties.value - The type of the index 
+//  * @param {Object} properties.studentID - ID of the index 
+//  */
+// function createIndex(properties) {
+//     return new Index(properties || {});
+// }
 
-module.exports = {
-    createIndex: createIndex,
-    Index: Index,
-};
+module.exports = Index;
