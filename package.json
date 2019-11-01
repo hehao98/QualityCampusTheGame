@@ -7,12 +7,13 @@
     "eslint": "^6.5.1"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "husky": "^3.0.9",
     "mocha": "^6.2.2"
   },
   "scripts": {
     "lint": "eslint assets/ --fix",
-    "test": "export NODE_PATH=.:./assets/Scripts:./assets/Scripts/GameLogic && mocha"
+    "test": "cross-env NODE_ENV=production NODE_PATH=./:./assets/Scripts:./assets/Scripts/GameLogic mocha"
   },
   "repository": {
     "type": "git",

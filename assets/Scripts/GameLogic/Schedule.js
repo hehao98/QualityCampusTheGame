@@ -12,7 +12,6 @@ class Schedule {
         this.content = undefined;
         // constructor left-overs
     }
-
 }
 
 
