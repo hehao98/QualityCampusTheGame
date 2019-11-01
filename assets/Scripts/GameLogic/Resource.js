@@ -3,10 +3,13 @@
 let assert = require("assert");
 let Globals = require("GlobalVariables");
 
-function Resource(properties) {
-    this.name = properties.name;
-    this.value = properties.value || 0;
-    this.modifiers = [];
+class Resource {
+
+    constructor(properties) {
+        this.name = properties.name;
+        this.value = properties.value || 0;
+        this.modifiers = [];
+    }
 }
 
 /**
@@ -15,7 +18,7 @@ function Resource(properties) {
  *
  * @param {Number} tick current game tick
  */
-Resource.prototype.updateResource = function(tick) {
+Resource.prototype.updateResource = function (tick) {
     let toBeRemoved = [];
     this.modifiers.forEach(modifier => {
         if (modifier.type === "once") {
@@ -49,7 +52,7 @@ Resource.prototype.updateResource = function(tick) {
  * @param {Object} modifier.interval "week" or "semester", for interval modifiers
  */
 
-Resource.prototype.addModifier = function(modifier) {
+Resource.prototype.addModifier = function (modifier) {
     assert(modifier.name);
     assert(modifier.type === "interval" || modifier.type === "once");
     assert(Number.isInteger(modifier.amount));
@@ -66,7 +69,7 @@ Resource.prototype.addModifier = function(modifier) {
  * Remove a modifier with the given name
  * @param {Object} modifierName
  */
-Resource.prototype.removeModifier = function(modifierName) {
+Resource.prototype.removeModifier = function (modifierName) {
     assert(this.modifiers.findIndex(m => m.name === modifierName) != -1);
 
     this.modifiers = this.modifiers.filter(
@@ -77,7 +80,7 @@ Resource.prototype.removeModifier = function(modifierName) {
 /**
  * @return {Number} Total weekly modification amount of this resource
  */
-Resource.prototype.getModificationAmount = function() {
+Resource.prototype.getModificationAmount = function () {
     let result = 0;
     this.modifiers.forEach(modifier => {
         if (modifier.type === "interval" && modifier.interval === "week") {
@@ -87,13 +90,6 @@ Resource.prototype.getModificationAmount = function() {
     return result;
 };
 
-/**
- * Wrapped function for new Resource()
- * @param {Object} properties.name The name of this resource
- * @param {Object} properties.value Its initial value, default zero
- */
-function createResource(properties) {
-    return new Resource(properties || {});
-}
 
-module.exports = createResource;
+
+module.exports = Resource;

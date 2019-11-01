@@ -1,16 +1,19 @@
 // Class ScheduleManager
 
 let _ = require("lodash");
-let createSchedule = require("Schedule");
+let Schedule = require("Schedule");
 
 /**
- * constructor. param see createScheduleManager
+ * constructor. param  
  */
-function ScheduleManager(properties) {
-    // properties
-    this.nextScheduleID = 0;
-    this.schedules = [];
-    // constructor left-overs
+class ScheduleManager {
+
+    constructor(properties) {
+        // properties
+        this.nextScheduleID = 0;
+        this.schedules = [];
+        // constructor left-overs
+    }
 
 }
 
@@ -24,7 +27,7 @@ function ScheduleManager(properties) {
 ScheduleManager.prototype.getNewSchedule = function (properties) {
     let propertiesRevised = _.cloneDeep(properties);
     propertiesRevised["id"] = this.nextScheduleID++;
-    let schedule = createSchedule(propertiesRevised);
+    let schedule = new Schedule(propertiesRevised);
     this.schedules.push(schedule);
     return schedule;
 };
@@ -38,11 +41,5 @@ ScheduleManager.prototype.debugPrint = function () {
     console.log("------------------------------------------------------");
 };
 
-/**
- * warpped function for new ScheduleManager(...)
- */
-function createScheduleManager(properties) {
-    return new ScheduleManager(properties || {});
-}
 
-module.exports = createScheduleManager;
+module.exports = ScheduleManager;

@@ -1,19 +1,22 @@
 // Class StudentManager
 
 let _ = require("lodash");
-let createStudent = require("Student");
+let Student = require("Student");
 
 /**
- * constructor. param see createScheduleManager
+ * constructor. param  
  */
-function StudentManager(properties) {
-    // properties
-    this.nextStudentID = 0;
-    // this.nextBuildingComponentID = 0;
-    this.students = [];
-    this.scheduleManager = properties.scheduleManager;
+class StudentManager {
 
-    // constructor left-overs
+    constructor(properties) {
+        // properties
+        this.nextStudentID = 0;
+        // this.nextBuildingComponentID = 0;
+        this.students = [];
+        this.scheduleManager = properties.scheduleManager;
+
+        // constructor left-overs
+    }
 
 }
 
@@ -30,7 +33,7 @@ StudentManager.prototype.add = function (properties) {
         this.scheduleManager.getNewSchedule({
             studentID: propertiesRevised["id"],
         });
-    this.students.push(createStudent(propertiesRevised));
+    this.students.push(new Student(propertiesRevised));
 
 };
 
@@ -43,11 +46,5 @@ StudentManager.prototype.debugPrint = function () {
     console.log("------------------------------------------------------");
 };
 
-/**
- * warpped function for new StudentManager(...)
- */
-function createStudentManager(properties) {
-    return new StudentManager(properties || {});
-}
 
-module.exports = createStudentManager;
+module.exports = StudentManager;

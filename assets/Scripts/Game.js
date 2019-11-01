@@ -2,11 +2,11 @@
 // Serve as the entry point for managing all kinds of game logic
 
 let Globals = require("GlobalVariables");
-let createResource = require("Resource");
-let createWorldRankManager = require("WorldRankManager");
-let createBuildingManager = require("BuildingManager");
-let createStudentManager = require("StudentManager");
-let createScheduleManager = require("ScheduleManager");
+let Resource = require("Resource");
+let WorldRankManager = require("WorldRankManager");
+let BuildingManager = require("BuildingManager");
+let StudentManager = require("StudentManager");
+let ScheduleManager = require("ScheduleManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -52,8 +52,8 @@ let Game = cc.Class({
 
     onLoad() { // Initialize all game objects from here
         // Initialize Resource System
-        this.fund = createResource({ name: "fund" });
-        this.influence = createResource({ name: "influence" });
+        this.fund = new Resource({ name: "fund" });
+        this.influence = new Resource({ name: "influence" });
         this.fund.value = this.initialData.json.startFund;
         this.initialData.json.fundModifiers.forEach((modifier) => {
             this.fund.addModifier(modifier);
@@ -65,17 +65,19 @@ let Game = cc.Class({
 
         this.gameObjectives = this.initialData.json.gameObjectives;
 
-        this.worldRankManager = createWorldRankManager({
+        this.worldRankManager = new WorldRankManager({
             game: this,
             universityData: this.universityData
         });
 
-        this.buildingManager = createBuildingManager();
-        this.StudentManager = createStudentManager();
-        this.ScheduleManager = createScheduleManager();
+        this.buildingManager = new BuildingManager();
+        this.scheduleManager = new ScheduleManager();
+        this.studentManager = new StudentManager({
+            scheduleManager: this.scheduleManager,
+        });
 
         if (Globals.TEST_MODE) {
-            let test = require("test_basic.js");
+            let test = require("testBasic.js");
             test();
         }
     },
@@ -92,7 +94,7 @@ let Game = cc.Class({
         );
 
         this.worldRankPanel.updateInfo();
-        
+
         this.refreshUI();
     },
 
@@ -137,7 +139,7 @@ let Game = cc.Class({
                         this.currentObjective++;
                     }
                 }
-                
+
                 // Finally Update all UIs
                 this.refreshUI();
             }
