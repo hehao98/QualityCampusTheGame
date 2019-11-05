@@ -140,4 +140,10 @@ describe("WorldRankManager", function() {
 
         assert(checksum != checksum2);
     });
+
+    it("can return neighboring ranking universities", function() {
+        let univs = worldRankManager.getNeighborUniversities("pku", 3);
+        assert(univs.length === 3);
+        assert(univs[0].name === "pku");
+    });
 });
