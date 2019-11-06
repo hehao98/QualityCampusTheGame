@@ -37,6 +37,7 @@ Building.prototype.loadSpecifications = function () {
 Building.prototype.upgrade = function () {
     this.tier++;
     this.loadSpecifications();
+    return true;
 };
 
 /**

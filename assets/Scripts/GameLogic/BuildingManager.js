@@ -50,17 +50,27 @@ BuildingManager.prototype.add = function (properties) {
 /**
  * 
  * @param {Object} properties.id - ID of the building 
+ * @param {Boolean} properties.freeOfCharge - 
+ *  add building free of charge
+ * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.upgrade = function (properties) {
-    let target = _.find(
-        this.buildings,
+    let target = _.find(this.buildings,
         function (building) { return building.id === properties.id; }
     );
     if (target === undefined) {
         throw new ReferenceError("Building ID not exists.");
     }
+    let newTier = target.tier + 1;
+    if (properties.freeOfCharge != true) {
+        // check whether resource is enough
+        let fund = BuildingSpecifications[properties.type][
+            newTier].defaultProperties.fundToCurrentTier;
+        const success = this.fund.use(fund);
+        if (!success) return false;
+    }
     else {
-        target.upgrade();
+        return target.upgrade();
     }
 };
 
