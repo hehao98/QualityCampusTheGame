@@ -6,6 +6,7 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
         1: {
@@ -24,6 +25,7 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
     },
@@ -33,6 +35,7 @@ let BuildingSpecifications = {
                 capacity: 100,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
     }

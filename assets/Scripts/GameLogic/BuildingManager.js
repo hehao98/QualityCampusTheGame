@@ -2,6 +2,7 @@
 
 let _ = require("lodash");
 let utilities = require("utilities");
+let BuildingSpecifications = require("BuildingSpecifications");
 let Building = require("Building");
 let Globals = require("GlobalVariables");
 
@@ -26,12 +27,23 @@ class BuildingManager {
 /**
  * 
  * @param {Object} properties.type - The type of the building 
+ * @param {Boolean} properties.freeOfCharge - 
+ *  add building free of charge
+ * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.add = function (properties) {
+    if (properties.freeOfCharge != true) {
+        // check whether resource is enough
+        let fund = BuildingSpecifications[properties.type][
+            0].defaultProperties.fundToCurrentTier;
+        const success = this.fund.use(fund);
+        if (!success) { return false; }
+    }
     let r = _.cloneDeep(properties);
     r["id"] = this.nextBuildingID++;
-    this.buildings.push(new Building(r));
-
+    let building = new Building(r);
+    this.buildings.push(building);
+    return true;
 };
 
 
@@ -77,13 +89,18 @@ BuildingManager.prototype.addComponent = function (properties) {
 
 /**
  * 
- * @param {String} difficulty - one of DIFFICULTY_*
+ * @param {String} properties.difficulty - one of DIFFICULTY_*
+ * @param {String} properties.fund
+ * @param {String} properties.influence
  */
-BuildingManager.prototype.init = function (difficulty) {
-    this.add({ type: "dorm" });
-    this.add({ type: "teaching" });
-    this.add({ type: "teaching" });
-    this.add({ type: "cafeteria" });
+BuildingManager.prototype.init = function (properties) {
+    this.fund = properties.fund;
+    this.influence = properties.influence;
+    this.add({ type: "dorm", freeOfCharge: true, });
+    this.add({ type: "teaching", freeOfCharge: true, });
+    this.add({ type: "teaching", freeOfCharge: true, });
+    this.add({ type: "cafeteria", freeOfCharge: true, });
+
 };
 
 /**
@@ -91,15 +108,11 @@ BuildingManager.prototype.init = function (difficulty) {
  */
 BuildingManager.prototype.update = function (tick) {
     const inDayTime = tick % Globals.TICKS_DAY;
-
     // if (tick % Globals.TICKS_SEMESTER === 0) {
-        
     // }
     for (let building of this.buildings) {
         building.nStudent = building.nStudentAssigned[inDayTime];
     }
-
-
 };
 
 /**

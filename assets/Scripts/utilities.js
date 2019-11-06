@@ -7,6 +7,7 @@ let Globals = require("GlobalVariables");
 let assert = require("assert");
 
 let utilities = {
+    // ES5 inherition
     inherits: function (Child, Parent) {
         var Trans = function () { };
         Trans.prototype = Parent.prototype;

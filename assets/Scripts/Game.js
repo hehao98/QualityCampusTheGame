@@ -72,7 +72,11 @@ let Game = cc.Class({
         });
 
         this.buildingManager = new BuildingManager();
-        this.buildingManager.init(this.difficulty);
+        this.buildingManager.init({
+            difficulty: this.difficulty,
+            fund: this.fund,
+            influence: this.influence,
+        });
         this.scheduleManager = new ScheduleManager({
             buildingManager: this.buildingManager,
         });
