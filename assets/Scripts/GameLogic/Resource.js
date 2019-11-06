@@ -61,7 +61,6 @@ Resource.prototype.addModifier = function (modifier) {
             modifier.interval === "week" || modifier.interval === "semester"
         );
     }
-
     this.modifiers.push(modifier);
 };
 
@@ -83,13 +82,27 @@ Resource.prototype.removeModifier = function (modifierName) {
 Resource.prototype.getModificationAmount = function () {
     let result = 0;
     this.modifiers.forEach(modifier => {
-        if (modifier.type === "interval" && modifier.interval === "week") {
+        if (modifier.type === "interval" &&
+            modifier.interval === "week") {
             result += modifier.amount;
         }
     });
     return result;
 };
 
-
+/**
+ * Try to use <amount> of this resource.
+ * @param {Number} amount
+ * @return {Boolean} success or not. only cost when succeed.
+ */
+Resource.prototype.use = function (amount) {
+    if (this.value >= amount) {
+        this.value -= amount;
+        return true;
+    }
+    else {
+        return false;
+    }
+};
 
 module.exports = Resource;

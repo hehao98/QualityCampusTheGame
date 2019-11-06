@@ -1,4 +1,6 @@
 // Building abstruct all in-game buildings
+let Globals = require("GlobalVariables");
+let utilities = require("utilities");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingComponent = require("BuildingComponent");
 
@@ -10,7 +12,13 @@ class Building {
         this.id = properties.id;
         this.components = [];
         this.tier = 0;
-
+        this.nStudentAssigned = {
+            [Globals.MORNING]: 0,
+            [Globals.NOON]: 0,
+            [Globals.AFTERNOON]: 0,
+            [Globals.EVENING]: 0,
+            [Globals.NIGHT]: 0,
+        };
 
         // constructor left-overs
         this.loadSpecifications();
@@ -19,6 +27,7 @@ class Building {
 }
 
 // methods
+
 Building.prototype.loadSpecifications = function () {
     let specification =
         BuildingSpecifications[this.type][this.tier].defaultProperties;
@@ -29,6 +38,7 @@ Building.prototype.loadSpecifications = function () {
 Building.prototype.upgrade = function () {
     this.tier++;
     this.loadSpecifications();
+    return true;
 };
 
 /**
@@ -40,11 +50,12 @@ Building.prototype.addComponent = function (properties) {
 };
 
 Building.prototype.debugPrint = function () {
-    console.log(`[${this.id}] ` +
+    utilities.log(`[${this.id}] ` +
         `${this.type} Lv.${this.tier} ` +
-        `[${this.components.length} components]`);
-    for (let c of this.components) {
-        c.debugPrint({ indent: 4 });
+        `[${this.components.length} components]` +
+        `${JSON.stringify(this.nStudentAssigned)}`);
+    for (let component of this.components) {
+        component.debugPrint({ indent: 4 });
     }
 };
 

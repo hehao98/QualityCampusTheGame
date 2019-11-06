@@ -1,7 +1,7 @@
 let BuildingManager = require("BuildingManager");
 let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
-let SatisfactionActive = require("SatisfactionActive");
+let ActiveSatisfaction = require("ActiveSatisfaction");
 
 let test = function () {
     let buildingManager = new BuildingManager();
@@ -23,7 +23,7 @@ let test = function () {
     studentManager.debugPrint();
 
     // Index
-    let sat = new SatisfactionActive({
+    let sat = new ActiveSatisfaction({
         value: 10,
         studentID: 0,
     });

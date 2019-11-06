@@ -1,15 +1,21 @@
 // Schedule abstruct all in-game schedules
+let utilities = require("utilities");
+
 // let ScheduleSpecifications = require("ScheduleSpecifications");
 /**
  *  
  */
 class Schedule {
 
+    /**
+     * 
+     * @param {Object} properties.content - content of the schedule
+     */
     constructor(properties) {
         // properties
         this.id = properties.id;
         this.studentsID = properties.studentsID;
-        this.content = undefined;
+        this.content = properties.content;
         // constructor left-overs
     }
 }
@@ -20,7 +26,7 @@ class Schedule {
 
 
 Schedule.prototype.debugPrint = function (properties) {
-    console.log(" ".repeat(properties.indent) +
+    utilities.log(" ".repeat(properties.indent) +
         `[${this.id}]`);
 };
 
