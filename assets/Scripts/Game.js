@@ -2,6 +2,7 @@
 // Serve as the entry point for managing all kinds of game logic
 
 let Globals = require("GlobalVariables");
+let utilities = require("utilities");
 let Resource = require("Resource");
 let WorldRankManager = require("WorldRankManager");
 let BuildingManager = require("BuildingManager");
@@ -34,6 +35,7 @@ let Game = cc.Class({
         professorSatisfaction: 0,
 
         // Classes that manages game logic
+        difficulty: Globals.DIFFICULTY_NORMAL,
         fund: Object,
         influence: Object,
         buildingManager: Object,
@@ -70,10 +72,23 @@ let Game = cc.Class({
         });
 
         this.buildingManager = new BuildingManager();
-        this.scheduleManager = new ScheduleManager();
+        this.buildingManager.init({
+            difficulty: this.difficulty,
+            fund: this.fund,
+            influence: this.influence,
+        });
+        this.scheduleManager = new ScheduleManager({
+            buildingManager: this.buildingManager,
+        });
         this.studentManager = new StudentManager({
             scheduleManager: this.scheduleManager,
+            buildingManager: this.buildingManager,
         });
+        this.studentManager.init(this.difficulty);
+        if (utilities.logPermitted("info")) {
+            this.buildingManager.debugPrint();
+            this.studentManager.debugPrint();
+        }
 
         if (Globals.TEST_MODE) {
             let test = require("testBasic.js");
@@ -101,12 +116,18 @@ let Game = cc.Class({
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
-                this.currentTick++;
                 this.timeSinceLastUpdate -= this.speedModifier;
 
                 // Update corresponding game logic
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
+
+                utilities.log(this.currentTick);
+                this.studentManager.update(this.currentTick);
+                this.buildingManager.update(this.currentTick);
+                this.studentManager.updateSatisfaction();
+                this.studentManager.debugPrint();
+                this.buildingManager.debugPrint();
 
                 if (this.currentTick % Globals.TICKS_WEEK === 0) {
                     this.worldRankManager.updateRanking();
@@ -136,6 +157,9 @@ let Game = cc.Class({
                         this.currentObjective++;
                     }
                 }
+
+                this.timeString = utilities.getTickString(this.currentTick);
+                this.currentTick++;
 
                 // Finally Update all UIs
                 this.refreshUI();

@@ -1,5 +1,5 @@
 // BuildingComponent abstruct all in-game building components
-
+let utilities = require("utilities");
 let BuildingComponentSpecifications =
     require("BuildingComponentSpecifications");
 
@@ -34,7 +34,7 @@ BuildingComponent.prototype.upgrade = function () {
 };
 
 BuildingComponent.prototype.debugPrint = function (properties) {
-    console.log(" ".repeat(properties.indent) +
+    utilities.log(" ".repeat(properties.indent) +
         `[${this.id}] ` +
         `${this.type} Lv.${this.tier}`);
 };

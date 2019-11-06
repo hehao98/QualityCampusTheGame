@@ -1,4 +1,6 @@
 // Index abstruct all in-game indexes
+let utilities = require("utilities");
+
 // let IndexSpecifications = require("IndexSpecifications");
 /**
  * 
@@ -23,7 +25,14 @@ class Index {
  */
 
 Index.prototype.debugPrint = function () {
-    console.log(this.value);
+    utilities.log(this.value);
+};
+
+Index.prototype.update = function (buildingValue) {
+    if (buildingValue === undefined) {
+        return;
+    }
+    this.value = 0.95 * this.value + 0.05 * buildingValue;
 };
 
 

@@ -26,6 +26,8 @@ module.exports = {
         NIGHT: 4
     },
 
+    DIFFICULTY_NORMAL: "normal",
+
     // Globals that declares UI design colors
     // FONT_COLOR1: new cc.Color(206, 207, 211),
     // FONT_COLOR2: new cc.Color(30, 35, 51),
@@ -40,5 +42,13 @@ module.exports = {
     // INPUT_BACkGROUND: new cc.Color(110, 117, 137),
 
     // set to true to enable Test Mode. default: [false]
-    TEST_MODE: true,
+    TEST_MODE: false,
+
+    LOG_LEVEL: "info",
+
+    MORNING: 0,
+    NOON: 1,
+    AFTERNOON: 2,
+    EVENING: 3,
+    NIGHT: 4,
 };
