@@ -1,4 +1,6 @@
 // Schedule abstruct all in-game schedules
+let utilities = require("utilities");
+
 // let ScheduleSpecifications = require("ScheduleSpecifications");
 /**
  *  
@@ -24,7 +26,7 @@ class Schedule {
 
 
 Schedule.prototype.debugPrint = function (properties) {
-    console.log(" ".repeat(properties.indent) +
+    utilities.log(" ".repeat(properties.indent) +
         `[${this.id}]`);
 };
 

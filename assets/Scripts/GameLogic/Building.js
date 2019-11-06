@@ -1,5 +1,6 @@
 // Building abstruct all in-game buildings
 let Globals = require("GlobalVariables");
+let utilities = require("utilities");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingComponent = require("BuildingComponent");
 
@@ -49,12 +50,12 @@ Building.prototype.addComponent = function (properties) {
 };
 
 Building.prototype.debugPrint = function () {
-    console.log(`[${this.id}] ` +
+    utilities.log(`[${this.id}] ` +
         `${this.type} Lv.${this.tier} ` +
         `[${this.components.length} components]` +
         `${JSON.stringify(this.nStudentAssigned)}`);
-    for (let c of this.components) {
-        c.debugPrint({ indent: 4 });
+    for (let component of this.components) {
+        component.debugPrint({ indent: 4 });
     }
 };
 

@@ -2,6 +2,8 @@
 // let StudentSpecifications = require("StudentSpecifications");
 let RelaxationSatisfacion = require("RelaxationSatisfacion");
 let StudySatisfaction = require("StudySatisfaction");
+let utilities = require("utilities");
+
 
 /**
  *  
@@ -51,13 +53,13 @@ Student.prototype.assignSchedule = function (schedule) {
 
 
 Student.prototype.debugPrint = function (properties) {
-    console.log(" ".repeat(properties.indent) +
+    utilities.log(" ".repeat(properties.indent) +
         `[${this.id}] ${this.where}`);
     if (this.schedule != undefined) {
         this.schedule.debugPrint({ indent: properties.indent + 4 });
     }
     for (let type in this.satisfactions) {
-        console.log(" ".repeat(properties.indent) +
+        utilities.log(" ".repeat(properties.indent) +
             type.padStart(" ", 10) + " " +
             this.satisfactions[type].value);
     }

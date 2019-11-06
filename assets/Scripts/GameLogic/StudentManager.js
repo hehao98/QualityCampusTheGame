@@ -114,20 +114,20 @@ StudentManager.prototype.updateSatisfaction = function () {
  */
 StudentManager.prototype.getOverallSatisfaction = function (type) {
     let sum = 0.0;
-    let n = 0;
+    let cnt = 0;
     for (let student of this.students) {
-        n++;
+        cnt++;
         sum += student.satisfactions[type].value;
     }
-    return sum / n;
+    return sum / cnt;
 };
 
 StudentManager.prototype.debugPrint = function () {
     utilities.log("[StudentManager DebugPrint]");
     utilities.log("student number: " + this.students.length);
     if (utilities.logPermitted("debug")) {
-        for (let s of this.students) {
-            s.debugPrint({ indent: 4 });
+        for (let student of this.students) {
+            student.debugPrint({ indent: 4 });
         }
     }
     utilities.log(this.getOverallSatisfaction(

@@ -39,9 +39,9 @@ BuildingManager.prototype.add = function (properties) {
         const success = this.fund.use(fund);
         if (!success) { return false; }
     }
-    let r = _.cloneDeep(properties);
-    r["id"] = this.nextBuildingID++;
-    let building = new Building(r);
+    let revised = _.cloneDeep(properties);
+    revised["id"] = this.nextBuildingID++;
+    let building = new Building(revised);
     this.buildings.push(building);
     return true;
 };
@@ -234,12 +234,12 @@ BuildingManager.prototype.update = function (tick) {
 };
 
 BuildingManager.prototype.debugPrint = function () {
-    console.log("[BuildingManager DebugPrint]");
-    console.log("building number: " + this.buildings.length);
-    for (let b of this.buildings) {
-        b.debugPrint();
+    utilities.log("[BuildingManager DebugPrint]");
+    utilities.log("building number: " + this.buildings.length);
+    for (let building of this.buildings) {
+        building.debugPrint();
     }
-    console.log("------------------------------------------------------");
+    utilities.log("------------------------------------------------------");
 };
 
 

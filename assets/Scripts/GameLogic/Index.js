@@ -1,4 +1,6 @@
 // Index abstruct all in-game indexes
+let utilities = require("utilities");
+
 // let IndexSpecifications = require("IndexSpecifications");
 /**
  * 
@@ -23,7 +25,7 @@ class Index {
  */
 
 Index.prototype.debugPrint = function () {
-    console.log(this.value);
+    utilities.log(this.value);
 };
 
 
