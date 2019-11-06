@@ -28,5 +28,12 @@ Index.prototype.debugPrint = function () {
     utilities.log(this.value);
 };
 
+Index.prototype.update = function (buildingValue) {
+    if (buildingValue === undefined) {
+        return;
+    }
+    this.value = 0.95 * this.value + 0.05 * buildingValue;
+};
+
 
 module.exports = Index;
