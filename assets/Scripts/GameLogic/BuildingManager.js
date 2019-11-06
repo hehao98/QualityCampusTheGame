@@ -1,7 +1,9 @@
 // Class BuildingManager manages all in-game buildings
 
 let _ = require("lodash");
+let utilities = require("utilities");
 let Building = require("Building");
+let Globals = require("GlobalVariables");
 
 /**
  * constructor. param  
@@ -80,7 +82,113 @@ BuildingManager.prototype.addComponent = function (properties) {
 BuildingManager.prototype.init = function (difficulty) {
     this.add({ type: "dorm" });
     this.add({ type: "teaching" });
+    this.add({ type: "teaching" });
     this.add({ type: "cafeteria" });
+};
+
+/**
+ * @param {Number} tick
+ */
+BuildingManager.prototype.update = function (tick) {
+    if (tick % Globals.TICKS_SEMESTER != 0)
+        return;
+}
+
+/**
+ * @param {String} type
+ * @param {Number} time
+ */
+BuildingManager.prototype.assignBuilding = function (type, time) {
+    // id: assigned/capacity
+    let available = {};
+    let summedRate = 0.0;
+    for (let building of this.buildings) {
+        utilities.log(building.type + " " + type, "debug");
+        if (building.type === type) {
+            const rate = building.nStudentAssigned /
+                building.capacity;
+            available[building.id] = rate;
+            summedRate += rate;
+        }
+    }
+    let choosedAccumlatedRate = Math.random() * summedRate;
+    let choosedID = undefined;
+    for (let id in available) {
+        if (choosedAccumlatedRate >= available[id]) {
+            choosedAccumlatedRate -= available[id];
+        }
+        else {
+            choosedID = id;
+            break;
+        }
+    }
+    utilities.log(choosedID, "debug");
+    // for float error
+    if (choosedID === undefined) {
+        choosedID = Object.keys(available)[0];
+    }
+    choosedID = Number(choosedID);
+    utilities.log(choosedID, "debug");
+    let target = _.find(this.buildings,
+        function (building) {
+            utilities.log(building.id + " " + choosedID, "debug");
+            // TODO mix type
+            return building.id === choosedID;
+        });
+    utilities.log(JSON.stringify(target), "debug");
+
+    target.nStudentAssigned[time]++;
+    return choosedID;
+}
+
+/**
+ * @param {String} id
+ * @param {Number} time
+ */
+BuildingManager.prototype.unAssignBuilding = function (id, time) {
+    let target = _.find(this.buildings,
+        function (building) {
+            // TODO mix type
+            return building.id == id;
+        });
+    target.nStudentAssigned[time]--;
+}
+
+/**
+ * @param {Number} tick
+ */
+BuildingManager.prototype.getSatisfaction = function (buildingID, type) {
+    let target = _.find(this.buildings,
+        function (building) {
+            utilities.log((typeof building.id) + (typeof buildingID), "debug");
+            return building.id === buildingID;
+        });
+
+    if (target[type] === undefined) {
+        return undefined;
+    }
+    // base value
+    let satisfaction = target[type].value;
+
+    // revision by crowdness
+    let crowdCoefficients = target.nStudent / target.capacity;
+    satisfaction = _.min([1, satisfaction *
+        Math.log(-crowdCoefficients + 2) / Math.E + 1]);
+
+    return satisfaction;
+
+}
+
+/**
+ * @param {Number} tick
+ */
+BuildingManager.prototype.update = function (tick) {
+    const inDayTime = tick % Globals.TICKS_DAY;
+
+    // update student number in buildings
+    for (let building of this.buildings) {
+        building.nStudent = building.nStudentAssigned[inDayTime];
+    }
 }
 
 BuildingManager.prototype.debugPrint = function () {
@@ -91,6 +199,7 @@ BuildingManager.prototype.debugPrint = function () {
     }
     console.log("------------------------------------------------------");
 };
+
 
 
 

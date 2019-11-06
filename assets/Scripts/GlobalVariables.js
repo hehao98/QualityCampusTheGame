@@ -29,4 +29,10 @@ module.exports = {
     TEST_MODE: false,
 
     LOG_LEVEL: "info",
+
+    MORNING: 0,
+    NOON: 1,
+    AFTERNOON: 2,
+    EVENING: 3,
+    NIGHT: 4,
 };

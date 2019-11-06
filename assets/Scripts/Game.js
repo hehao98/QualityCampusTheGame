@@ -74,9 +74,12 @@ let Game = cc.Class({
 
         this.buildingManager = new BuildingManager();
         this.buildingManager.init(this.difficulty);
-        this.scheduleManager = new ScheduleManager();
+        this.scheduleManager = new ScheduleManager({
+            buildingManager: this.buildingManager,
+        });
         this.studentManager = new StudentManager({
             scheduleManager: this.scheduleManager,
+            buildingManager: this.buildingManager,
         });
         this.studentManager.init(this.difficulty);
         if (utilities.logPermitted("info")) {
@@ -111,13 +114,18 @@ let Game = cc.Class({
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
-                this.currentTick++;
                 this.timeSinceLastUpdate -= this.speedModifier;
-                this.timeString = this.getTickString();
 
                 // Update corresponding game logic
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
+
+                console.log(this.currentTick);
+                this.buildingManager.update(this.currentTick);
+                this.studentManager.update(this.currentTick);
+                this.studentManager.updateSatisfaction();
+                this.studentManager.debugPrint();
+                this.buildingManager.debugPrint();
 
                 if (this.currentTick % Globals.TICKS_WEEK === 0) {
                     this.worldRankManager.updateRanking();
@@ -147,6 +155,9 @@ let Game = cc.Class({
                         this.currentObjective++;
                     }
                 }
+
+                this.currentTick++;
+                this.timeString = this.getTickString();
 
                 // Finally Update all UIs
                 this.refreshUI();

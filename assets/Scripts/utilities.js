@@ -22,7 +22,7 @@ let utilities = {
         return this.logLevels[level] >=
             this.logLevels[Globals.LOG_LEVEL];
     },
-    log: function (message, level) {
+    log: function (message, level = "info") {
         if (this.logPermitted(level)) {
             console.log(message);
         }
