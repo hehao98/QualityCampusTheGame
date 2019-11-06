@@ -1,7 +1,21 @@
 let assert = require("assert");
+let Utilities = require("utilities");
 let Resource = require("Resource");
 let WorldRankManager = require("WorldRankManager");
 let Globals = require("GlobalVariables");
+
+describe("Utilities", function() {
+    it("can handle tick information and conversion correctly", function() {
+        let tickProps = Utilities.getTickProperties(1600);
+        let tickString = Utilities.getTickString(1600);
+        assert(tickProps.year === 2019);
+        assert(tickProps.semester === 3);
+        assert(tickProps.week === 6);
+        assert(tickProps.day === Globals.DAY.SAT);
+        assert(tickProps.time === Globals.TIME.MORNING);
+        assert(tickString === "2019学年第一学期第6周星期六 上午");
+    });
+});
 
 describe("Resource", function() {
     let resource = new Resource({ name: "test", value: 10 });
@@ -125,5 +139,11 @@ describe("WorldRankManager", function() {
         );
 
         assert(checksum != checksum2);
+    });
+
+    it("can return neighboring ranking universities", function() {
+        let univs = worldRankManager.getNeighborUniversities("pku", 3);
+        assert(univs.length === 3);
+        assert(univs[0].name === "pku");
     });
 });

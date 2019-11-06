@@ -9,6 +9,22 @@ module.exports = {
     TICKS_SEMESTER: 20 * 7 * 5,
     TICKS_WEEK: 7 * 5,
     TICKS_DAY: 5,
+    DAY: {
+        MON: 0,
+        TUE: 1,
+        WED: 2,
+        THU: 3,
+        FRI: 4,
+        SAT: 5,
+        SUN: 6,
+    },
+    TIME: {
+        MORNING: 0,
+        NOON: 1,
+        AFTERNOON: 2,
+        EVENING: 3,
+        NIGHT: 4
+    },
 
     DIFFICULTY_NORMAL: "normal",
 

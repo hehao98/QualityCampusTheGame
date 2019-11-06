@@ -1,4 +1,5 @@
 let Game = require("Game");
+let Utilities = require("utilities");
 
 cc.Class({
     extends: cc.Component,
@@ -26,7 +27,7 @@ cc.Class({
         };
 
         this.nameLabel.string = this.game.universityName;
-        this.timeLabel.string = this.game.timeString;
+        this.timeLabel.string = Utilities.getTickString(this.game.currentTick);
         this.currentHighlightBtn = mapping[this.game.speedModifier];
         if (this.game.isPaused) this.currentHighlightBtn = 0;
 

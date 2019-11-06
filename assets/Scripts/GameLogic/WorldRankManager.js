@@ -3,7 +3,6 @@
 let assert = require("assert");
 
 class WorldRankManager {
-
     constructor(properties) {
         this.game = properties.game;
         this.universities = [];
@@ -26,7 +25,7 @@ class WorldRankManager {
 }
 
 // should only be called in Game.js
-WorldRankManager.prototype.addPlayerUniversity = function (
+WorldRankManager.prototype.addPlayerUniversity = function(
     name,
     teachIndex,
     researchIndex,
@@ -51,7 +50,7 @@ WorldRankManager.prototype.addPlayerUniversity = function (
     this.updateRanking();
 };
 
-WorldRankManager.prototype.updateRanking = function () {
+WorldRankManager.prototype.updateRanking = function() {
     let playerIndex = this.universities.findIndex(
         univ => univ.name == this.game.universityName
     );
@@ -86,17 +85,41 @@ WorldRankManager.prototype.updateRanking = function () {
     });
 };
 
-WorldRankManager.prototype.getCurrentRanking = function (univName) {
+WorldRankManager.prototype.getNeighborUniversities = function(univName, size) {
+    let idx = this.universities.findIndex(univ => univ.name === univName);
+
+    assert(idx !== -1);
+
+    let afterSize = Math.min(
+        this.universities.length - idx - 1,
+        Math.floor(size / 2)
+    );
+    let beforeSize = Math.min(idx, size - afterSize - 1);
+    while (afterSize + beforeSize + 1 < size) {
+        if (afterSize + 1 < this.universities.length) {
+            afterSize++;
+        } else if (beforeSize > 0) {
+            beforeSize--;
+        }
+    }
+
+    let result = [];
+    for (let i = idx - beforeSize; i <= idx + afterSize; ++i) {
+        result.push(this.universities[i]);
+    }
+    return result;
+};
+
+WorldRankManager.prototype.getCurrentRanking = function(univName) {
     return this.universities.filter(univ => univ.name === univName)[0].rank;
 };
 
-WorldRankManager.prototype.getUniversity = function (univName) {
+WorldRankManager.prototype.getUniversity = function(univName) {
     return this.universities.filter(univ => univ.name === univName)[0];
 };
 
-WorldRankManager.prototype.getUniversityCount = function () {
+WorldRankManager.prototype.getUniversityCount = function() {
     return this.universities.length;
 };
-
 
 module.exports = WorldRankManager;
