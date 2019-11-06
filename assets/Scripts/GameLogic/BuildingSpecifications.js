@@ -6,14 +6,16 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
         1: {
             defaultProperties: {
-                capacity: 200,
+                capacity: 150,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
+                fundToCurrentTier: 30 * 10000000,
             },
         },
     },
@@ -24,6 +26,7 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
     },
@@ -33,6 +36,7 @@ let BuildingSpecifications = {
                 capacity: 100,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
+                fundToCurrentTier: 50 * 10000000,
             },
         },
     }
