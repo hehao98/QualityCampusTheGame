@@ -12,10 +12,10 @@ class Satisfaction extends Index {
      * @param -  
      */
     constructor(properties) {
-        // deligate
         if (properties.value === undefined) {
             properties.value = 0.5;
         }
+        // deligate
         super(properties);
         // properties
 

@@ -99,12 +99,12 @@ StudentManager.prototype.update = function (tick) {
  */
 StudentManager.prototype.updateSatisfaction = function () {
     for (let student of this.students) {
-        for (let type in student.satisfactions) {
+        for (let type in student.indexes) {
             let current = this.buildingManager.getSatisfaction(
                 student.where, type);
             utilities.log("sat update (undef. if no.): " + student.where +
                 " " + current, "debug");
-            student.satisfactions[type].update(current);
+            student.indexes[type].update(current);
         }
     }
 };
@@ -112,27 +112,28 @@ StudentManager.prototype.updateSatisfaction = function () {
 /**
  * @param {String} type
  */
-StudentManager.prototype.getOverallSatisfaction = function (type) {
+StudentManager.prototype.getOverallIndex = function (type) {
     let sum = 0.0;
-    let n = 0;
+    let cnt = 0;
     for (let student of this.students) {
-        n++;
-        sum += student.satisfactions[type].value;
+        cnt++;
+        sum += student.indexes[type].value;
     }
-    return sum / n;
+    return sum / cnt;
 };
 
 StudentManager.prototype.debugPrint = function () {
     utilities.log("[StudentManager DebugPrint]");
     utilities.log("student number: " + this.students.length);
     if (utilities.logPermitted("debug")) {
-        for (let s of this.students) {
-            s.debugPrint({ indent: 4 });
+        for (let student of this.students) {
+            student.debugPrint({ indent: 4 });
         }
     }
-    utilities.log(this.getOverallSatisfaction(
+    utilities.log(this.getOverallIndex(
         "relaxationSatisfaction") + " " +
-        this.getOverallSatisfaction("studySatisfaction"));
+        this.getOverallIndex("studySatisfaction") +
+        " " + this.getOverallIndex("studyIndex"));
     console.log("------------------------------------------------------");
 };
 

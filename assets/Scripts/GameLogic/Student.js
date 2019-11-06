@@ -2,6 +2,9 @@
 // let StudentSpecifications = require("StudentSpecifications");
 let RelaxationSatisfacion = require("RelaxationSatisfacion");
 let StudySatisfaction = require("StudySatisfaction");
+let StudyIndex = require("StudyIndex");
+let utilities = require("utilities");
+
 
 /**
  *  
@@ -19,10 +22,12 @@ class Student {
         // properties
         this.id = properties.id;
         this.schedule = properties.schedule;
-        this.satisfactions = {
+        this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
                 { studentID: this.id }),
             studySatisfaction: new StudySatisfaction(
+                { studentID: this.id }),
+            studyIndex: new StudyIndex(
                 { studentID: this.id }),
         };
         this.where = undefined;
@@ -51,15 +56,15 @@ Student.prototype.assignSchedule = function (schedule) {
 
 
 Student.prototype.debugPrint = function (properties) {
-    console.log(" ".repeat(properties.indent) +
+    utilities.log(" ".repeat(properties.indent) +
         `[${this.id}] ${this.where}`);
     if (this.schedule != undefined) {
         this.schedule.debugPrint({ indent: properties.indent + 4 });
     }
-    for (let type in this.satisfactions) {
-        console.log(" ".repeat(properties.indent) +
+    for (let type in this.indexes) {
+        utilities.log(" ".repeat(properties.indent) +
             type.padStart(" ", 10) + " " +
-            this.satisfactions[type].value);
+            this.indexes[type].value);
     }
 };
 

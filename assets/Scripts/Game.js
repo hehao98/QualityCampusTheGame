@@ -122,7 +122,7 @@ let Game = cc.Class({
                 this.fund.updateResource(this.currentTick);
                 this.influence.updateResource(this.currentTick);
 
-                console.log(this.currentTick);
+                utilities.log(this.currentTick);
                 this.studentManager.update(this.currentTick);
                 this.buildingManager.update(this.currentTick);
                 this.studentManager.updateSatisfaction();

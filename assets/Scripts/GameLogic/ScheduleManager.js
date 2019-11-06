@@ -1,6 +1,8 @@
 // Class ScheduleManager
 
 let _ = require("lodash");
+let utilities = require("utilities");
+
 let Schedule = require("Schedule");
 let Globals = require("GlobalVariables");
 
@@ -73,12 +75,12 @@ ScheduleManager.prototype.remove = function (id) {
 
 
 ScheduleManager.prototype.debugPrint = function () {
-    console.log("[ScheduleManager DebugPrint]");
-    console.log("schedule number: " + this.schedules.length);
-    for (let s of this.schedules) {
-        s.debugPrint();
+    utilities.log("[ScheduleManager DebugPrint]");
+    utilities.log("schedule number: " + this.schedules.length);
+    for (let schedule of this.schedules) {
+        schedule.debugPrint();
     }
-    console.log("------------------------------------------------------");
+    utilities.log("------------------------------------------------------");
 };
 
 
