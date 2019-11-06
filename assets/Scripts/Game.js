@@ -154,8 +154,8 @@ let Game = cc.Class({
                     }
                 }
 
+                this.timeString = utilities.getTickString(this.currentTick);
                 this.currentTick++;
-                this.timeString = this.getTickString();
 
                 // Finally Update all UIs
                 this.refreshUI();
