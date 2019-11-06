@@ -13,6 +13,9 @@ class Satisfaction extends Index {
      */
     constructor(properties) {
         // deligate
+        if (properties.value === undefined) {
+            properties.value = 0.5;
+        }
         super(properties);
         // properties
 
@@ -22,5 +25,15 @@ class Satisfaction extends Index {
 }
 
 // methods
+/**
+ * @param {Number} buildingValue - satisfactions provided by the building.
+ *  undefined if not provided.
+ */
+Satisfaction.prototype.update = function (buildingValue) {
+    if (buildingValue === undefined) {
+        return;
+    }
+    this.value = 0.95 * this.value + 0.05 * buildingValue;
+};
 
 module.exports = Satisfaction;
