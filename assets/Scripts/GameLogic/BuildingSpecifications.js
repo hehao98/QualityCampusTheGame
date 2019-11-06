@@ -20,7 +20,7 @@ let BuildingSpecifications = {
     teaching: {
         0: {
             defaultProperties: {
-                capacity: 60,
+                capacity: 50,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,

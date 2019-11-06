@@ -2,6 +2,7 @@
 
 let _ = require("lodash");
 let Student = require("Student");
+let utilities = require("utilities");
 let Globals = require("GlobalVariables");
 let GlobalSpecifications = require("GlobalSpecifications");
 /**
@@ -91,7 +92,7 @@ StudentManager.prototype.update = function (tick) {
     }
     // update satisfactions for all students
     // done in updateSatisfaction
-}
+};
 
 /**
  * @param {Number} tick
@@ -99,18 +100,39 @@ StudentManager.prototype.update = function (tick) {
 StudentManager.prototype.updateSatisfaction = function () {
     for (let student of this.students) {
         for (let type in student.satisfactions) {
-            student.satisfactions[type].update(
-                this.buildingManager.getSatisfaction(student.where, type));
+            let current = this.buildingManager.getSatisfaction(
+                student.where, type);
+            utilities.log("sat update (undef. if no.): " + student.where +
+                " " + current, "debug");
+            student.satisfactions[type].update(current);
         }
     }
-}
+};
+
+/**
+ * @param {String} type
+ */
+StudentManager.prototype.getOverallSatisfaction = function (type) {
+    let sum = 0.0;
+    let n = 0;
+    for (let student of this.students) {
+        n++;
+        sum += student.satisfactions[type].value;
+    }
+    return sum / n;
+};
 
 StudentManager.prototype.debugPrint = function () {
-    console.log("[StudentManager DebugPrint]");
-    console.log("student number: " + this.students.length);
-    for (let s of this.students) {
-        s.debugPrint({ indent: 4 });
+    utilities.log("[StudentManager DebugPrint]");
+    utilities.log("student number: " + this.students.length);
+    if (utilities.logPermitted("debug")) {
+        for (let s of this.students) {
+            s.debugPrint({ indent: 4 });
+        }
     }
+    utilities.log(this.getOverallSatisfaction(
+        "relaxationSatisfaction") + " " +
+        this.getOverallSatisfaction("studySatisfaction"));
     console.log("------------------------------------------------------");
 };
 

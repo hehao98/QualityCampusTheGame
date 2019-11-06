@@ -34,6 +34,6 @@ Satisfaction.prototype.update = function (buildingValue) {
         return;
     }
     this.value = 0.95 * this.value + 0.05 * buildingValue;
-}
+};
 
 module.exports = Satisfaction;

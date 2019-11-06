@@ -121,8 +121,8 @@ let Game = cc.Class({
                 this.influence.updateResource(this.currentTick);
 
                 console.log(this.currentTick);
-                this.buildingManager.update(this.currentTick);
                 this.studentManager.update(this.currentTick);
+                this.buildingManager.update(this.currentTick);
                 this.studentManager.updateSatisfaction();
                 this.studentManager.debugPrint();
                 this.buildingManager.debugPrint();

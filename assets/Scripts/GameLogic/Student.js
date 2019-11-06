@@ -47,7 +47,7 @@ Student.prototype.loadSpecifications = function () {
  */
 Student.prototype.assignSchedule = function (schedule) {
     this.schedule = schedule;
-}
+};
 
 
 Student.prototype.debugPrint = function (properties) {
