@@ -16,11 +16,11 @@ cc.Class({
         researchIndexLabel: cc.Label,
         teachIndexLabel: cc.Label,
         careerIndexLabel: cc.Label,
-        studentSatisfactionlabel: cc.Label,
-        professorStatisfactionLabel: cc.Label,
+        studentSatisfactionLabel: cc.Label,
+        professorSatisfactionLabel: cc.Label,
     },
 
-    update () { 
+    updatePanel () { 
         if (this.game.isPaused) return;
         this.fundLabel.string = this.game.fund.value + "万";
         let value = this.game.fund.getModificationAmount();
@@ -44,12 +44,16 @@ cc.Class({
         this.influenceLabel.string = this.game.influence.value;
         this.influenceChangeLabel.string = "(" + suffix + value + ")";
 
-        this.researchIndexLabel = this.game.researchIndex;
-        this.teachIndexLabel = this.game.teachIndex;
-        this.careerIndexLabel = this.game.careerIndex;
+        this.researchIndexLabel.string = this.game.researchIndex;
+        this.teachIndexLabel.string = this.game.teachIndex;
+        this.careerIndexLabel.string = this.game.careerIndex;
+        this.studentSatisfactionLabel.string = this.game.studentSatisfaction;
+        this.professorSatisfactionLabel.string = this.game.professorSatisfaction;
 
         let rank = this.game.worldRankManager.getCurrentRanking(this.game.universityName);
         let total = this.game.worldRankManager.getUniversityCount();
         this.worldRankLabel.string = rank + "/" + total;
+
+        this.statusLabel.string = this.game.gameObjectives[this.game.currentObjective].nameShort;
     },
 });

@@ -6,6 +6,8 @@
 
 童派 1600011606
 
+[![pipeline status](https://se.jisuanke.com/hehao/universitysim/badges/master/pipeline.svg)](https://se.jisuanke.com/hehao/universitysim/commits/master)
+
 ## Development Environment
 
 Cocos Creator 2.1.3
