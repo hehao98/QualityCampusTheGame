@@ -8,6 +8,7 @@ let WorldRankManager = require("WorldRankManager");
 let BuildingManager = require("BuildingManager");
 let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
+let BuildingSpecifications = require("BuildingSpecifications");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -53,6 +54,12 @@ let Game = cc.Class({
 
     onLoad() { // Initialize all game objects from here
         // Initialize Resource System
+        // TODO ES6
+        // for (let i = 0; i < 100; ++i) {
+        //     console.log(BuildingSpecifications.dorm.nameGenerator());
+        //     console.log(BuildingSpecifications.teaching.nameGenerator());
+        //     console.log(BuildingSpecifications.cafeteria.nameGenerator());
+        // }
         this.fund = new Resource({ name: "fund" });
         this.influence = new Resource({ name: "influence" });
         this.fund.value = this.initialData.json.startFund;
