@@ -6,7 +6,10 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
-                fundToCurrentTier: 50 * 10000000,
+                fundToCurrentTier: 5000,
+                description: "",
+                picturePath: "",
+                iconPath: "",
             },
         },
         1: {
@@ -15,7 +18,11 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
-                fundToCurrentTier: 30 * 10000000,
+                fundToCurrentTier: 3000,
+                description: "",
+                picturePath: "",
+                iconPath: "",
+
             },
         },
     },
@@ -26,7 +33,11 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
-                fundToCurrentTier: 50 * 10000000,
+                fundToCurrentTier: 5000,
+                description: "",
+                picturePath: "",
+                iconPath: "",
+
             },
         },
     },
@@ -36,9 +47,27 @@ let BuildingSpecifications = {
                 capacity: 100,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
-                fundToCurrentTier: 50 * 10000000,
+                fundToCurrentTier: 5000,
+                description: "",
+                picturePath: "",
+                iconPath: "",
+
             },
         },
+    },
+    lab: {
+        0: {
+            defaultProperties: {
+                capacity: 100,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                researchIndex: 0.2,
+                description: "",
+                picturePath: "",
+                iconPath: "",
+
+            },
+        }
     }
 };
 
