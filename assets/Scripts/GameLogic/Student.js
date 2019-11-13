@@ -22,13 +22,16 @@ class Student {
         // properties
         this.id = properties.id;
         this.schedule = properties.schedule;
+        this.talent = 0.4;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
                 { studentID: this.id }),
             studySatisfaction: new StudySatisfaction(
                 { studentID: this.id }),
-            studyIndex: new StudyIndex(
-                { studentID: this.id }),
+            studyIndex: new StudyIndex({
+                studentID: this.id,
+                value: this.talent * 0.45
+            }),
         };
         this.where = undefined;
 

@@ -80,10 +80,11 @@ let Game = cc.Class({
         this.scheduleManager = new ScheduleManager({
             buildingManager: this.buildingManager,
         });
-        this.studentManager = new StudentManager({
-            scheduleManager: this.scheduleManager,
-            buildingManager: this.buildingManager,
-        });
+        Globals.studentManager = this.studentManager =
+            new StudentManager({
+                scheduleManager: this.scheduleManager,
+                buildingManager: this.buildingManager,
+            });
         this.studentManager.init(this.difficulty);
         if (utilities.logPermitted("info")) {
             this.buildingManager.debugPrint();

@@ -75,6 +75,14 @@ StudentManager.prototype.init = function (difficulty) {
     }
 };
 
+StudentManager.prototype.getStudentById = function (id) {
+    return _.find(this.students,
+        function (student) {
+            return student.id === id;
+        });
+};
+
+
 /**
  * @param {Number} tick
  */
