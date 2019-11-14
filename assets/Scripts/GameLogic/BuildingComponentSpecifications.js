@@ -71,7 +71,19 @@ let BuildingComponentSpecifications = {
             }
         }
     },
-
+    crowdedByDesign: {
+        0: {
+            defaultProperties: {
+                name: "摩肩接踵",
+                description: "该建筑设计存在缺陷，导致实际容量下降。"+
+                "可能的原因有座椅拥挤，桌面狭小，桌面晃动严重；"+
+                "水房龙头紧贴，水花飞溅；排队空间狭小或与建筑安全出入口重叠。",
+                capacity: -0.3,
+                picturePath: "",
+                iconPath: "",
+            }
+        }
+    },
 };
 
 module.exports = BuildingComponentSpecifications;
