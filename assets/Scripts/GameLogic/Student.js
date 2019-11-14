@@ -22,7 +22,7 @@ class Student {
         // properties
         this.id = properties.id;
         this.schedule = properties.schedule;
-        this.talent = 0.4;
+        this.talent = 0.28;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
                 { studentID: this.id }),
