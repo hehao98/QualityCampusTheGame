@@ -11,6 +11,9 @@ let BuildingComponentSpecifications = {
             },
         },
     },
+    noRepair: {
+
+    }
 };
 
 module.exports = BuildingComponentSpecifications;

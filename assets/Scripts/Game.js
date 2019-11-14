@@ -9,6 +9,8 @@ let BuildingManager = require("BuildingManager");
 let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
+let AdmissionManager = require("AdmissionManager");
+let GlobalSpecifications = require("GlobalSpecifications");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -43,6 +45,7 @@ let Game = cc.Class({
         StudentManager: Object,
         scheduleManager: Object,
         worldRankManager: Object,
+
 
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
@@ -92,7 +95,12 @@ let Game = cc.Class({
                 scheduleManager: this.scheduleManager,
                 buildingManager: this.buildingManager,
             });
-        this.studentManager.init(this.difficulty);
+        Globals.AdmissionManager = this.admissionManager =
+            new AdmissionManager({});
+        this.admissionManager.setTarget(
+            GlobalSpecifications.initialStudentNumber);
+        this.admissionManager.admit();
+
         if (utilities.logPermitted("info")) {
             this.buildingManager.debugPrint();
             this.studentManager.debugPrint();
