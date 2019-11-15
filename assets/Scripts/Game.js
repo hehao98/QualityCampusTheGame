@@ -1,6 +1,7 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
+let assert = require("assert");
 let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let Resource = require("Resource");
@@ -18,7 +19,7 @@ let Game = cc.Class({
     properties: () => ({
         universityName: "",
 
-        // External data 
+        // External data
         initialData: cc.JsonAsset,
         universityData: cc.JsonAsset,
 
@@ -50,12 +51,17 @@ let Game = cc.Class({
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
-        gameObjectivePanel: require("GameObjectivePanel"),
+        gameObjectivePanel: require("GameObjectivePanel")
     }),
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad() { // Initialize all game objects from here
+    onLoad() {
+        // Copy initial data to Globals
+        // Must be done before the initilization of all game objects!
+        Globals.initialData = this.initialData.json;
+
+        // Initialize all game objects from here
         // Initialize Resource System
         // TODO ES6
         // for (let i = 0; i < 100; ++i) {
@@ -66,11 +72,11 @@ let Game = cc.Class({
         this.fund = new Resource({ name: "fund" });
         this.influence = new Resource({ name: "influence" });
         this.fund.value = this.initialData.json.startFund;
-        this.initialData.json.fundModifiers.forEach((modifier) => {
+        this.initialData.json.fundModifiers.forEach(modifier => {
             this.fund.addModifier(modifier);
         });
         this.influence.value = this.initialData.json.startInfluence;
-        this.initialData.json.influenceModifiers.forEach((modifier) => {
+        this.initialData.json.influenceModifiers.forEach(modifier => {
             this.influence.addModifier(modifier);
         });
 
@@ -82,13 +88,9 @@ let Game = cc.Class({
         });
 
         this.buildingManager = new BuildingManager();
-        this.buildingManager.init({
-            difficulty: this.difficulty,
-            fund: this.fund,
-            influence: this.influence,
-        });
+       
         this.scheduleManager = new ScheduleManager({
-            buildingManager: this.buildingManager,
+            buildingManager: this.buildingManager
         });
         Globals.studentManager = this.studentManager =
             new StudentManager({
@@ -115,6 +117,7 @@ let Game = cc.Class({
     start() {
         this.universityName = Globals.universityName;
 
+        // Init game logic
         this.worldRankManager.addPlayerUniversity(
             this.universityName,
             this.teachIndex,
@@ -122,13 +125,23 @@ let Game = cc.Class({
             this.careerIndex
         );
 
+        this.buildingManager.init({
+            difficulty: this.difficulty,
+            fund: this.fund,
+            influence: this.influence,
+        });
+
+        this.studentManager.init(this.difficulty);
+
+        // Init UI
         this.worldRankPanel.updateInfo();
 
         this.refreshUI();
     },
 
-    update(dt) { // dt is in seconds
-        // Manage time 
+    update(dt) {
+        // dt is in seconds
+        // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
@@ -155,14 +168,18 @@ let Game = cc.Class({
                     this.teachIndex += 10;
                     this.researchIndex += 10;
                     this.careerIndex += 10;
-                    this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
-                    this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
+                    this.studentSatisfaction =
+                        (this.studentSatisfaction + 1) % 100;
+                    this.professorSatisfaction =
+                        (this.professorSatisfaction + 1) % 100;
                 }
 
                 // After all game logic HAVE been updated
                 // see whether we can update our game objectives
-                if (this.currentObjective < this.gameObjectives.length) {
-                    let nextObjective = this.gameObjectives[this.currentObjective];
+                if (this.currentObjective + 1 < this.gameObjectives.length) {
+                    let nextObjective = this.gameObjectives[
+                        this.currentObjective
+                    ];
                     let flag = true;
                     Object.keys(nextObjective.thresholds).forEach(key => {
                         if (this[key] < nextObjective.thresholds[key]) {
@@ -196,7 +213,7 @@ let Game = cc.Class({
             this.isPaused = false;
             this.speedModifier = Number.parseFloat(newValue);
         }
-    },
+    }
 });
 
 module.exports = Game;
