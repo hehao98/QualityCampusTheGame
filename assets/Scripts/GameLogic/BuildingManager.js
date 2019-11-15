@@ -106,11 +106,9 @@ BuildingManager.prototype.addComponent = function (properties) {
 BuildingManager.prototype.init = function (properties) {
     this.fund = properties.fund;
     this.influence = properties.influence;
-    this.add({ type: "dorm", freeOfCharge: true, });
-    this.add({ type: "teaching", freeOfCharge: true, });
-    this.add({ type: "teaching", freeOfCharge: true, });
-    this.add({ type: "cafeteria", freeOfCharge: true, });
-
+    for (let buildingProperties of Globals.initialData.buildings) {
+        this.add(buildingProperties);
+    }
 };
 
 /**

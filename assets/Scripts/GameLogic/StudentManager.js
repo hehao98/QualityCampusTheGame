@@ -70,7 +70,7 @@ StudentManager.prototype.reassign = function (properties) {
  * @param {String} difficulty - one of DIFFICULTY_*
  */
 StudentManager.prototype.init = function (difficulty) {
-    for (let i = 0; i < GlobalSpecifications.initialStudentNumber; ++i) {
+    for (let i = 0; i < Globals.initialData.initialStudentNumber; ++i) {
         this.add({});
     }
 };

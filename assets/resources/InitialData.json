@@ -1,4 +1,5 @@
 {
+  "initialStudentNumber": 100,
   "startFund": 500,
   "fundModifiers": [
     {
@@ -25,13 +26,20 @@
   ],
   "buildings": [
     {
-      "type": "teaching"
+      "type": "teaching",
+      "freeOfCharge": true
     },
     {
-      "type": "canteen"
+      "type": "teaching",
+      "freeOfCharge": true
     },
     {
-      "type": "dorm"
+      "type": "cafeteria",
+      "freeOfCharge": true
+    },
+    {
+      "type": "dorm",
+      "freeOfCharge": true
     }
   ],
   "gameObjectives": [
