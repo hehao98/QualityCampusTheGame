@@ -70,10 +70,16 @@ StudentManager.prototype.reassign = function (properties) {
  * @param {String} difficulty - one of DIFFICULTY_*
  */
 StudentManager.prototype.init = function (difficulty) {
-    for (let i = 0; i < GlobalSpecifications.initialStudentNumber; ++i) {
-        this.add({});
-    }
+
 };
+
+StudentManager.prototype.getStudentById = function (id) {
+    return _.find(this.students,
+        function (student) {
+            return student.id === id;
+        });
+};
+
 
 /**
  * @param {Number} tick

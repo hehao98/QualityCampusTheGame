@@ -114,18 +114,6 @@ BuildingManager.prototype.init = function (properties) {
 };
 
 /**
- * @param {Number} tick
- */
-BuildingManager.prototype.update = function (tick) {
-    const inDayTime = tick % Globals.TICKS_DAY;
-    // if (tick % Globals.TICKS_SEMESTER === 0) {
-    // }
-    for (let building of this.buildings) {
-        building.nStudent = building.nStudentAssigned[inDayTime];
-    }
-};
-
-/**
  * @param {String} type
  * @param {Number} time
  */
@@ -133,12 +121,10 @@ BuildingManager.prototype.assignBuilding = function (type, time) {
     // id: assigned/capacity
     let available = {};
     let summedRate = 0.0;
-    utilities.log(type, "info");
     for (let building of this.buildings) {
         if (building.type === type) {
             const rate = (building.capacity + 1) /
                 (building.nStudentAssigned[time] + 1);
-            utilities.log(rate);
             available[building.id] = rate;
             summedRate += rate;
         }
@@ -158,7 +144,7 @@ BuildingManager.prototype.assignBuilding = function (type, time) {
             break;
         }
     }
-    utilities.log("ID: " + choosedID, "info");
+    utilities.log("ID: " + choosedID, "debug");
     // for float error
     if (choosedID === undefined) {
         choosedID = Object.keys(available)[0];
@@ -221,17 +207,19 @@ BuildingManager.prototype.getSatisfaction = function (buildingID, type) {
 
 };
 
+
 /**
  * @param {Number} tick
  */
 BuildingManager.prototype.update = function (tick) {
     const inDayTime = tick % Globals.TICKS_DAY;
-
-    // update student number in buildings
+    // if (tick % Globals.TICKS_SEMESTER === 0) {
+    // }
     for (let building of this.buildings) {
         building.nStudent = building.nStudentAssigned[inDayTime];
     }
 };
+
 
 BuildingManager.prototype.debugPrint = function () {
     utilities.log("[BuildingManager DebugPrint]");
