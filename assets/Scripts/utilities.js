@@ -31,6 +31,22 @@ let utilities = {
             console.log(message);
         }
     },
+
+    /**
+     * Given min and max, return a random integer in [min, max]
+     * @param {Number} min 
+     * @param {Number} max 
+     */
+    randomInt: function(min, max) {
+        assert(Number.isInteger(min) && Number.isInteger(max));
+        if (min > max) {
+            let temp = min;
+            min = max;
+            max = temp;
+        }
+        return Math.round(Math.random() * (max - min) + min);
+    },
+
     /**
      * Given a game tick, return all its related info in an object
      * Return object has the following fields
