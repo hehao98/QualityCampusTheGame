@@ -121,7 +121,7 @@ let Game = cc.Class({
             fund: this.fund,
             influence: this.influence
         });
-        
+
         this.studentManager.init(this.difficulty);
 
         this.admissionManager.setTarget(
@@ -152,29 +152,9 @@ let Game = cc.Class({
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
 
-                // Update corresponding game logic
-                this.fund.updateResource(this.currentTick);
-                this.influence.updateResource(this.currentTick);
-
                 utilities.log(this.currentTick);
-                this.studentManager.update(this.currentTick);
-                this.buildingManager.update(this.currentTick);
-                this.studentManager.updateSatisfaction();
-                this.studentManager.debugPrint();
-                this.buildingManager.debugPrint();
 
-                this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
-                this.studySatisfaction = this.studentManager.getOverallIndex(
-                    "studySatisfaction"
-                );
-                this.relaxationSatisfaction = this.studentManager.getOverallIndex(
-                    "relaxationSatisfaction"
-                );
-
-                if (this.currentTick % Globals.TICKS_WEEK === 0) {
-                    this.worldRankManager.updateRanking();
-                    this.worldRankPanel.updateInfo();
-                }
+                this.updateGameSystem();
 
                 this.updateGameObjective();
 
@@ -184,6 +164,31 @@ let Game = cc.Class({
                 // Finally Update all UIs
                 this.refreshUI();
             }
+        }
+    },
+
+    updateGameSystem() {
+        // Update corresponding game logic
+        this.fund.updateResource(this.currentTick);
+        this.influence.updateResource(this.currentTick);
+            
+        this.studentManager.update(this.currentTick);
+        this.buildingManager.update(this.currentTick);
+        this.studentManager.updateSatisfaction();
+        this.studentManager.debugPrint();
+        this.buildingManager.debugPrint();
+        this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
+        this.studySatisfaction = this.studentManager.getOverallIndex(
+            "studySatisfaction"
+        );
+        this.relaxationSatisfaction = this.studentManager.getOverallIndex(
+            "relaxationSatisfaction"
+        );
+        // Overall satisfaction is the average value of all detailed satisfactions
+        this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        if (this.currentTick % Globals.TICKS_WEEK === 0) {
+            this.worldRankManager.updateRanking();
+            this.worldRankPanel.updateInfo();
         }
     },
 
