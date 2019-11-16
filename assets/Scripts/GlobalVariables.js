@@ -51,4 +51,8 @@ module.exports = {
     AFTERNOON: 2,
     EVENING: 3,
     NIGHT: 4,
+
+    UI: {
+        buildingListPageView: null,
+    }
 };
