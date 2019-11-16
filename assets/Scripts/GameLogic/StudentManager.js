@@ -4,7 +4,7 @@ let _ = require("lodash");
 let Student = require("Student");
 let utilities = require("utilities");
 let Globals = require("GlobalVariables");
-let GlobalSpecifications = require("GlobalSpecifications");
+
 /**
  * constructor. param  
  */
@@ -70,7 +70,9 @@ StudentManager.prototype.reassign = function (properties) {
  * @param {String} difficulty - one of DIFFICULTY_*
  */
 StudentManager.prototype.init = function (difficulty) {
-
+    for (let i = 0; i < Globals.initialData.initialStudentNumber; ++i) {
+        this.add({});
+    }
 };
 
 StudentManager.prototype.getStudentById = function (id) {

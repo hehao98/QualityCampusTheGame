@@ -11,7 +11,6 @@ let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
-let GlobalSpecifications = require("GlobalSpecifications");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -38,6 +37,11 @@ let Game = cc.Class({
         studentSatisfaction: 0,
         professorSatisfaction: 0,
 
+        // Other Properties that will be read by event manager
+        studyIndex: 0,
+        relaxationSatisfaction: 0,
+        studySatisfaction: 0,
+
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
         fund: Object,
@@ -57,8 +61,8 @@ let Game = cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // Copy initial data to Globals
-        // Must be done before the initilization of all game objects!
+    // Copy initial data to Globals
+    // Must be done before the initilization of all game objects!
         Globals.initialData = this.initialData.json;
 
         // Initialize all game objects from here
@@ -88,7 +92,7 @@ let Game = cc.Class({
         });
 
         this.buildingManager = new BuildingManager();
-       
+
         this.scheduleManager = new ScheduleManager({
             buildingManager: this.buildingManager
         });
@@ -99,19 +103,6 @@ let Game = cc.Class({
             });
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
-        this.admissionManager.setTarget(
-            GlobalSpecifications.initialStudentNumber);
-        this.admissionManager.admit();
-
-        if (utilities.logPermitted("info")) {
-            this.buildingManager.debugPrint();
-            this.studentManager.debugPrint();
-        }
-
-        if (Globals.TEST_MODE) {
-            let test = require("testBasic.js");
-            test();
-        }
     },
 
     start() {
@@ -128,74 +119,101 @@ let Game = cc.Class({
         this.buildingManager.init({
             difficulty: this.difficulty,
             fund: this.fund,
-            influence: this.influence,
+            influence: this.influence
         });
 
         this.studentManager.init(this.difficulty);
+
+        this.admissionManager.setTarget(
+            Globals.initialData.initialStudentNumber);
+        this.admissionManager.admit();
 
         // Init UI
         this.worldRankPanel.updateInfo();
 
         this.refreshUI();
+
+        if (utilities.logPermitted("info")) {
+            this.buildingManager.debugPrint();
+            this.studentManager.debugPrint();
+        }
+
+        if (Globals.TEST_MODE) {
+            let test = require("testBasic.js");
+            test();
+        }
     },
 
     update(dt) {
-        // dt is in seconds
-        // Manage time
+    // dt is in seconds
+    // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
 
-                // Update corresponding game logic
-                this.fund.updateResource(this.currentTick);
-                this.influence.updateResource(this.currentTick);
-
                 utilities.log(this.currentTick);
-                this.studentManager.update(this.currentTick);
-                this.buildingManager.update(this.currentTick);
-                this.studentManager.updateSatisfaction();
-                this.studentManager.debugPrint();
-                this.buildingManager.debugPrint();
 
-                if (this.currentTick % Globals.TICKS_WEEK === 0) {
-                    this.worldRankManager.updateRanking();
-                    this.worldRankPanel.updateInfo();
-                }
+                this.updateGameSystem();
 
-                // Just for testing game objectives
-                if (Globals.TEST_MODE) {
-                    this.teachIndex += 10;
-                    this.researchIndex += 10;
-                    this.careerIndex += 10;
-                    this.studentSatisfaction =
-                        (this.studentSatisfaction + 1) % 100;
-                    this.professorSatisfaction =
-                        (this.professorSatisfaction + 1) % 100;
-                }
-
-                // After all game logic HAVE been updated
-                // see whether we can update our game objectives
-                if (this.currentObjective + 1 < this.gameObjectives.length) {
-                    let nextObjective = this.gameObjectives[
-                        this.currentObjective
-                    ];
-                    let flag = true;
-                    Object.keys(nextObjective.thresholds).forEach(key => {
-                        if (this[key] < nextObjective.thresholds[key]) {
-                            flag = false;
-                        }
-                    }, this);
-                    if (flag) {
-                        this.currentObjective++;
-                    }
-                }
+                this.updateGameObjective();
 
                 this.timeString = utilities.getTickString(this.currentTick);
                 this.currentTick++;
 
                 // Finally Update all UIs
                 this.refreshUI();
+            }
+        }
+    },
+
+    updateGameSystem() {
+        // Update corresponding game logic
+        this.fund.updateResource(this.currentTick);
+        this.influence.updateResource(this.currentTick);
+            
+        this.studentManager.update(this.currentTick);
+        this.buildingManager.update(this.currentTick);
+        this.studentManager.updateSatisfaction();
+        this.studentManager.debugPrint();
+        this.buildingManager.debugPrint();
+        this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
+        this.studySatisfaction = this.studentManager.getOverallIndex(
+            "studySatisfaction"
+        );
+        this.relaxationSatisfaction = this.studentManager.getOverallIndex(
+            "relaxationSatisfaction"
+        );
+        // Overall satisfaction is the average value of all detailed satisfactions
+        this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        if (this.currentTick % Globals.TICKS_WEEK === 0) {
+            this.worldRankManager.updateRanking();
+            this.worldRankPanel.updateInfo();
+        }
+    },
+
+    updateGameObjective() {
+        // Just for testing game objectives
+        if (Globals.TEST_MODE) {
+            this.teachIndex += 10;
+            this.researchIndex += 10;
+            this.careerIndex += 10;
+            this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
+            this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
+        }
+
+        // After all game logic HAVE been updated
+        // see whether we can update our game objectives
+        if (this.currentObjective + 1 < this.gameObjectives.length) {
+            let nextObjective = this.gameObjectives[this.currentObjective];
+            let flag = true;
+            Object.keys(nextObjective.thresholds).forEach(key => {
+                if (this[key] < nextObjective.thresholds[key]) {
+                    flag = false;
+                }
+            }, this);
+            if (flag) {
+                this.currentObjective++;
             }
         }
     },
