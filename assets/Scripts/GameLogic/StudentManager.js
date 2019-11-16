@@ -4,7 +4,7 @@ let _ = require("lodash");
 let Student = require("Student");
 let utilities = require("utilities");
 let Globals = require("GlobalVariables");
-let GlobalSpecifications = require("GlobalSpecifications");
+
 /**
  * constructor. param  
  */

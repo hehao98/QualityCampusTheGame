@@ -11,7 +11,6 @@ let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
-let GlobalSpecifications = require("GlobalSpecifications");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -104,19 +103,6 @@ let Game = cc.Class({
             });
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
-        this.admissionManager.setTarget(
-            GlobalSpecifications.initialStudentNumber);
-        this.admissionManager.admit();
-
-        if (utilities.logPermitted("info")) {
-            this.buildingManager.debugPrint();
-            this.studentManager.debugPrint();
-        }
-
-        if (Globals.TEST_MODE) {
-            let test = require("testBasic.js");
-            test();
-        }
     },
 
     start() {
@@ -135,13 +121,27 @@ let Game = cc.Class({
             fund: this.fund,
             influence: this.influence
         });
-
+        
         this.studentManager.init(this.difficulty);
+
+        this.admissionManager.setTarget(
+            Globals.initialData.initialStudentNumber);
+        this.admissionManager.admit();
 
         // Init UI
         this.worldRankPanel.updateInfo();
 
         this.refreshUI();
+
+        if (utilities.logPermitted("info")) {
+            this.buildingManager.debugPrint();
+            this.studentManager.debugPrint();
+        }
+
+        if (Globals.TEST_MODE) {
+            let test = require("testBasic.js");
+            test();
+        }
     },
 
     update(dt) {
