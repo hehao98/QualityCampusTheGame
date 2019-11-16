@@ -29,25 +29,22 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        pageView: {
-            default: null, 
-            type: cc.PageView,
-        }
+        pageView: cc.PageView,
+        button: cc.Button
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        Globals.UI.buildingListPageView = this.pageView;
-    },
+    // onLoad () {},
 
     start () {
-        
+        let that = this;
+        this.pageView = Globals.UI.buildingListPageView;
+        this.button = this.getComponent(cc.Button);
+        this.button.node.on(cc.Node.EventType.TOUCH_END, function (event) {
+            that.pageView.scrollToPage(0, 1);
+        });
     },
 
     // update (dt) {},
-    changeToBuildNewBuildingPage (event, customEventData) {
-        this.pageView.scrollToPage(Number.parseInt(customEventData), 1);
-    },
-    
 });
