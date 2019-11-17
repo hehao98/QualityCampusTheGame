@@ -50,7 +50,7 @@
         "teachIndex": 100,
         "careerIndex": 100,
         "researchIndex": 100,
-        "studentSatisfaction": 60,
+        "studentSatisfaction": 0.6,
         "professorSatisfaction": 60
       }
     },
@@ -61,7 +61,7 @@
         "teachIndex": 500,
         "careerIndex": 500,
         "researchIndex": 500,
-        "studentSatisfaction": 60,
+        "studentSatisfaction": 0.6,
         "professorSatisfaction": 60
       }
     },
@@ -72,7 +72,7 @@
         "teachIndex": 1000,
         "careerIndex": 1000,
         "researchIndex": 1000,
-        "studentSatisfaction": 70,
+        "studentSatisfaction": 0.7,
         "professorSatisfaction": 70
       }
     },
@@ -83,7 +83,7 @@
         "teachIndex": 2000,
         "careerIndex": 2000,
         "researchIndex": 2000,
-        "studentSatisfaction": 70,
+        "studentSatisfaction": 0.7,
         "professorSatisfaction": 70
       }
     },
@@ -94,7 +94,7 @@
         "teachIndex": 10000,
         "careerIndex": 10000,
         "researchIndex": 10000,
-        "studentSatisfaction": 80,
+        "studentSatisfaction": 0.8,
         "professorSatisfaction": 80
       }
     }

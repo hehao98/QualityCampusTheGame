@@ -11,6 +11,7 @@ let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
+let PkuHoleManager = require("PkuHoleManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -47,23 +48,28 @@ let Game = cc.Class({
         fund: Object,
         influence: Object,
         buildingManager: Object,
-        StudentManager: Object,
+        studentManager: Object,
         scheduleManager: Object,
         worldRankManager: Object,
-
+        pkuHoleManager: Object,
 
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
         gameObjectivePanel: require("GameObjectivePanel"),
-        buildingPage: require("BuildingPage")
+        buildingPage: require("BuildingPage"),
+        pkuHolePanel: require("PkuHolePanel")
     }),
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-    // Copy initial data to Globals
-    // Must be done before the initilization of all game objects!
+        // Set game reference in window
+        // so that it can be accessed in Chrome console for debugging
+        window.game = this;
+
+        // Copy initial data to Globals
+        // Must be done before the initilization of all game objects!
         Globals.initialData = this.initialData.json;
 
         // Initialize all game objects from here
@@ -105,6 +111,8 @@ let Game = cc.Class({
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
 
+        this.pkuHoleManager = new PkuHoleManager({ game: this });
+
         this.universityName = Globals.universityName;
         // Init game logic
         this.worldRankManager.addPlayerUniversity(
@@ -125,12 +133,15 @@ let Game = cc.Class({
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
+        this.pkuHoleManager.init();
     },
 
     start() {
         // Init UI
         this.worldRankPanel.updateInfo();
+        
 
+        // Init UI
         this.refreshUI();
 
         if (utilities.logPermitted("info")) {
@@ -138,10 +149,10 @@ let Game = cc.Class({
             this.studentManager.debugPrint();
         }
 
-        if (Globals.TEST_MODE) {
-            let test = require("testBasic.js");
-            test();
-        }
+        //if (Globals.TEST_MODE) {
+        //    let test = require("testBasic.js");
+        //    test();
+        //}
     },
 
     update(dt) {
@@ -186,22 +197,13 @@ let Game = cc.Class({
         );
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        this.pkuHoleManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
-            this.worldRankPanel.updateInfo();
         }
     },
 
     updateGameObjective() {
-        // Just for testing game objectives
-        if (Globals.TEST_MODE) {
-            this.teachIndex += 10;
-            this.researchIndex += 10;
-            this.careerIndex += 10;
-            this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
-            this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
-        }
-
         // After all game logic HAVE been updated
         // see whether we can update our game objectives
         if (this.currentObjective + 1 < this.gameObjectives.length) {
@@ -219,9 +221,23 @@ let Game = cc.Class({
     },
 
     refreshUI() {
-        this.resourcePanel.updatePanel();
-        this.gameObjectivePanel.updatePanel();
-        this.buildingPage.updateBuildingListInfo();
+        if (Globals.TEST_MODE) {
+            // In test mode, some of the UI parts might not exist
+            if (this.resourcePanel) this.resourcePanel.updatePanel();
+            if (this.gameObjectivePanel) this.gameObjectivePanel.updatePanel();
+            if (this.pkuHolePanel) this.pkuHolePanel.updatePanel();
+            if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                if (this.worldRankPanel) this.worldRankPanel.updateInfo();
+            }
+        } else {
+            this.resourcePanel.updatePanel();
+            this.gameObjectivePanel.updatePanel();
+            this.pkuHolePanel.updatePanel();
+            this.buildingPage.updateBuildingListInfo();
+            if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                this.worldRankPanel.updateInfo();
+            }
+        }
     },
 
     // callback for buttons that control time elapse
