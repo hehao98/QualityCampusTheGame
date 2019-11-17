@@ -28,7 +28,7 @@ class BuildingManager {
  * 
  * @param {Object} properties.type - The type of the building 
  * @param {Boolean} properties.freeOfCharge - 
- *  add building free of charge
+ *  add building free of charge and time
  * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.add = function (properties) {
@@ -42,6 +42,10 @@ BuildingManager.prototype.add = function (properties) {
     let revised = _.cloneDeep(properties);
     revised["id"] = this.nextBuildingID++;
     let building = new Building(revised);
+    building.buildingStartTime = Globals.tick;
+    building.buildingEndTime = properties.freeOfCharge ? 0 :
+        Globals.tick + BuildingSpecifications[
+            properties.type][0].buildTime;
     this.buildings.push(building);
     return true;
 };
@@ -70,7 +74,12 @@ BuildingManager.prototype.upgrade = function (properties) {
         if (!success) return false;
     }
     else {
-        return target.upgrade();
+        target.upgradingStartTime = Globals.tick;
+        target.upgradingEndTime = properties.freeOfCharge ? 0 :
+            Globals.tick + BuildingSpecifications[
+                properties.type][newTier].buildTime;
+        target.tier++;
+        target.loadSpecifications();
     }
 };
 
@@ -120,7 +129,8 @@ BuildingManager.prototype.assignBuilding = function (type, time) {
     let available = {};
     let summedRate = 0.0;
     for (let building of this.buildings) {
-        if (building.type === type) {
+        if (building.type === type &&
+            Globals.tick >= building.buildingEndTime) {
             const rate = (building.capacity + 1) /
                 (building.nStudentAssigned[time] + 1);
             available[building.id] = rate;
@@ -220,7 +230,7 @@ BuildingManager.prototype.update = function (tick) {
 
 BuildingManager.prototype.getBuildingLists = function () {
     return this.buildings;
-}
+};
 
 
 BuildingManager.prototype.debugPrint = function () {
