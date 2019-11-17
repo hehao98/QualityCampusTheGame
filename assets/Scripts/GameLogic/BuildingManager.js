@@ -74,7 +74,12 @@ BuildingManager.prototype.upgrade = function (properties) {
         if (!success) return false;
     }
     else {
-        return target.upgrade();
+        target.upgradingStartTime = Globals.tick;
+        target.upgradingEndTime = properties.freeOfCharge ? 0 :
+            Globals.tick + BuildingSpecifications[
+                properties.type][newTier].buildTime;
+        target.tier++;
+        target.loadSpecifications();
     }
 };
 

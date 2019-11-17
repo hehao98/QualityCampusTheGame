@@ -1,6 +1,6 @@
 const regeneratorRuntime = require("regenerator-runtime/runtime");
 const utilities = require("utilities");
-const Globals = require("GlobalVariables")
+const Globals = require("GlobalVariables");
 
 let BuildingSpecifications = {
     dorm: {
@@ -27,8 +27,8 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-                buildTime: Globals.TICKS_SEMESTER,
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
         nameGenerator: function* () {
             let id = 28;

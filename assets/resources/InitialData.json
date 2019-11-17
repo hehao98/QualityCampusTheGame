@@ -1,5 +1,5 @@
 {
-  "initialStudentNumber": 200,
+  "initialStudentNumber": 100,
   "startFund": 500,
   "fundModifiers": [
     {
