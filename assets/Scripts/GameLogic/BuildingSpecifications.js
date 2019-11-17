@@ -1,5 +1,6 @@
 const regeneratorRuntime = require("regenerator-runtime/runtime");
 const utilities = require("utilities");
+const Globals = require("GlobalVariables")
 
 let BuildingSpecifications = {
     dorm: {
@@ -14,6 +15,7 @@ let BuildingSpecifications = {
                 picturePath: "",
                 iconPath: "",
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
         1: {
             defaultProperties: {
@@ -25,7 +27,7 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
+                buildTime: Globals.TICKS_SEMESTER,
             },
         },
         nameGenerator: function* () {
@@ -49,8 +51,8 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
         nameGenerator: function* () {
             yield "理科教学楼";
@@ -72,8 +74,8 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
         nameGenerator: function* () {
             yield "勺园食堂";
@@ -95,8 +97,8 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         }
     }
 };

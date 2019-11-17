@@ -53,7 +53,8 @@ Building.prototype.debugPrint = function () {
     utilities.log(`[${this.id}] ` +
         `${this.type} Lv.${this.tier} ` +
         `[${this.components.length} components]` +
-        `${JSON.stringify(this.nStudentAssigned)}`);
+        `${JSON.stringify(this.nStudentAssigned)} ` +
+        this.buildingEndTime);
     for (let component of this.components) {
         component.debugPrint({ indent: 4 });
     }

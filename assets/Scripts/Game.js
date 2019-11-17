@@ -169,7 +169,7 @@ let Game = cc.Class({
                 this.updateGameObjective();
 
                 this.timeString = utilities.getTickString(this.currentTick);
-                Globals.tick = this.currentTick++;
+                Globals.tick = ++this.currentTick;
 
                 // Finally Update all UIs
                 this.refreshUI();
