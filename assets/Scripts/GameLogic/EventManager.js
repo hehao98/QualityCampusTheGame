@@ -25,8 +25,8 @@ class EventManager {
  * This function should be called in Game.js start() function
  */
 EventManager.prototype.init = function() {
-    for (let type in this.specifications) {
-        let event = this.specifications[type];
+    for (let type in this.specs) {
+        let event = this.specs[type];
         event.nextTriggerTick = Utilities.randomInt(event.minCoolTick, event.maxCoolTick);
     }
 };
@@ -75,14 +75,16 @@ EventManager.prototype.update = function(tick) {
 };
 
 /**
- * 
+ * TODO: integrate this with real button call backs
  */
 EventManager.prototype.buttonCallback = function(eventId, actionId) {
     this.resolveEvent(eventId, actionId);
 };
 
 /**
- * 
+ * resolve the event either automatically or by user choice
+ * @param {Number} eventId array index in this.currentEvents
+ * @param {Number} actionId array index in event.action
  */
 EventManager.prototype.resolveEvent = function(eventId, actionId) {
     let index = this.currentEvents.findIndex(e => e.id === eventId);
