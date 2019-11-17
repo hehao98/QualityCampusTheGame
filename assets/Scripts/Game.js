@@ -57,8 +57,8 @@ let Game = cc.Class({
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
         gameObjectivePanel: require("GameObjectivePanel"),
+        buildingPage: require("BuildingPage"),
         pkuHolePanel: require("PkuHolePanel")
-
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -112,11 +112,8 @@ let Game = cc.Class({
             new AdmissionManager({});
 
         this.pkuHoleManager = new PkuHoleManager({ game: this });
-    },
 
-    start() {
         this.universityName = Globals.universityName;
-
         // Init game logic
         this.worldRankManager.addPlayerUniversity(
             this.universityName,
@@ -136,8 +133,13 @@ let Game = cc.Class({
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
-
         this.pkuHoleManager.init();
+    },
+
+    start() {
+        // Init UI
+        this.worldRankPanel.updateInfo();
+        
 
         // Init UI
         this.refreshUI();
@@ -231,6 +233,7 @@ let Game = cc.Class({
             this.resourcePanel.updatePanel();
             this.gameObjectivePanel.updatePanel();
             this.pkuHolePanel.updatePanel();
+            this.buildingPage.updateBuildingListInfo();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }

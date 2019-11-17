@@ -164,6 +164,61 @@ let utilities = {
                 }
                 return m;
             });
+    },
+
+    /**
+     *   数字转罗马数字
+     *   author: https://www.cnblogs.com/alicell/p/9179246.html
+     *   @param {Number} 形如123的数字
+     *   @returns {String} 返回转换成的罗马数字的字符串     
+     */
+    numberToRoman: function (num) {
+        let newArr = [];
+        let newStr;
+        //先把数字转化为相应的罗马字母
+        while(num > 0) {
+            if(num - 1000 >= 0) {
+                newArr.push('M');
+                num -= 1000;
+            } else if (num - 500 >= 0) {
+                newArr.push('D');
+                num -= 500;
+            } else if (num - 100 >= 0) {
+                newArr.push('C');
+                num -= 100;
+            } else if (num - 50 >= 0) {
+                newArr.push('L');
+                num -= 50;
+            } else if(num - 10 >= 0) {
+                newArr.push('X');
+                num -= 10;
+            } else if(num - 5 >= 0) {
+                newArr.push('V');
+                num -= 5;
+            } else if(num - 1 >= 0) {
+                newArr.push('I');
+                num -= 1;
+            }
+        }
+        newStr = newArr.join('');
+        //将4和9的情况进行替换
+        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function(match) {
+            switch(match) {
+                case 'VIIII':
+                    return "IX";
+                case 'LXXXX':
+                    return "XC";
+                case 'DCCCC':
+                    return "CM";
+                case 'IIII':
+                    return "IV";
+                case 'XXXX':
+                    return "XL";
+                case 'CCCC':
+                    return "CD";  
+            }
+        });
+        return newStr;
     }
 };
 
