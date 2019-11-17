@@ -29,4 +29,13 @@ describe("Utilities", function() {
     it("should convert number to chinese", function() {
         assert.strictEqual(Utilities.numberToChinese(123), "一百二十三");
     });
+
+    it("should convert number to Roman number", function() {
+        assert.strictEqual(Utilities.numberToRoman(1), "I");
+        assert.strictEqual(Utilities.numberToRoman(2), "II");
+        assert.strictEqual(Utilities.numberToRoman(3), "III");
+        assert.strictEqual(Utilities.numberToRoman(4), "IV");
+        assert.strictEqual(Utilities.numberToRoman(5), "V");
+        assert.strictEqual(Utilities.numberToRoman(83), "LXXXIII");
+    })
 });
