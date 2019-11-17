@@ -1,5 +1,4 @@
 const regeneratorRuntime = require("regenerator-runtime/runtime");
-window.regeneratorRuntime = regeneratorRuntime;
 const utilities = require("utilities");
 
 let BuildingSpecifications = {
