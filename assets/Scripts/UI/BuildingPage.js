@@ -12,6 +12,7 @@ let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let BuildingItem = require("BuildingItem");
 let BuildingSpecifications = require("BuildingSpecifications");
+let BuildingIconsDict = new Array();
 
 cc.Class({
     extends: cc.Component,
@@ -51,6 +52,19 @@ cc.Class({
     },
 
     start () {
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        for (let i = 0; i < buildingTypeArr.length; ++i) {
+            let iconUrl = "Icons/" + buildingTypeArr[i];
+            let that = this;
+            cc.loader.loadRes(iconUrl, cc.SpriteFrame, function (err, spriteFrame) {
+                BuildingIconsDict[buildingTypeArr[i]] = spriteFrame;
+                let buildingLists = that.game.buildingManager.getBuildingLists();
+                let buildingListSize = buildingLists.length;
+                if (buildingListSize > 0) {
+                    that.showSelectedBuildingInfo(0);
+                }
+            });
+        }
         this.updateBuildingListInfo();
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let buildingListSize = buildingLists.length;
@@ -69,6 +83,9 @@ cc.Class({
             let buildingItem = node.getComponent(BuildingItem);
             buildingItem.id = building.id;
             buildingItem.buildingPage = this;
+
+            let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
+            buildingSprite.spriteFrame = BuildingIconsDict[building.type];
             let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
             buildingName.string = building.type;
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
@@ -81,6 +98,10 @@ cc.Class({
         let node = this.buildingInfoPage;
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
+        let buildingSprite = node.getChildByName("BuildingIconSprite").getComponent(cc.Sprite);
+        console.log("showSelectedBuildingInfo");
+        console.log(building.type);
+        buildingSprite.spriteFrame = BuildingIconsDict[building.type];
         let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
         buildingName.string = building.type;
         let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
@@ -103,6 +124,8 @@ cc.Class({
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
             let node = cc.instantiate(this.specificationPrefab);
+            let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
+            buildingSprite.spriteFrame = BuildingIconsDict[buildingTypeArr[i]];
             let buildingName = node.getChildByName("BuildingNameLabel").getComponent(cc.Label);
             buildingName.string = buildingTypeArr[i];
             let resourceInfoNode = node.getChildByName("ResourceInfo");

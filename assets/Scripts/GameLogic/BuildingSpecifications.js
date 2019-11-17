@@ -94,6 +94,7 @@ let BuildingSpecifications = {
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
                 researchIndex: 0.2,
+                fundToCurrentTier: 7000,
                 description: "",
                 picturePath: "",
                 iconPath: "",
