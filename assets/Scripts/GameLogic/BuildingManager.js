@@ -225,6 +225,7 @@ BuildingManager.prototype.getBuildingLists = function () {
 
 BuildingManager.prototype.debugPrint = function () {
     utilities.log("[BuildingManager DebugPrint]");
+    console.log(Globals.tick);
     utilities.log("building number: " + this.buildings.length);
     for (let building of this.buildings) {
         building.debugPrint();

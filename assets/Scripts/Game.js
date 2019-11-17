@@ -12,6 +12,9 @@ let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
 let PkuHoleManager = require("PkuHoleManager");
+const regeneratorRuntime = require("regenerator-runtime/runtime");
+window.regeneratorRuntime = regeneratorRuntime;
+
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -75,11 +78,7 @@ let Game = cc.Class({
         // Initialize all game objects from here
         // Initialize Resource System
         // TODO ES6
-        // for (let i = 0; i < 100; ++i) {
-        //     console.log(BuildingSpecifications.dorm.nameGenerator());
-        //     console.log(BuildingSpecifications.teaching.nameGenerator());
-        //     console.log(BuildingSpecifications.cafeteria.nameGenerator());
-        // }
+        Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
         this.influence = new Resource({ name: "influence" });
         this.fund.value = this.initialData.json.startFund;
@@ -170,7 +169,7 @@ let Game = cc.Class({
                 this.updateGameObjective();
 
                 this.timeString = utilities.getTickString(this.currentTick);
-                this.currentTick++;
+                Globals.tick = this.currentTick++;
 
                 // Finally Update all UIs
                 this.refreshUI();
