@@ -45,7 +45,7 @@ cc.Class({
             let current = this.game[x[1]];
             let target = this.game.gameObjectives[this.game.currentObjective]
                 .thresholds[x[1]];
-            this.labels[x[0]].string = current + "/" + target;
+            this.labels[x[0]].string = current.toFixed(2) + "/" + target;
             this.bars[x[0]].progress = current / target;
         });
     }
