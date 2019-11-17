@@ -15,7 +15,7 @@
     "regenerator-runtime": "^0.13.3"
   },
   "scripts": {
-    "lint": "eslint assets/ --fix",
+    "lint": "eslint assets/ --fix && eslint test/ --fix",
     "test": "cross-env NODE_ENV=production NODE_PATH=./:./assets/Scripts:./assets/Scripts/GameLogic mocha"
   },
   "repository": {
