@@ -11,6 +11,7 @@
 let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let BuildingItem = require("BuildingItem");
+let BuildingSpecifications = require("BuildingSpecifications");
 
 cc.Class({
     extends: cc.Component,
@@ -39,6 +40,8 @@ cc.Class({
         contentPanel: cc.Node,
         itemPrefab: cc.Prefab,
         buildingInfoPage: cc.Node,
+        specificationPrefab: cc.Prefab,
+        layoutPanel: cc.Node,
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -91,6 +94,24 @@ cc.Class({
     // update (dt) {},
     changeToBuildNewBuildingPage (event, customEventData) {
         this.pageView.scrollToPage(Number.parseInt(customEventData), 1);
+        this.showBuildNewBuildingPage();
     },
+
+    showBuildNewBuildingPage () {
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        this.layoutPanel.removeAllChildren();
+        for (let i = 0; i < buildingTypeArr.length; ++i) {
+            let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
+            let node = cc.instantiate(this.specificationPrefab);
+            let buildingName = node.getChildByName("BuildingNameLabel").getComponent(cc.Label);
+            buildingName.string = buildingTypeArr[i];
+            let resourceInfoNode = node.getChildByName("ResourceInfo");
+            let buildingFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
+            buildingFund.string = buildingProperties["fundToCurrentTier"];
+            let buildingCapacity = resourceInfoNode.getChildByName("InfluenceLabel").getComponent(cc.Label);
+            buildingCapacity.string = buildingProperties["capacity"];
+            this.layoutPanel.addChild(node);
+        }
+    }
     
 });
