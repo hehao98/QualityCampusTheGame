@@ -220,7 +220,7 @@ BuildingManager.prototype.update = function (tick) {
 
 BuildingManager.prototype.getBuildingLists = function () {
     return this.buildings;
-}
+};
 
 
 BuildingManager.prototype.debugPrint = function () {

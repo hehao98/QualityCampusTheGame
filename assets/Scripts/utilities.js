@@ -178,44 +178,44 @@ let utilities = {
         //先把数字转化为相应的罗马字母
         while(num > 0) {
             if(num - 1000 >= 0) {
-                newArr.push('M');
+                newArr.push("M");
                 num -= 1000;
             } else if (num - 500 >= 0) {
-                newArr.push('D');
+                newArr.push("D");
                 num -= 500;
             } else if (num - 100 >= 0) {
-                newArr.push('C');
+                newArr.push("C");
                 num -= 100;
             } else if (num - 50 >= 0) {
-                newArr.push('L');
+                newArr.push("L");
                 num -= 50;
             } else if(num - 10 >= 0) {
-                newArr.push('X');
+                newArr.push("X");
                 num -= 10;
             } else if(num - 5 >= 0) {
-                newArr.push('V');
+                newArr.push("V");
                 num -= 5;
             } else if(num - 1 >= 0) {
-                newArr.push('I');
+                newArr.push("I");
                 num -= 1;
             }
         }
-        newStr = newArr.join('');
+        newStr = newArr.join("");
         //将4和9的情况进行替换
         newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function(match) {
             switch(match) {
-                case 'VIIII':
-                    return "IX";
-                case 'LXXXX':
-                    return "XC";
-                case 'DCCCC':
-                    return "CM";
-                case 'IIII':
-                    return "IV";
-                case 'XXXX':
-                    return "XL";
-                case 'CCCC':
-                    return "CD";  
+            case "VIIII":
+                return "IX";
+            case "LXXXX":
+                return "XC";
+            case "DCCCC":
+                return "CM";
+            case "IIII":
+                return "IV";
+            case "XXXX":
+                return "XL";
+            case "CCCC":
+                return "CD";  
             }
         });
         return newStr;
