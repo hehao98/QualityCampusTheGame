@@ -1,3 +1,7 @@
+const regeneratorRuntime = require("regenerator-runtime/runtime");
+const utilities = require("utilities");
+const Globals = require("GlobalVariables");
+
 let BuildingSpecifications = {
     dorm: {
         0: {
@@ -11,6 +15,7 @@ let BuildingSpecifications = {
                 picturePath: "",
                 iconPath: "",
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
         1: {
             defaultProperties: {
@@ -22,16 +27,17 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
-            // nameGenerator: function* () {
-            //     let id = 28;
-            //     while (true) {
-            //         yield utilities.numberToChinese(
-            //             i++) + "号楼";
-            //     }
-            // },
+            buildTime: Globals.TICKS_SEMESTER,
         },
+        nameGenerator: function* () {
+            let id = 28;
+            while (true) {
+                yield utilities.numberToChinese(
+                    id++) + "号楼";
+            }
+        },
+
 
     },
     teaching: {
@@ -45,18 +51,18 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
-        // nameGenerator: function* () {
-        //     yield "理科教学楼";
-        //     yield "文史楼";
-        //     let id = 1;
-        //     while (true) {
-        //         yield "第" + utilities.numberToChinese(
-        //             i++) + "教学楼";
-        //     }
-        // },
+        nameGenerator: function* () {
+            yield "理科教学楼";
+            yield "文史楼";
+            let id = 1;
+            while (true) {
+                yield "第" + utilities.numberToChinese(
+                    id++) + "教学楼";
+            }
+        },
     },
     cafeteria: {
         0: {
@@ -68,18 +74,18 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         },
-        // nameGenerator: function* () {
-        //     yield "勺园食堂";
-        //     yield "燕南食堂";
-        //     let id = 1;
-        //     while (true) {
-        //         yield "学" + utilities.numberToChinese(
-        //             i++) + "食堂";
-        //     }
-        // },
+        nameGenerator: function* () {
+            yield "勺园食堂";
+            yield "燕南食堂";
+            let id = 1;
+            while (true) {
+                yield "学" + utilities.numberToChinese(
+                    id++) + "食堂";
+            }
+        },
     },
     lab: {
         0: {
@@ -91,8 +97,8 @@ let BuildingSpecifications = {
                 description: "",
                 picturePath: "",
                 iconPath: "",
-
             },
+            buildTime: Globals.TICKS_SEMESTER,
         }
     }
 };

@@ -13,26 +13,12 @@ let Globals = require("GlobalVariables");
 cc.Class({
     extends: cc.Component,
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+    properties: () => ({
         pageView: cc.PageView,
-        button: cc.Button
-    },
-
+        button: cc.Button,
+        id: 0,
+        buildingPage: require("BuildingPage"),
+    }),
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
@@ -43,6 +29,7 @@ cc.Class({
         this.button = this.getComponent(cc.Button);
         this.button.node.on(cc.Node.EventType.TOUCH_END, function (event) {
             that.pageView.scrollToPage(0, 1);
+            that.buildingPage.showSelectedBuildingInfo(that.id);
         });
     },
 

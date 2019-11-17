@@ -70,9 +70,7 @@ StudentManager.prototype.reassign = function (properties) {
  * @param {String} difficulty - one of DIFFICULTY_*
  */
 StudentManager.prototype.init = function (difficulty) {
-    for (let i = 0; i < Globals.initialData.initialStudentNumber; ++i) {
-        this.add({});
-    }
+
 };
 
 StudentManager.prototype.getStudentById = function (id) {
@@ -125,7 +123,7 @@ StudentManager.prototype.getOverallIndex = function (type) {
     let cnt = 0;
     for (let student of this.students) {
         cnt++;
-        sum += student.indexes[type].value;
+        sum += student.getIndex(type);
     }
     return sum / cnt;
 };
@@ -141,6 +139,7 @@ StudentManager.prototype.debugPrint = function () {
     utilities.log(this.getOverallIndex(
         "relaxationSatisfaction") + " " +
         this.getOverallIndex("studySatisfaction") +
+        " " + this.getOverallIndex("livingConditionSatisfaction") +
         " " + this.getOverallIndex("studyIndex"));
     console.log("------------------------------------------------------");
 };
