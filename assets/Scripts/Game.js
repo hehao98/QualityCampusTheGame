@@ -55,7 +55,8 @@ let Game = cc.Class({
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
-        gameObjectivePanel: require("GameObjectivePanel")
+        gameObjectivePanel: require("GameObjectivePanel"),
+        buildingPage: require("BuildingPage")
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -103,11 +104,8 @@ let Game = cc.Class({
             });
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
-    },
 
-    start() {
         this.universityName = Globals.universityName;
-
         // Init game logic
         this.worldRankManager.addPlayerUniversity(
             this.universityName,
@@ -127,7 +125,9 @@ let Game = cc.Class({
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
+    },
 
+    start() {
         // Init UI
         this.worldRankPanel.updateInfo();
 
@@ -221,6 +221,7 @@ let Game = cc.Class({
     refreshUI() {
         this.resourcePanel.updatePanel();
         this.gameObjectivePanel.updatePanel();
+        this.buildingPage.updateBuildingListInfo();
     },
 
     // callback for buttons that control time elapse
