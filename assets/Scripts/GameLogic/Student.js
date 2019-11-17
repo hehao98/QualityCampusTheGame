@@ -65,13 +65,11 @@ Student.prototype.getIndex = function (name) {
         return this.indexes[name].value;
     }
     switch (name) {
-        case "livingConditionSatisfaction":
-            return _.meanBy(["relaxationSatisfaction"],
-                (type) => this.indexes[type].value);
-            ;
-            break;
-        default:
-            throw new ValueError("Unknown index: " + name);
+    case "livingConditionSatisfaction":
+        return _.meanBy(["relaxationSatisfaction"],
+            (type) => this.indexes[type].value);
+    default:
+        throw new Error("Unknown index: " + name);
     }
 };
 
