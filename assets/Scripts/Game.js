@@ -129,8 +129,6 @@ let Game = cc.Class({
         this.admissionManager.admit();
 
         // Init UI
-        this.worldRankPanel.updateInfo();
-
         this.refreshUI();
 
         if (utilities.logPermitted("info")) {
@@ -138,10 +136,10 @@ let Game = cc.Class({
             this.studentManager.debugPrint();
         }
 
-        if (Globals.TEST_MODE) {
-            let test = require("testBasic.js");
-            test();
-        }
+        //if (Globals.TEST_MODE) {
+        //    let test = require("testBasic.js");
+        //    test();
+        //}
     },
 
     update(dt) {
@@ -188,20 +186,10 @@ let Game = cc.Class({
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
-            this.worldRankPanel.updateInfo();
         }
     },
 
     updateGameObjective() {
-        // Just for testing game objectives
-        if (Globals.TEST_MODE) {
-            this.teachIndex += 10;
-            this.researchIndex += 10;
-            this.careerIndex += 10;
-            this.studentSatisfaction = (this.studentSatisfaction + 1) % 100;
-            this.professorSatisfaction = (this.professorSatisfaction + 1) % 100;
-        }
-
         // After all game logic HAVE been updated
         // see whether we can update our game objectives
         if (this.currentObjective + 1 < this.gameObjectives.length) {
@@ -219,8 +207,20 @@ let Game = cc.Class({
     },
 
     refreshUI() {
-        this.resourcePanel.updatePanel();
-        this.gameObjectivePanel.updatePanel();
+        if (Globals.TEST_MODE) {
+            // In test mode, some of the UI parts might not exist
+            if (this.resourcePanel) this.resourcePanel.updatePanel();
+            if (this.gameObjectivePanel) this.gameObjectivePanel.updatePanel();
+            if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                if (this.worldRankPanel) this.worldRankPanel.updateInfo();
+            }
+        } else {
+            this.resourcePanel.updatePanel();
+            this.gameObjectivePanel.updatePanel();
+            if (this.currentTick % Globals.TICKS_WEEK === 0) {
+                this.worldRankPanel.updateInfo();
+            }
+        }
     },
 
     // callback for buttons that control time elapse

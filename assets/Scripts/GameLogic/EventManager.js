@@ -7,15 +7,9 @@ let EventSpecification = require("EventSpecification");
 class EventManager {
     /**
      * @param {Game} properties.game
-     * @param {BuildingManager} properties.buildingManager
-     * @param {StudentManager} properties.studentManager
      */
     constructor(properties) {
         this.game = properties.game;
-        this.buildingManager = properties.buildingManager;
-        this.studentManager = properties.studentManager;
-        this.holePosts = [];
-        this.bbsTopics = [];
         // constructor left-overs
     }
 }
