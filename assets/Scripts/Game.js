@@ -11,6 +11,7 @@ let StudentManager = require("StudentManager");
 let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
+let PkuHoleManager = require("PkuHoleManager");
 
 let Game = cc.Class({
     extends: cc.Component,
@@ -47,22 +48,28 @@ let Game = cc.Class({
         fund: Object,
         influence: Object,
         buildingManager: Object,
-        StudentManager: Object,
+        studentManager: Object,
         scheduleManager: Object,
         worldRankManager: Object,
-
+        pkuHoleManager: Object,
 
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
-        gameObjectivePanel: require("GameObjectivePanel")
+        gameObjectivePanel: require("GameObjectivePanel"),
+        pkuHolePanel: require("PkuHolePanel")
+
     }),
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-    // Copy initial data to Globals
-    // Must be done before the initilization of all game objects!
+        // Set game reference in window
+        // so that it can be accessed in Chrome console for debugging
+        window.game = this;
+
+        // Copy initial data to Globals
+        // Must be done before the initilization of all game objects!
         Globals.initialData = this.initialData.json;
 
         // Initialize all game objects from here
@@ -103,6 +110,8 @@ let Game = cc.Class({
             });
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
+
+        this.pkuHoleManager = new PkuHoleManager({ game: this });
     },
 
     start() {
@@ -127,6 +136,8 @@ let Game = cc.Class({
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
+
+        this.pkuHoleManager.init();
 
         // Init UI
         this.refreshUI();
@@ -184,6 +195,7 @@ let Game = cc.Class({
         );
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        this.pkuHoleManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
         }
@@ -211,12 +223,14 @@ let Game = cc.Class({
             // In test mode, some of the UI parts might not exist
             if (this.resourcePanel) this.resourcePanel.updatePanel();
             if (this.gameObjectivePanel) this.gameObjectivePanel.updatePanel();
+            if (this.pkuHolePanel) this.pkuHolePanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
         } else {
             this.resourcePanel.updatePanel();
             this.gameObjectivePanel.updatePanel();
+            this.pkuHolePanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }

@@ -16,6 +16,7 @@ cc.Class({
 
     start() {
         this.currentTick = this.game.currentTick;
+        this.game.speedModifier = 0.1;
     },
 
     update() {
@@ -23,11 +24,6 @@ cc.Class({
             if (this.game.currentTick === this.currentTick) {
                 return;
             } 
-            this.game.teachIndex += 10;
-            this.game.researchIndex += 10;
-            this.game.careerIndex += 10;
-            //this.game.studentSatisfaction = this.game.studentSatisfaction + 0.1;
-            this.game.professorSatisfaction = (this.game.professorSatisfaction + 10) % 100;
             this.currentTick = this.game.currentTick;
         }
     },
