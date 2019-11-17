@@ -4,13 +4,14 @@
   "description": "The University Campus Simulation Game",
   "main": "index.js",
   "dependencies": {
-    "eslint": "^6.5.1"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "husky": "^3.0.9",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "eslint": "^6.5.1"
   },
   "scripts": {
     "lint": "eslint assets/ --fix",
