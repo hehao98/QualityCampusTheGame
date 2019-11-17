@@ -99,8 +99,6 @@ cc.Class({
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
         let buildingSprite = node.getChildByName("BuildingIconSprite").getComponent(cc.Sprite);
-        console.log("showSelectedBuildingInfo");
-        console.log(building.type);
         buildingSprite.spriteFrame = BuildingIconsDict[building.type];
         let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
         buildingName.string = building.type;
