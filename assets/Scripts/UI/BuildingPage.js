@@ -14,6 +14,7 @@ let BuildingItem = require("BuildingItem");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingIconsDict = new Array();
 let BuildingPicturesDict = new Array();
+let selectedBuildingId = 0;
 
 cc.Class({
     extends: cc.Component,
@@ -110,6 +111,7 @@ cc.Class({
     },
 
     showSelectedBuildingInfo (id) {
+        selectedBuildingId = id;
         let node = this.buildingInfoPage;
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
@@ -152,6 +154,11 @@ cc.Class({
             buildingCapacity.string = buildingProperties["capacity"];
             this.layoutPanel.addChild(node);
         }
+    },
+
+    upgradeSelectedBuilding () {
+        let buildingLists = this.game.buildingManager.getBuildingLists();
+        let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, type: buildingLists[selectedBuildingId].type, freeOfCharge: false});
     }
     
 });
