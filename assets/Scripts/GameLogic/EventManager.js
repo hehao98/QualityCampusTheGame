@@ -57,7 +57,7 @@ EventManager.prototype.update = function(tick) {
                 thisEvent.timeoutTick = tick + thisEvent.timeout;
                 thisEvent.id = this.nextEventId++;
                 thisEvent.type = type;
-                this.currentEvents.push(thisEvent);
+                this.currentEvents.unshift(thisEvent);
                 this.currentEventTypes.add(type);
             }
         }
