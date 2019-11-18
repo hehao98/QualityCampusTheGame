@@ -34555,7 +34555,7 @@
     },
     "_enabled": true,
     "horizontal": true,
-    "vertical": true,
+    "vertical": false,
     "inertia": true,
     "brake": 0.5,
     "elastic": true,
@@ -34568,8 +34568,8 @@
     "content": {
       "__id__": 10
     },
-    "scrollThreshold": 0.7,
-    "autoPageTurningThreshold": 150,
+    "scrollThreshold": 1,
+    "autoPageTurningThreshold": 150000,
     "pageTurningEventTiming": 0.1,
     "pageTurningSpeed": 0.3,
     "pageEvents": [
