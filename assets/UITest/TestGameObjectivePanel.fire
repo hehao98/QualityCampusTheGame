@@ -54,7 +54,7 @@
     "_is3DNode": true,
     "groupIndex": 0,
     "autoReleaseAssets": false,
-    "_id": "882e8da6-ed7b-4a09-85a5-515146e3d349"
+    "_id": "8cf19856-97e1-4ac1-a261-43c4f7105b9b"
   },
   {
     "__type__": "cc.Node",
@@ -4676,14 +4676,19 @@
     "fund": null,
     "influence": null,
     "buildingManager": null,
-    "StudentManager": null,
+    "studentManager": null,
     "scheduleManager": null,
     "worldRankManager": null,
+    "pkuHoleManager": null,
+    "eventManager": null,
     "worldRankPanel": null,
     "resourcePanel": null,
     "gameObjectivePanel": {
       "__id__": 115
     },
+    "buildingPage": null,
+    "pkuHolePanel": null,
+    "eventPanel": null,
     "_id": "fafrBh/chMu5Kya4L17gnR"
   },
   {
@@ -4809,7 +4814,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 353.33082030246095
+      "z": 279.7204163866655
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -4940,7 +4945,7 @@
     "_id": "00IoDxVDlGQYgdgUxFyu4M"
   },
   {
-    "__type__": "719c4VyPQZJk7kOHjreUtK+",
+    "__type__": "a63475BMWtJubZvrvWjFnQW",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -4951,6 +4956,6 @@
       "__id__": 116
     },
     "currentTick": 0,
-    "_id": "23MDE9B3tMrowxrKWEKZ5R"
+    "_id": "ebmii7ekhF6bGuh5cUbQcO"
   }
 ]

@@ -47,7 +47,7 @@ cc.Class({
         this.researchIndexLabel.string = this.game.researchIndex;
         this.teachIndexLabel.string = this.game.teachIndex;
         this.careerIndexLabel.string = this.game.careerIndex;
-        this.studentSatisfactionLabel.string = this.game.studentSatisfaction;
+        this.studentSatisfactionLabel.string = this.game.studentSatisfaction.toFixed(2);
         this.professorSatisfactionLabel.string = this.game.professorSatisfaction;
 
         let rank = this.game.worldRankManager.getCurrentRanking(this.game.universityName);

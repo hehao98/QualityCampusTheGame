@@ -232,6 +232,15 @@ BuildingManager.prototype.getBuildingLists = function () {
     return this.buildings;
 };
 
+BuildingManager.prototype.getMaxStudentCapacity = function () {
+    let result = 0;
+    for (let building of this.buildings) {
+        if (building.type === "dorm")
+            result += building.capacity;
+    }
+    return result;
+};
+
 
 BuildingManager.prototype.debugPrint = function () {
     utilities.log("[BuildingManager DebugPrint]");
