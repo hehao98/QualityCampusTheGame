@@ -1,6 +1,6 @@
 {
   "ver": "2.3.3",
-  "uuid": "5821c959-a543-403c-a816-341559e1528b",
+  "uuid": "0528420a-7683-42f4-ac39-60829a3e09ed",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -11,8 +11,8 @@
   "subMetas": {
     "cafeteria": {
       "ver": "1.0.4",
-      "uuid": "c6471b6e-f82f-4803-b181-73007f41aab8",
-      "rawTextureUuid": "5821c959-a543-403c-a816-341559e1528b",
+      "uuid": "c27dbca8-7816-45d4-a6ab-1f11df34d780",
+      "rawTextureUuid": "0528420a-7683-42f4-ac39-60829a3e09ed",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

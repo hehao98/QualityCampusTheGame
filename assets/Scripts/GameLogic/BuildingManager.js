@@ -68,7 +68,7 @@ BuildingManager.prototype.upgrade = function (properties) {
     let newTier = target.tier + 1;
     if (properties.freeOfCharge != true) {
         // check whether resource is enough
-        let fund = BuildingSpecifications[properties.type][
+        let fund = BuildingSpecifications[target.type][
             newTier].defaultProperties.fundToCurrentTier;
         const success = this.fund.use(fund);
         if (!success) return false;
