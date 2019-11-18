@@ -4,6 +4,13 @@ let utilities = require("utilities");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingComponent = require("BuildingComponent");
 
+let nameGenerators = {
+    dorm: BuildingSpecifications.dorm.nameGenerator(),
+    teaching: BuildingSpecifications.teaching.nameGenerator(),
+    cafeteria: BuildingSpecifications.cafeteria.nameGenerator(),
+    lab: BuildingSpecifications.lab.nameGenerator(),
+};
+
 class Building {
 
     constructor(properties) {
@@ -22,6 +29,8 @@ class Building {
 
         // constructor left-overs
         this.loadSpecifications();
+
+        this.name = nameGenerators[this.type].next().value;
     }
 
 }

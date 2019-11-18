@@ -99,11 +99,11 @@ cc.Class({
             let buildingItem = node.getComponent(BuildingItem);
             buildingItem.id = building.id;
             buildingItem.buildingPage = this;
-
+            
             let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
             buildingSprite.spriteFrame = BuildingIconsDict[building.type];
             let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
-            buildingName.string = building.type;
+            buildingName.string = building.name;
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
             buildingLevel.string = utilities.numberToRoman(building.tier + 1);
             this.contentPanel.addChild(node);
@@ -118,7 +118,7 @@ cc.Class({
         let buildingSprite = node.getChildByName("BuildingIconSprite").getComponent(cc.Sprite);
         buildingSprite.spriteFrame = BuildingIconsDict[building.type];
         let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
-        buildingName.string = building.type;
+        buildingName.string = building.name;
         let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
         buildingLevel.string = utilities.numberToRoman(building.tier + 1);
         let buildingPicture = node.getChildByName("BuildingPhoto").getComponent(cc.Sprite);
@@ -141,6 +141,8 @@ cc.Class({
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
             let node = cc.instantiate(this.specificationPrefab);
+            node.on("click", this.addBuilding, this);
+            node.name = buildingTypeArr[i];
             let buildingPicture = node.getChildByName("BuildingPhoto").getComponent(cc.Sprite);
             buildingPicture.spriteFrame = BuildingPicturesDict[buildingTypeArr[i]];
             let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
@@ -159,6 +161,10 @@ cc.Class({
     upgradeSelectedBuilding () {
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, type: buildingLists[selectedBuildingId].type, freeOfCharge: false});
-    }
+    },
     
+    addBuilding(button) {
+        let buildingType = button.node.name;
+        this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+    }
 });
