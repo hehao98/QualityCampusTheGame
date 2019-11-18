@@ -39,8 +39,6 @@ let BuildingSpecifications = {
                     id++) + "号楼";
             }
         },
-
-
     },
     teaching: {
         0: {
@@ -105,7 +103,14 @@ let BuildingSpecifications = {
                 iconPath: "Icons/lab",
             },
             buildTime: Globals.TICKS_SEMESTER,
-        }
+        },
+        nameGenerator: function* () {
+            let id = 1;
+            while (true) {
+                yield "第" + utilities.numberToChinese(
+                    id++) + "实验室";
+            }
+        },
     }
 };
 

@@ -1,6 +1,6 @@
 {
   "initialStudentNumber": 100,
-  "startFund": 500,
+  "startFund": 50000,
   "fundModifiers": [
     {
       "name": "semester_base_fund",
