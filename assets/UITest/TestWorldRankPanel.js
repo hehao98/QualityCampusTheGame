@@ -1,4 +1,4 @@
-let Globals = require("Globals");
+let Globals = require("GlobalVariables");
 
 cc.Class({
     extends: cc.Component,

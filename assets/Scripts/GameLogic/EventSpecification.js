@@ -1,6 +1,6 @@
 // Contains Specifications for Events
 
-let Globals = require("Globals");
+let Globals = require("GlobalVariables");
 
 let EventSpecifications = {
     studySatisfactionEvents: {
