@@ -24,6 +24,7 @@ cc.Class({
     },
 
     updatePanel() {
+        let that = this;
         this.contentPool.forEach(node => node.active = false);
         this.game.eventManager.currentEvents.forEach((event, idx) => {
             this.contentPool[idx].active = true;
@@ -50,6 +51,38 @@ cc.Class({
                     break;
                 }
             });
+            let buttons = this.contentPool[idx].getComponentsInChildren(cc.Button);
+            buttons.forEach(button => {
+                switch (button.node.name) {
+                case "Button1":
+                    button.interactable = false;
+                    if (event.action[0].prerequisite === null) {
+                        button.interactable = true;
+                    }
+                    else if (event.action[0].prerequisite(this.game)) {
+                        button.interactable = true;
+                    }
+                    button.node.on(cc.Node.EventType.TOUCH_END, function () {
+                        that.game.eventManager.resolveEvent(event.id, 0);
+                    });
+                    break;
+                case "Button2":
+                    button.interactable = false;
+                    if (event.action[1].prerequisite === null) {
+                        button.interactable = true;
+                    }
+                    else if (event.action[1].prerequisite(this.game)) {
+                        button.interactable = true;
+                    }
+                    button.node.on(cc.Node.EventType.TOUCH_END, function () {
+                        that.game.eventManager.resolveEvent(event.id, 1);
+                    });
+                    break;
+                }
+            });
+            let progressBar = this.contentPool[idx].getComponentInChildren(cc.ProgressBar);
+            progressBar.progress = (event.timeoutTick - this.game.currentTick) / event.timeout;
         }, this);
+        
     }
 });

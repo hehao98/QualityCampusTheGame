@@ -88,9 +88,10 @@ EventManager.prototype.buttonCallback = function(eventId, actionId) {
  */
 EventManager.prototype.resolveEvent = function(eventId, actionId) {
     let index = this.currentEvents.findIndex(e => e.id === eventId);
+    if (index === -1) return;
     this.currentEvents[index].action[actionId].consequence(this.game);
     this.currentEventTypes.delete(this.currentEvents[index].type);
-    this.currentEvents = this.currentEvents.filter(e => e.id != eventId);
+    this.currentEvents = this.currentEvents.filter(e => e.id !== eventId);
 };
 
 module.exports = EventManager;
