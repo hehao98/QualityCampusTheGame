@@ -69,9 +69,9 @@ cc.Class({
         }
 
         for (let i = 0; i < buildingTypeArr.length; ++i) {
-            let iconUrl = "Pictures/" + buildingTypeArr[i];
+            let pictureUrl = "Pictures/" + buildingTypeArr[i];
             let that = this;
-            cc.loader.loadRes(iconUrl, cc.SpriteFrame, function (err, spriteFrame) {
+            cc.loader.loadRes(pictureUrl, cc.SpriteFrame, function (err, spriteFrame) {
                 BuildingPicturesDict[buildingTypeArr[i]] = spriteFrame;
                 let buildingLists = that.game.buildingManager.getBuildingLists();
                 let buildingListSize = buildingLists.length;
@@ -99,7 +99,6 @@ cc.Class({
             let buildingItem = node.getComponent(BuildingItem);
             buildingItem.id = building.id;
             buildingItem.buildingPage = this;
-            
             let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
             buildingSprite.spriteFrame = BuildingIconsDict[building.type];
             let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
@@ -160,7 +159,7 @@ cc.Class({
 
     upgradeSelectedBuilding () {
         let buildingLists = this.game.buildingManager.getBuildingLists();
-        let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, type: buildingLists[selectedBuildingId].type, freeOfCharge: false});
+        let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
     },
     
     addBuilding(button) {
