@@ -37,5 +37,5 @@ describe("Utilities", function() {
         assert.strictEqual(Utilities.numberToRoman(4), "IV");
         assert.strictEqual(Utilities.numberToRoman(5), "V");
         assert.strictEqual(Utilities.numberToRoman(83), "LXXXIII");
-    })
+    });
 });

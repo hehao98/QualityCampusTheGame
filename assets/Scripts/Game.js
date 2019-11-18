@@ -12,6 +12,7 @@ let ScheduleManager = require("ScheduleManager");
 let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
 let PkuHoleManager = require("PkuHoleManager");
+let EventManager = require("EventManager");
 const regeneratorRuntime = require("regenerator-runtime/runtime");
 window.regeneratorRuntime = regeneratorRuntime;
 
@@ -55,13 +56,15 @@ let Game = cc.Class({
         scheduleManager: Object,
         worldRankManager: Object,
         pkuHoleManager: Object,
+        eventManager: Object,
 
         // Classes that manages UI
         worldRankPanel: require("WorldRankPanel"),
         resourcePanel: require("ResourcePanel"),
         gameObjectivePanel: require("GameObjectivePanel"),
         buildingPage: require("BuildingPage"),
-        pkuHolePanel: require("PkuHolePanel")
+        pkuHolePanel: require("PkuHolePanel"),
+        eventPanel: require("EventPanel"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -111,6 +114,7 @@ let Game = cc.Class({
             new AdmissionManager({});
 
         this.pkuHoleManager = new PkuHoleManager({ game: this });
+        this.eventManager = new EventManager({ game: this });
 
         this.universityName = Globals.universityName;
         // Init game logic
@@ -133,13 +137,10 @@ let Game = cc.Class({
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
         this.pkuHoleManager.init();
+        this.eventManager.init();
     },
 
     start() {
-        // Init UI
-        this.worldRankPanel.updateInfo();
-        
-
         // Init UI
         this.refreshUI();
 
@@ -197,6 +198,7 @@ let Game = cc.Class({
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);
+        this.eventManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
         }
@@ -225,6 +227,7 @@ let Game = cc.Class({
             if (this.resourcePanel) this.resourcePanel.updatePanel();
             if (this.gameObjectivePanel) this.gameObjectivePanel.updatePanel();
             if (this.pkuHolePanel) this.pkuHolePanel.updatePanel();
+            if (this.eventPanel) this.eventPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
@@ -233,6 +236,7 @@ let Game = cc.Class({
             this.gameObjectivePanel.updatePanel();
             this.pkuHolePanel.updatePanel();
             this.buildingPage.updateBuildingListInfo();
+            this.eventPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }
