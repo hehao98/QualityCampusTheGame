@@ -1,13 +1,20 @@
 // A class to manage a specfic kind of resource (e.g. fund, influence, etc)
 
 let assert = require("assert");
+let _ = require("lodash");
 let Globals = require("GlobalVariables");
 
-class Resource {
+let modifierTypes = ["fixed", "building", "student", "teacher"];
 
+class Resource {
+    /**
+     * @param {String} properties.name name of this resource
+     * @param {Number} properties.value initial value, default zero 
+     */
     constructor(properties) {
         this.name = properties.name;
         this.value = properties.value || 0;
+        this.nextModifierId = 0;
         this.modifiers = [];
     }
 }
@@ -19,71 +26,96 @@ class Resource {
  * @param {Number} tick current game tick
  */
 Resource.prototype.updateResource = function (tick) {
-    let toBeRemoved = [];
-    this.modifiers.forEach(modifier => {
-        if (modifier.type === "once") {
+    if (tick % Globals.TICKS_WEEK === 0) {
+        this.modifiers.forEach(modifier => {
             this.value += modifier.amount;
-            toBeRemoved.push(modifier.name);
-        } else if (modifier.type === "interval") {
-            if (
-                modifier.interval === "semester" &&
-                tick % Globals.TICKS_SEMESTER === 0
-            ) {
-                this.value += modifier.amount;
-            }
-            if (
-                modifier.interval === "week" &&
-                tick % Globals.TICKS_WEEK === 0
-            ) {
-                this.value += modifier.amount;
-            }
-        }
-    }, this);
-    toBeRemoved.forEach(name => {
-        this.removeModifier(name);
-    });
-};
-
-/**
- * Add a modifier to this resource.
- * @param {Object} modifier.name The name of this modifier, should be unique
- * @param {Object} modifier.type string, should be "interval" or "once"
- * @param {Object} modifier.amount number, can be positive or negative
- * @param {Object} modifier.interval "week" or "semester", for interval modifiers
- */
-
-Resource.prototype.addModifier = function (modifier) {
-    assert(modifier.name);
-    assert(modifier.type === "interval" || modifier.type === "once");
-    assert(Number.isInteger(modifier.amount));
-    if (modifier.type === "interval") {
-        assert(
-            modifier.interval === "week" || modifier.interval === "semester"
-        );
+        }, this);
     }
-    this.modifiers.push(modifier);
 };
 
 /**
- * Remove a modifier with the given name
- * @param {Object} modifierName
+ * Add a modifier to this resource, returns its id.
+ * If the caller want to remove this modifier some times later, 
+ * it must use this id.
+ * It's the caller's responsibility to save modifier id.
+ * 
+ * @param {String} modifier.type see modifierTypes for acceptable values
+ * @param {Object} modifier.amount number, can be positive or negative
+ * @return {Number} modifier id
  */
-Resource.prototype.removeModifier = function (modifierName) {
-    assert(this.modifiers.findIndex(m => m.name === modifierName) != -1);
+Resource.prototype.addModifier = function (modifier) {
+    assert(modifierTypes.includes(modifier.type));
+    assert(Number.isInteger(modifier.amount));
+    modifier = _.cloneDeep(modifier);
+    modifier.id = this.nextModifierId++;
+    this.modifiers.push(modifier);
+    return modifier.id;
+};
 
+/**
+ * Remove a modifier with the given id.
+ * @param {Number} modifierId
+ */
+Resource.prototype.removeModifier = function (modifierId) {
+    assert(this.modifiers.findIndex(m => m.id === modifierId) != -1);
     this.modifiers = this.modifiers.filter(
-        modifier => modifier.name !== modifierName
+        modifier => modifier.id !== modifierId
     );
 };
 
 /**
- * @return {Number} Total weekly modification amount of this resource
+ * @param {String} type if undefined, consider all modifiers
+ *     otherwise, consider only modifiers in certain type (see modifierTypes)
+ * @return {Number} Total modification amount of this resource
  */
-Resource.prototype.getModificationAmount = function () {
+Resource.prototype.getWeeklyModification = function (type) {
+    if (type !== undefined) {
+        assert(modifierTypes.includes(type));
+    }
+    
     let result = 0;
     this.modifiers.forEach(modifier => {
-        if (modifier.type === "interval" &&
-            modifier.interval === "week") {
+        if (type === undefined || modifier.type === type) {
+            result += modifier.amount;
+        }
+    });
+    return result;
+};
+
+/**
+ * @param {String} type if undefined, consider all modifiers
+ *     otherwise, consider only modifiers in certain type (see modifierTypes)
+ * @return {Number} Total weekly gain of this resource
+ */
+Resource.prototype.getWeeklyGain = function (type) {
+    if (type !== undefined) {
+        assert(modifierTypes.includes(type));
+    }
+    
+    let result = 0;
+    this.modifiers.forEach(modifier => {
+        if (modifier.amount <= 0) return;
+        if (type === undefined || modifier.type === type) {
+            result += modifier.amount;
+        }
+    });
+    return result;
+};
+
+/**
+ * @param {String} type if undefined, consider all modifiers
+ *     otherwise, consider only modifiers in certain type (see modifierTypes)
+ * @return {Number} Total weekly cost of this resource
+ */
+Resource.prototype.getWeeklyCost = function (type) {
+    if (type !== undefined) {
+        assert(modifierTypes.includes(type));
+    }
+    
+    let result = 0;
+    this.modifiers.forEach(modifier => {
+        if (modifier.amount >= 0) return;
+        if (type === undefined || modifier.type === type) {
             result += modifier.amount;
         }
     });
