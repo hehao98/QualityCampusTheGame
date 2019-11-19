@@ -3,25 +3,15 @@
   "startFund": 50000,
   "fundModifiers": [
     {
-      "name": "semester_base_fund",
-      "type": "interval",
-      "amount": 50,
-      "interval": "semester"
-    },
-    {
-      "name": "weekly_base_fund",
-      "type": "interval",
-      "amount": 10,
-      "interval": "week"
+      "type": "fixed",
+      "amount": 10
     }
   ],
   "startInfluence": 10,
   "influenceModifiers": [
     {
-      "name": "weekly_base_influence",
-      "type": "interval",
-      "amount": 1,
-      "interval": "week"
+      "type": "fixed",
+      "amount": 1
     }
   ],
   "buildings": [

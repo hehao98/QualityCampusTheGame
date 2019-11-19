@@ -23,7 +23,7 @@ cc.Class({
     updatePanel () { 
         if (this.game.isPaused) return;
         this.fundLabel.string = this.game.fund.value + "万";
-        let value = this.game.fund.getModificationAmount();
+        let value = this.game.fund.getWeeklyModification();
         let suffix = "+";
         if (value >= 0) {
             this.fundChangeLabel.node.color = cc.Color.GREEN;
@@ -33,7 +33,7 @@ cc.Class({
         }
         this.fundChangeLabel.string = "(" + suffix + value + "万)";
 
-        value = this.game.influence.getModificationAmount();
+        value = this.game.influence.getWeeklyModification();
         if (value >= 0) {
             this.influenceChangeLabel.node.color = cc.Color.GREEN;
             suffix = "+";

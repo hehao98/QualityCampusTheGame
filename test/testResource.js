@@ -3,56 +3,48 @@ let Resource = require("Resource");
 let Globals = require("GlobalVariables");
 
 describe("Resource", function() {
-    let resource = new Resource({ name: "test", value: 10 });
-
     it("should be created given name and value properties", function() {
+        let resource = new Resource({ name: "test", value: 10 });
         assert.strictEqual(resource.name, "test");
         assert.strictEqual(resource.value, 10);
+        resource.use(5);
+        assert.strictEqual(resource.value, 5);
     });
 
-    it("should update resource value given a once modifer", function() {
-        resource.addModifier({
-            name: "once_modifier",
-            type: "once",
-            amount: 100
-        });
-
-        assert.strictEqual(resource.modifiers.length, 1);
-
-        resource.updateResource(1);
-
-        assert.strictEqual(resource.value, 110);
-        assert.strictEqual(resource.modifiers.length, 0);
-    });
-
-    it("should update value periodically with interval modifiers", function() {
-        resource.addModifier({
-            name: "test_modifier1",
-            type: "interval",
+    it("should update resource with modifiers", function() {
+        let resource = new Resource({ name: "test", value: 10 });
+        let id = resource.addModifier({
+            type: "building",
             amount: 10,
-            interval: "week"
         });
-        resource.addModifier({
-            name: "test_modifier2",
-            type: "interval",
-            amount: -100,
-            interval: "semester"
-        });
-        resource.updateResource(Globals.TICKS_WEEK * 5);
-        assert.strictEqual(resource.value, 120);
-        resource.updateResource(Globals.TICKS_SEMESTER * 3);
-        assert.strictEqual(resource.value, 120 + 10 - 100);
 
-        resource.removeModifier("test_modifier2");
         assert.strictEqual(resource.modifiers.length, 1);
-        assert.strictEqual(resource.modifiers[0].name, "test_modifier1");
+        resource.updateResource(Globals.TICKS_WEEK * 5);  
+        assert.strictEqual(resource.value, 20);
+        resource.removeModifier(id);   
+        assert.strictEqual(resource.modifiers.length, 0);
+        resource.updateResource(Globals.TICKS_WEEK * 6);
+        assert.strictEqual(resource.value, 20);  
+    });
 
-        resource.addModifier({
-            name: "test_modifier3",
-            type: "interval",
-            amount: 120,
-            interval: "week"
+    it("should sum different modifiers correctly", function() {
+        let resource = new Resource({ name: "test", value: 10 });
+        let id = resource.addModifier({
+            type: "building",
+            amount: 10,
         });
-        assert.strictEqual(resource.getModificationAmount(), 130);
+        let id2 = resource.addModifier({
+            type: "student",
+            amount: 20,
+        });
+        let id3 = resource.addModifier({
+            type: "teacher",
+            amount: -15,
+        });
+
+        assert.strictEqual(resource.getWeeklyModification(), 15); 
+        assert.strictEqual(resource.getWeeklyModification("building"), 10); 
+        assert.strictEqual(resource.getWeeklyGain("student"), 20); 
+        assert.strictEqual(resource.getWeeklyCost("teacher"), -15); 
     });
 });
