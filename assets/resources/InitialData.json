@@ -7,13 +7,6 @@
       "amount": 10
     }
   ],
-  "startInfluence": 10,
-  "influenceModifiers": [
-    {
-      "type": "fixed",
-      "amount": 1
-    }
-  ],
   "buildings": [
     {
       "type": "teaching",
