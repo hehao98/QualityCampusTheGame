@@ -5356,7 +5356,6 @@
     "studySatisfaction": 0,
     "difficulty": "normal",
     "fund": null,
-    "influence": null,
     "buildingManager": null,
     "studentManager": null,
     "scheduleManager": null,
@@ -14302,12 +14301,6 @@
     },
     "fundChangeLabel": {
       "__id__": 470
-    },
-    "influenceLabel": {
-      "__id__": 477
-    },
-    "influenceChangeLabel": {
-      "__id__": 480
     },
     "statusLabel": {
       "__id__": 487
