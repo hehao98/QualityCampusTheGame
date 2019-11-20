@@ -4,7 +4,7 @@ let RelaxationSatisfacion = require("RelaxationSatisfacion");
 let StudySatisfaction = require("StudySatisfaction");
 let StudyIndex = require("StudyIndex");
 let utilities = require("utilities");
-
+let _ = require("lodash");
 
 /**
  *  
@@ -22,13 +22,16 @@ class Student {
         // properties
         this.id = properties.id;
         this.schedule = properties.schedule;
+        this.talent = 0.28;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
                 { studentID: this.id }),
             studySatisfaction: new StudySatisfaction(
                 { studentID: this.id }),
-            studyIndex: new StudyIndex(
-                { studentID: this.id }),
+            studyIndex: new StudyIndex({
+                studentID: this.id,
+                value: this.talent * 0.45
+            }),
         };
         this.where = undefined;
 
@@ -54,6 +57,21 @@ Student.prototype.assignSchedule = function (schedule) {
     this.schedule = schedule;
 };
 
+/**
+ * 
+ */
+Student.prototype.getIndex = function (name) {
+    if (this.indexes[name] != undefined) {
+        return this.indexes[name].value;
+    }
+    switch (name) {
+    case "livingConditionSatisfaction":
+        return _.meanBy(["relaxationSatisfaction"],
+            (type) => this.indexes[type].value);
+    default:
+        throw new Error("Unknown index: " + name);
+    }
+};
 
 Student.prototype.debugPrint = function (properties) {
     utilities.log(" ".repeat(properties.indent) +
@@ -67,6 +85,8 @@ Student.prototype.debugPrint = function (properties) {
             this.indexes[type].value);
     }
 };
+
+
 
 
 module.exports = Student;

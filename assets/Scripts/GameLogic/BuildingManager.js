@@ -28,7 +28,7 @@ class BuildingManager {
  * 
  * @param {Object} properties.type - The type of the building 
  * @param {Boolean} properties.freeOfCharge - 
- *  add building free of charge
+ *  add building free of charge and time
  * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.add = function (properties) {
@@ -42,6 +42,10 @@ BuildingManager.prototype.add = function (properties) {
     let revised = _.cloneDeep(properties);
     revised["id"] = this.nextBuildingID++;
     let building = new Building(revised);
+    building.buildingStartTime = Globals.tick;
+    building.buildingEndTime = properties.freeOfCharge ? 0 :
+        Globals.tick + BuildingSpecifications[
+            properties.type][0].buildTime;
     this.buildings.push(building);
     return true;
 };
@@ -64,13 +68,18 @@ BuildingManager.prototype.upgrade = function (properties) {
     let newTier = target.tier + 1;
     if (properties.freeOfCharge != true) {
         // check whether resource is enough
-        let fund = BuildingSpecifications[properties.type][
+        let fund = BuildingSpecifications[target.type][
             newTier].defaultProperties.fundToCurrentTier;
         const success = this.fund.use(fund);
         if (!success) return false;
     }
     else {
-        return target.upgrade();
+        target.upgradingStartTime = Globals.tick;
+        target.upgradingEndTime = properties.freeOfCharge ? 0 :
+            Globals.tick + BuildingSpecifications[
+                properties.type][newTier].buildTime;
+        target.tier++;
+        target.loadSpecifications();
     }
 };
 
@@ -101,27 +110,11 @@ BuildingManager.prototype.addComponent = function (properties) {
  * 
  * @param {String} properties.difficulty - one of DIFFICULTY_*
  * @param {String} properties.fund
- * @param {String} properties.influence
  */
 BuildingManager.prototype.init = function (properties) {
     this.fund = properties.fund;
-    this.influence = properties.influence;
-    this.add({ type: "dorm", freeOfCharge: true, });
-    this.add({ type: "teaching", freeOfCharge: true, });
-    this.add({ type: "teaching", freeOfCharge: true, });
-    this.add({ type: "cafeteria", freeOfCharge: true, });
-
-};
-
-/**
- * @param {Number} tick
- */
-BuildingManager.prototype.update = function (tick) {
-    const inDayTime = tick % Globals.TICKS_DAY;
-    // if (tick % Globals.TICKS_SEMESTER === 0) {
-    // }
-    for (let building of this.buildings) {
-        building.nStudent = building.nStudentAssigned[inDayTime];
+    for (let buildingProperties of Globals.initialData.buildings) {
+        this.add(buildingProperties);
     }
 };
 
@@ -133,12 +126,11 @@ BuildingManager.prototype.assignBuilding = function (type, time) {
     // id: assigned/capacity
     let available = {};
     let summedRate = 0.0;
-    utilities.log(type, "info");
     for (let building of this.buildings) {
-        if (building.type === type) {
+        if (building.type === type &&
+            Globals.tick >= building.buildingEndTime) {
             const rate = (building.capacity + 1) /
                 (building.nStudentAssigned[time] + 1);
-            utilities.log(rate);
             available[building.id] = rate;
             summedRate += rate;
         }
@@ -158,7 +150,7 @@ BuildingManager.prototype.assignBuilding = function (type, time) {
             break;
         }
     }
-    utilities.log("ID: " + choosedID, "info");
+    utilities.log("ID: " + choosedID, "debug");
     // for float error
     if (choosedID === undefined) {
         choosedID = Object.keys(available)[0];
@@ -221,17 +213,32 @@ BuildingManager.prototype.getSatisfaction = function (buildingID, type) {
 
 };
 
+
 /**
  * @param {Number} tick
  */
 BuildingManager.prototype.update = function (tick) {
     const inDayTime = tick % Globals.TICKS_DAY;
-
-    // update student number in buildings
+    // if (tick % Globals.TICKS_SEMESTER === 0) {
+    // }
     for (let building of this.buildings) {
         building.nStudent = building.nStudentAssigned[inDayTime];
     }
 };
+
+BuildingManager.prototype.getBuildingLists = function () {
+    return this.buildings;
+};
+
+BuildingManager.prototype.getMaxStudentCapacity = function () {
+    let result = 0;
+    for (let building of this.buildings) {
+        if (building.type === "dorm")
+            result += building.capacity;
+    }
+    return result;
+};
+
 
 BuildingManager.prototype.debugPrint = function () {
     utilities.log("[BuildingManager DebugPrint]");

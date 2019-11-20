@@ -9,7 +9,7 @@ let assert = require("assert");
 let utilities = {
     // ES5 inherition
     inherits: function (Child, Parent) {
-        var Trans = function () { };
+        let Trans = function () { };
         Trans.prototype = Parent.prototype;
         Child.prototype = new Trans();
         Child.prototype.constructor = Child;
@@ -31,6 +31,22 @@ let utilities = {
             console.log(message);
         }
     },
+
+    /**
+     * Given min and max, return a random integer in [min, max]
+     * @param {Number} min 
+     * @param {Number} max 
+     */
+    randomInt: function(min, max) {
+        assert(Number.isInteger(min) && Number.isInteger(max));
+        if (min > max) {
+            let temp = min;
+            min = max;
+            max = temp;
+        }
+        return Math.round(Math.random() * (max - min) + min);
+    },
+
     /**
      * Given a game tick, return all its related info in an object
      * Return object has the following fields
@@ -88,6 +104,122 @@ let utilities = {
             dayTimeStr[props.time]
         );
     },
+    /**
+     *   数字转中文
+     *   author: http://www.bbsmax.com/A/D8544xxp5E/
+     *   @param {Number} 形如123的数字
+     *   @returns {String} 返回转换成的形如 一百二十三 的字符串     
+     */
+    units: "个十百千万@#%亿^&~",
+    chars: "零一二三四五六七八九",
+    numberToChinese: function (number) {
+        let a = (number + "").split(""), s = [], t = this;
+        let j = a.length - 1;
+        if (a.length > 12) {
+            throw new Error("too big");
+        } else {
+            for (let i = 0, j = a.length - 1; i <= j; i++) {
+                if (j == 1 || j == 5 || j == 9) {
+                    //两位数 处理特殊的 1*
+                    if (i == 0) {
+                        if (a[i] != "1") s.push(t.chars.charAt(a[i]));
+                    } else {
+                        s.push(t.chars.charAt(a[i]));
+                    }
+                } else {
+                    s.push(t.chars.charAt(a[i]));
+                }
+                if (i != j) {
+                    s.push(t.units.charAt(j - i));
+                }
+            }
+        }
+        //return s;
+        return s.join("").replace(/零([十百千万亿@#%^&~])/g,
+            function (m, d, b) {//优先处理 零百 零千 等
+                b = t.units.indexOf(d);
+                if (b != -1) {
+                    if (d == "亿") return d;
+                    if (d == "万") return d;
+                    if (a[j - b] == "0") return "零";
+                }
+                return "";
+            }).replace(/零+/g, "零").replace(/零([万亿])/g,
+            function (m, b) {
+                // 零百 零千处理后 可能出现 零零相连的 再处理结尾为零的
+                return b;
+            }).replace(/亿[万千百]/g, "亿").replace(/[零]$/, "").replace(
+            /[@#%^&~]/g, function (m) {
+                return {
+                    "@": "十", "#": "百", "%": "千", "^":
+                                "十", "&": "百", "~": "千"
+                }[m];
+            }).replace(/([亿万])([一-九])/g,
+            function (m, d, b, c) {
+                c = t.units.indexOf(d);
+                if (c != -1) {
+                    if (a[j - c] == "0") {
+                        return d + "零" + b;
+                    }
+                }
+                return m;
+            });
+    },
+
+    /**
+     *   数字转罗马数字
+     *   author: https://www.cnblogs.com/alicell/p/9179246.html
+     *   @param {Number} 形如123的数字
+     *   @returns {String} 返回转换成的罗马数字的字符串     
+     */
+    numberToRoman: function (num) {
+        let newArr = [];
+        let newStr;
+        //先把数字转化为相应的罗马字母
+        while(num > 0) {
+            if(num - 1000 >= 0) {
+                newArr.push("M");
+                num -= 1000;
+            } else if (num - 500 >= 0) {
+                newArr.push("D");
+                num -= 500;
+            } else if (num - 100 >= 0) {
+                newArr.push("C");
+                num -= 100;
+            } else if (num - 50 >= 0) {
+                newArr.push("L");
+                num -= 50;
+            } else if(num - 10 >= 0) {
+                newArr.push("X");
+                num -= 10;
+            } else if(num - 5 >= 0) {
+                newArr.push("V");
+                num -= 5;
+            } else if(num - 1 >= 0) {
+                newArr.push("I");
+                num -= 1;
+            }
+        }
+        newStr = newArr.join("");
+        //将4和9的情况进行替换
+        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function(match) {
+            switch(match) {
+            case "VIIII":
+                return "IX";
+            case "LXXXX":
+                return "XC";
+            case "DCCCC":
+                return "CM";
+            case "IIII":
+                return "IV";
+            case "XXXX":
+                return "XL";
+            case "CCCC":
+                return "CD";  
+            }
+        });
+        return newStr;
+    }
 };
 
 module.exports = utilities;

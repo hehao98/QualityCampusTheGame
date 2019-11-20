@@ -4,7 +4,7 @@ let _ = require("lodash");
 let Student = require("Student");
 let utilities = require("utilities");
 let Globals = require("GlobalVariables");
-let GlobalSpecifications = require("GlobalSpecifications");
+
 /**
  * constructor. param  
  */
@@ -70,10 +70,16 @@ StudentManager.prototype.reassign = function (properties) {
  * @param {String} difficulty - one of DIFFICULTY_*
  */
 StudentManager.prototype.init = function (difficulty) {
-    for (let i = 0; i < GlobalSpecifications.initialStudentNumber; ++i) {
-        this.add({});
-    }
+
 };
+
+StudentManager.prototype.getStudentById = function (id) {
+    return _.find(this.students,
+        function (student) {
+            return student.id === id;
+        });
+};
+
 
 /**
  * @param {Number} tick
@@ -117,7 +123,7 @@ StudentManager.prototype.getOverallIndex = function (type) {
     let cnt = 0;
     for (let student of this.students) {
         cnt++;
-        sum += student.indexes[type].value;
+        sum += student.getIndex(type);
     }
     return sum / cnt;
 };
@@ -133,6 +139,7 @@ StudentManager.prototype.debugPrint = function () {
     utilities.log(this.getOverallIndex(
         "relaxationSatisfaction") + " " +
         this.getOverallIndex("studySatisfaction") +
+        " " + this.getOverallIndex("livingConditionSatisfaction") +
         " " + this.getOverallIndex("studyIndex"));
     console.log("------------------------------------------------------");
 };

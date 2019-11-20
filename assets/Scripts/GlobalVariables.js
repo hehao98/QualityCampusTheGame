@@ -4,6 +4,7 @@ module.exports = {
     // globals that will be set in the main menu scene
     // and will be loaded when initializing the game scene
     universityName: "中关村文理学院",
+    initialData: {},
 
     // Constants related to game logic
     TICKS_SEMESTER: 20 * 7 * 5,
@@ -51,4 +52,8 @@ module.exports = {
     AFTERNOON: 2,
     EVENING: 3,
     NIGHT: 4,
+
+    UI: {
+        buildingListPageView: null,
+    }
 };
