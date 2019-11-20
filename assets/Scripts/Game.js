@@ -50,7 +50,6 @@ let Game = cc.Class({
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
         fund: Object,
-        influence: Object,
         buildingManager: Object,
         studentManager: Object,
         scheduleManager: Object,
@@ -84,14 +83,9 @@ let Game = cc.Class({
         // TODO ES6
         Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
-        this.influence = new Resource({ name: "influence" });
         this.fund.value = this.initialData.json.startFund;
         this.initialData.json.fundModifiers.forEach(modifier => {
             this.fund.addModifier(modifier);
-        });
-        this.influence.value = this.initialData.json.startInfluence;
-        this.initialData.json.influenceModifiers.forEach(modifier => {
-            this.influence.addModifier(modifier);
         });
 
         this.gameObjectives = this.initialData.json.gameObjectives;
@@ -129,7 +123,6 @@ let Game = cc.Class({
         this.buildingManager.init({
             difficulty: this.difficulty,
             fund: this.fund,
-            influence: this.influence
         });
 
         this.studentManager.init(this.difficulty);
@@ -182,7 +175,6 @@ let Game = cc.Class({
     updateGameSystem() {
         // Update corresponding game logic
         this.fund.updateResource(this.currentTick);
-        this.influence.updateResource(this.currentTick);
             
         this.studentManager.update(this.currentTick);
         this.buildingManager.update(this.currentTick);

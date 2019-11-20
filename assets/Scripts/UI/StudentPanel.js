@@ -5,11 +5,12 @@ cc.Class({
 
     properties: () => ({
         game: require("Game"),
+        studentNumberLabel: cc.Label,
         overallSatisfactionLabel: cc.Label,
         studySatisfactionLabel: cc.Label,
         relaxationSatisfactionLabel: cc.Label,
         studyIndexLabel: cc.Label,
-        studentNumberLabel: cc.Label,
+        admissionNumberLabel: cc.Label,
         studentQualityLabel: cc.Label,
         slider: cc.Slider
     }),
@@ -23,6 +24,7 @@ cc.Class({
     },
 
     updatePanel() {
+        this.studentNumberLabel.string = "当前学生人数：" + this.game.studentManager.students.length;
         this.overallSatisfactionLabel.string =
             "总体满意度：" + this.game.studentSatisfaction.toFixed(3);
         this.studySatisfactionLabel.string =
@@ -33,7 +35,7 @@ cc.Class({
             this.game.studentManager.getOverallIndex("livingConditionSatisfaction").toFixed(3);
         this.studyIndexLabel.string =
             "学业水平：" + this.game.studentManager.getOverallIndex("studyIndex").toFixed(3);
-        this.studentNumberLabel.string = "计划招生目标/最大招生容量：" 
+        this.admissionNumberLabel.string = "计划招生目标/最大招生容量：" 
             + this.game.admissionManager.admissionTarget
             + "/" + this.game.buildingManager.getMaxStudentCapacity();
         this.slider.progress =

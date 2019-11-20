@@ -110,11 +110,9 @@ BuildingManager.prototype.addComponent = function (properties) {
  * 
  * @param {String} properties.difficulty - one of DIFFICULTY_*
  * @param {String} properties.fund
- * @param {String} properties.influence
  */
 BuildingManager.prototype.init = function (properties) {
     this.fund = properties.fund;
-    this.influence = properties.influence;
     for (let buildingProperties of Globals.initialData.buildings) {
         this.add(buildingProperties);
     }

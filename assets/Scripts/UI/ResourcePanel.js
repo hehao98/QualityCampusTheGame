@@ -9,8 +9,6 @@ cc.Class({
         game: Game,
         fundLabel: cc.Label,
         fundChangeLabel: cc.Label,
-        influenceLabel: cc.Label,
-        influenceChangeLabel: cc.Label,
         statusLabel: cc.Label,
         worldRankLabel: cc.Label,
         researchIndexLabel: cc.Label,
@@ -32,17 +30,6 @@ cc.Class({
             suffix = "-";
         }
         this.fundChangeLabel.string = "(" + suffix + value + "万)";
-
-        value = this.game.influence.getWeeklyModification();
-        if (value >= 0) {
-            this.influenceChangeLabel.node.color = cc.Color.GREEN;
-            suffix = "+";
-        } else {
-            this.influenceChangeLabel.node.color = cc.Color.RED;
-            suffix = "-";
-        }
-        this.influenceLabel.string = this.game.influence.value;
-        this.influenceChangeLabel.string = "(" + suffix + value + ")";
 
         this.researchIndexLabel.string = this.game.researchIndex;
         this.teachIndexLabel.string = this.game.teachIndex;

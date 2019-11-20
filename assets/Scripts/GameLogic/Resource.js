@@ -1,4 +1,4 @@
-// A class to manage a specfic kind of resource (e.g. fund, influence, etc)
+// A class to manage a specfic kind of resource (e.g. fund, etc)
 
 let assert = require("assert");
 let _ = require("lodash");
