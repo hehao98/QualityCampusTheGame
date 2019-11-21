@@ -8,6 +8,10 @@
 
 [![pipeline status](https://se.jisuanke.com/hehao/universitysim/badges/master/pipeline.svg)](https://se.jisuanke.com/hehao/universitysim/commits/master)
 
+## Play this Game
+
+![https://hehao98.github.io/UnivSimTheGame/](https://hehao98.github.io/UnivSimTheGame/)
+
 ## Development Environment
 
 Cocos Creator 2.1.3
