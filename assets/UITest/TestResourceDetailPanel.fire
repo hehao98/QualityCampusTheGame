@@ -17,10 +17,10 @@
         "__id__": 2
       },
       {
-        "__id__": 69
+        "__id__": 78
       },
       {
-        "__id__": 73
+        "__id__": 82
       }
     ],
     "_active": true,
@@ -75,7 +75,7 @@
     "_level": 0,
     "_components": [
       {
-        "__id__": 72
+        "__id__": 81
       }
     ],
     "_prefab": null,
@@ -242,22 +242,25 @@
       },
       {
         "__id__": 57
+      },
+      {
+        "__id__": 66
       }
     ],
     "_active": true,
     "_level": 1,
     "_components": [
       {
-        "__id__": 66
+        "__id__": 75
       },
       {
-        "__id__": 67
+        "__id__": 76
       },
       {
-        "__id__": 70
+        "__id__": 79
       },
       {
-        "__id__": 71
+        "__id__": 80
       }
     ],
     "_prefab": null,
@@ -337,7 +340,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -347,7 +350,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 258,
+      "y": 263.375,
       "z": 0
     },
     "_scale": {
@@ -582,7 +585,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -592,7 +595,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 172,
+      "y": 188.125,
       "z": 0
     },
     "_scale": {
@@ -611,7 +614,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "a00jDQ+5lBKbJqgpzZjZMX"
+    "_id": "00nYY6j/VAE7zMaDZQBXYB"
   },
   {
     "__type__": "cc.Node",
@@ -672,7 +675,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "d5UMnFJD5BZpDKwApqpp/O"
+    "_id": "9agndlpL5FxJHEIBEimpfH"
   },
   {
     "__type__": "cc.Label",
@@ -688,8 +691,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "经费收支情况：",
-    "_N$string": "经费收支情况：",
+    "_string": "当前经费总额：",
+    "_N$string": "当前经费总额：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -702,7 +705,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "0cMrpCe9pBjYhJe+cwNc47"
+    "_id": "66hhR6NadMtIevMCgl653/"
   },
   {
     "__type__": "cc.Widget",
@@ -729,11 +732,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "15jJdMLYBPyJaxMaUQfuqp"
+    "_id": "42nJBD1idKAKZ4MQlEgZ9I"
   },
   {
     "__type__": "cc.Node",
-    "_name": "TotalResourceChangeLabel",
+    "_name": "TotalResourceLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -790,7 +793,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "ecdYn6RlVP8oEFCQYzxJQ7"
+    "_id": "de/Bmw+EBAhro8caKwUTW3"
   },
   {
     "__type__": "cc.Label",
@@ -820,7 +823,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "8fGWHrnotGaoN8ySEs4YYk"
+    "_id": "56Do8KIA1Ng4QQQMecOenD"
   },
   {
     "__type__": "cc.Widget",
@@ -847,7 +850,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "24ixmFlKJOY5DO0dVOTMUI"
+    "_id": "93F7Vzt+5COLQJXnLuNwsc"
   },
   {
     "__type__": "cc.Sprite",
@@ -879,7 +882,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "a25jyjh7FAGK2bfUsX9A/y"
+    "_id": "ccvc1ewW9M3Kx0XXyMsNZL"
   },
   {
     "__type__": "cc.Widget",
@@ -906,7 +909,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "b5jXVZEzhIvo2ZWNCOayfC"
+    "_id": "38rUASUuxOb5dN5VmUbyIe"
   },
   {
     "__type__": "cc.Node",
@@ -945,7 +948,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -955,7 +958,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 86,
+      "y": 112.875,
       "z": 0
     },
     "_scale": {
@@ -974,7 +977,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "c5J0QhVLBF5oJA70+kyDoy"
+    "_id": "a00jDQ+5lBKbJqgpzZjZMX"
   },
   {
     "__type__": "cc.Node",
@@ -1035,7 +1038,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "dbkwa1cxpG/5kJ9/wACXpc"
+    "_id": "d5UMnFJD5BZpDKwApqpp/O"
   },
   {
     "__type__": "cc.Label",
@@ -1051,8 +1054,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "固定经费收入：",
-    "_N$string": "固定经费收入：",
+    "_string": "每周经费收支：",
+    "_N$string": "每周经费收支：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1065,7 +1068,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "1bR0CXY6JNuYszk7tTA30a"
+    "_id": "0cMrpCe9pBjYhJe+cwNc47"
   },
   {
     "__type__": "cc.Widget",
@@ -1092,11 +1095,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "6b7WWPBk5J46bZf4IBRXyP"
+    "_id": "15jJdMLYBPyJaxMaUQfuqp"
   },
   {
     "__type__": "cc.Node",
-    "_name": "FixedIncomeLabel",
+    "_name": "TotalResourceChangeLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 21
@@ -1153,7 +1156,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "bdO2zpeI1PsJHxcIwsHzeI"
+    "_id": "ecdYn6RlVP8oEFCQYzxJQ7"
   },
   {
     "__type__": "cc.Label",
@@ -1172,7 +1175,7 @@
     "_string": "+00000",
     "_N$string": "+00000",
     "_fontSize": 32,
-    "_lineHeight": 40,
+    "_lineHeight": 32,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1183,7 +1186,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "d3P2bXNH9PS55bhb/iqzcc"
+    "_id": "8fGWHrnotGaoN8ySEs4YYk"
   },
   {
     "__type__": "cc.Widget",
@@ -1210,7 +1213,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "f5zUZ5v/FHDrsTWxCFnd5S"
+    "_id": "24ixmFlKJOY5DO0dVOTMUI"
   },
   {
     "__type__": "cc.Sprite",
@@ -1242,7 +1245,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "030vJye6VL/ole5oVPY7B5"
+    "_id": "a25jyjh7FAGK2bfUsX9A/y"
   },
   {
     "__type__": "cc.Widget",
@@ -1269,7 +1272,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "15LTH2x9hFya3VjwjdhGro"
+    "_id": "b5jXVZEzhIvo2ZWNCOayfC"
   },
   {
     "__type__": "cc.Node",
@@ -1308,7 +1311,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1318,7 +1321,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": 37.625,
       "z": 0
     },
     "_scale": {
@@ -1337,7 +1340,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "63kepZZdFAKZaUlft0tVOQ"
+    "_id": "c5J0QhVLBF5oJA70+kyDoy"
   },
   {
     "__type__": "cc.Node",
@@ -1398,7 +1401,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "f4g+4r2EdE6KYyL4Zd5TNl"
+    "_id": "dbkwa1cxpG/5kJ9/wACXpc"
   },
   {
     "__type__": "cc.Label",
@@ -1414,8 +1417,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "建筑经费收入：",
-    "_N$string": "建筑经费收入：",
+    "_string": "固定经费收入：",
+    "_N$string": "固定经费收入：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1428,7 +1431,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "c7XgltutdBwoUvqzak8ysk"
+    "_id": "1bR0CXY6JNuYszk7tTA30a"
   },
   {
     "__type__": "cc.Widget",
@@ -1455,11 +1458,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "7d3AfJsONFjKDTSNdb6QqX"
+    "_id": "6b7WWPBk5J46bZf4IBRXyP"
   },
   {
     "__type__": "cc.Node",
-    "_name": "BuildingIncomeLabel",
+    "_name": "FixedIncomeLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 30
@@ -1516,7 +1519,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "c2C1kWocdEY61N+1DvtOEk"
+    "_id": "bdO2zpeI1PsJHxcIwsHzeI"
   },
   {
     "__type__": "cc.Label",
@@ -1546,7 +1549,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "94dsTgfeVPdLgwcKnZwIZo"
+    "_id": "d3P2bXNH9PS55bhb/iqzcc"
   },
   {
     "__type__": "cc.Widget",
@@ -1573,7 +1576,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "echh68/mhKAL5JITwPzsCq"
+    "_id": "f5zUZ5v/FHDrsTWxCFnd5S"
   },
   {
     "__type__": "cc.Sprite",
@@ -1605,7 +1608,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "d0pxqq18pHzrlc2FpnqYel"
+    "_id": "030vJye6VL/ole5oVPY7B5"
   },
   {
     "__type__": "cc.Widget",
@@ -1632,7 +1635,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "f0nJJxjRxLKYCtpOZZ8iL4"
+    "_id": "15LTH2x9hFya3VjwjdhGro"
   },
   {
     "__type__": "cc.Node",
@@ -1671,7 +1674,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1681,7 +1684,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -86,
+      "y": -37.625,
       "z": 0
     },
     "_scale": {
@@ -1700,7 +1703,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "a4AHzAvwRKHruSRfqtHVG2"
+    "_id": "63kepZZdFAKZaUlft0tVOQ"
   },
   {
     "__type__": "cc.Node",
@@ -1761,7 +1764,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "64S9sXmvFBYI16YA3p2GO6"
+    "_id": "f4g+4r2EdE6KYyL4Zd5TNl"
   },
   {
     "__type__": "cc.Label",
@@ -1777,8 +1780,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "建筑经费支出：",
-    "_N$string": "建筑经费支出：",
+    "_string": "建筑经费收入：",
+    "_N$string": "建筑经费收入：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1791,7 +1794,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "0770CdXUZKnrdxqEfL9dbC"
+    "_id": "c7XgltutdBwoUvqzak8ysk"
   },
   {
     "__type__": "cc.Widget",
@@ -1818,11 +1821,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "0eS9kk0QRHmKbojMF5hezz"
+    "_id": "7d3AfJsONFjKDTSNdb6QqX"
   },
   {
     "__type__": "cc.Node",
-    "_name": "BuildingCostLabel",
+    "_name": "BuildingIncomeLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 39
@@ -1879,7 +1882,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "be57ekkvpDrZgHTLZrGTuk"
+    "_id": "c2C1kWocdEY61N+1DvtOEk"
   },
   {
     "__type__": "cc.Label",
@@ -1909,7 +1912,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "11p//CN7RA1YYwuzNedIZz"
+    "_id": "94dsTgfeVPdLgwcKnZwIZo"
   },
   {
     "__type__": "cc.Widget",
@@ -1936,7 +1939,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "64dLvuuSlBqLOhenigeI0O"
+    "_id": "echh68/mhKAL5JITwPzsCq"
   },
   {
     "__type__": "cc.Sprite",
@@ -1968,7 +1971,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "55SgymW+NMZozx8gTsIj2Q"
+    "_id": "d0pxqq18pHzrlc2FpnqYel"
   },
   {
     "__type__": "cc.Widget",
@@ -1995,7 +1998,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "8cBeAhsRhDk75j2KiuteFp"
+    "_id": "f0nJJxjRxLKYCtpOZZ8iL4"
   },
   {
     "__type__": "cc.Node",
@@ -2034,7 +2037,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2044,7 +2047,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -172,
+      "y": -112.875,
       "z": 0
     },
     "_scale": {
@@ -2063,7 +2066,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "95aMtiRtdNLIn5HFO6Vf5l"
+    "_id": "a4AHzAvwRKHruSRfqtHVG2"
   },
   {
     "__type__": "cc.Node",
@@ -2124,7 +2127,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "31KqCqGM9BnamQT38axffO"
+    "_id": "64S9sXmvFBYI16YA3p2GO6"
   },
   {
     "__type__": "cc.Label",
@@ -2140,8 +2143,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "学生学费收入：",
-    "_N$string": "学生学费收入：",
+    "_string": "建筑经费支出：",
+    "_N$string": "建筑经费支出：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2154,7 +2157,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "429CnEpGxI/o/5Ri14b+ES"
+    "_id": "0770CdXUZKnrdxqEfL9dbC"
   },
   {
     "__type__": "cc.Widget",
@@ -2181,11 +2184,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "d0roFuxjRNt53VuK0jEe21"
+    "_id": "0eS9kk0QRHmKbojMF5hezz"
   },
   {
     "__type__": "cc.Node",
-    "_name": "StudentIncomeLabel",
+    "_name": "BuildingCostLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 48
@@ -2242,7 +2245,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "a2BqOf+ZZNU7YiG39Ylt2m"
+    "_id": "be57ekkvpDrZgHTLZrGTuk"
   },
   {
     "__type__": "cc.Label",
@@ -2272,7 +2275,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "cbUIEMs4ZCgIMbPsN/1oAx"
+    "_id": "11p//CN7RA1YYwuzNedIZz"
   },
   {
     "__type__": "cc.Widget",
@@ -2299,7 +2302,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "72xC8tBDJJ64FimZDHO+GZ"
+    "_id": "64dLvuuSlBqLOhenigeI0O"
   },
   {
     "__type__": "cc.Sprite",
@@ -2331,7 +2334,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "b1BrFpt2VEjKtZ4t89iPGV"
+    "_id": "55SgymW+NMZozx8gTsIj2Q"
   },
   {
     "__type__": "cc.Widget",
@@ -2358,7 +2361,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
-    "_id": "429UfKPT9HqIZwq0CduMf6"
+    "_id": "8cBeAhsRhDk75j2KiuteFp"
   },
   {
     "__type__": "cc.Node",
@@ -2397,7 +2400,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 296.79999999999995,
-      "height": 84
+      "height": 73.25
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2407,7 +2410,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -258,
+      "y": -188.125,
       "z": 0
     },
     "_scale": {
@@ -2426,7 +2429,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "1es+yX1lhG1bNVelpow2qz"
+    "_id": "95aMtiRtdNLIn5HFO6Vf5l"
   },
   {
     "__type__": "cc.Node",
@@ -2487,7 +2490,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "1eo2Q1YqxGe7zdPO/c3oLr"
+    "_id": "31KqCqGM9BnamQT38axffO"
   },
   {
     "__type__": "cc.Label",
@@ -2503,8 +2506,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "教师经费支出：",
-    "_N$string": "教师经费支出：",
+    "_string": "学生学费收入：",
+    "_N$string": "学生学费收入：",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -2517,7 +2520,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "62em4beMFLI7FWDhW71GkZ"
+    "_id": "429CnEpGxI/o/5Ri14b+ES"
   },
   {
     "__type__": "cc.Widget",
@@ -2544,11 +2547,11 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 280,
     "_originalHeight": 0,
-    "_id": "d6IAAFLsdJebHxIhKwp7ec"
+    "_id": "d0roFuxjRNt53VuK0jEe21"
   },
   {
     "__type__": "cc.Node",
-    "_name": "TeacherCostLabel",
+    "_name": "StudentIncomeLabel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 57
@@ -2605,7 +2608,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "10/w72afVFOL/IEXzGkg6a"
+    "_id": "a2BqOf+ZZNU7YiG39Ylt2m"
   },
   {
     "__type__": "cc.Label",
@@ -2635,7 +2638,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 2,
     "_N$cacheMode": 0,
-    "_id": "11cyKXgL9GTqO4XhbMljHn"
+    "_id": "cbUIEMs4ZCgIMbPsN/1oAx"
   },
   {
     "__type__": "cc.Widget",
@@ -2662,7 +2665,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 97.87,
     "_originalHeight": 0,
-    "_id": "c18gG//VJOML/EUYHvL7lM"
+    "_id": "72xC8tBDJJ64FimZDHO+GZ"
   },
   {
     "__type__": "cc.Sprite",
@@ -2694,7 +2697,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "0740B+dmdNO5tOIajspH2N"
+    "_id": "b1BrFpt2VEjKtZ4t89iPGV"
   },
   {
     "__type__": "cc.Widget",
@@ -2702,6 +2705,369 @@
     "_objFlags": 0,
     "node": {
       "__id__": 57
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 10,
+    "_right": 10,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": "429UfKPT9HqIZwq0CduMf6"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "InfoLine",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 5
+    },
+    "_children": [
+      {
+        "__id__": 67
+      },
+      {
+        "__id__": 70
+      }
+    ],
+    "_active": true,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 73
+      },
+      {
+        "__id__": 74
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 296.79999999999995,
+      "height": 73.25
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": -263.375,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "groupIndex": 0,
+    "_id": "1es+yX1lhG1bNVelpow2qz"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "Label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 66
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 3,
+    "_components": [
+      {
+        "__id__": 68
+      },
+      {
+        "__id__": 69
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 178.07999999999998,
+      "height": 50.4
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": -59.359999999999985,
+      "y": 0,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "groupIndex": 0,
+    "_id": "1eo2Q1YqxGe7zdPO/c3oLr"
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 67
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_useOriginalSize": false,
+    "_string": "教师经费支出：",
+    "_N$string": "教师经费支出：",
+    "_fontSize": 32,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 2,
+    "_N$cacheMode": 0,
+    "_id": "62em4beMFLI7FWDhW71GkZ"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 67
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0.4,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": false,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 280,
+    "_originalHeight": 0,
+    "_id": "d6IAAFLsdJebHxIhKwp7ec"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "TeacherCostLabel",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 66
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 3,
+    "_components": [
+      {
+        "__id__": 71
+      },
+      {
+        "__id__": 72
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 148.39999999999998,
+      "height": 50.4
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 74.19999999999999,
+      "y": 0,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "groupIndex": 0,
+    "_id": "10/w72afVFOL/IEXzGkg6a"
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 70
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_useOriginalSize": false,
+    "_string": "+00000",
+    "_N$string": "+00000",
+    "_fontSize": 32,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_N$horizontalAlign": 2,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 2,
+    "_N$cacheMode": 0,
+    "_id": "11cyKXgL9GTqO4XhbMljHn"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 70
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0.5,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": false,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 97.87,
+    "_originalHeight": 0,
+    "_id": "c18gG//VJOML/EUYHvL7lM"
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 66
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "2999c1e3-b92a-4657-b0dc-6d8250f22efa"
+    },
+    "_type": 1,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": "0740B+dmdNO5tOIajspH2N"
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 66
     },
     "_enabled": true,
     "alignMode": 1,
@@ -2764,12 +3130,9 @@
     },
     "_enabled": true,
     "game": {
-      "__id__": 68
+      "__id__": 77
     },
     "labels": [
-      {
-        "__id__": 17
-      },
       {
         "__id__": 26
       },
@@ -2784,6 +3147,12 @@
       },
       {
         "__id__": 62
+      },
+      {
+        "__id__": 71
+      },
+      {
+        "__id__": 17
       }
     ],
     "_id": "7bxUYSZ8ZAr4q0qe3jMrZg"
@@ -2793,7 +3162,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 69
+      "__id__": 78
     },
     "_enabled": true,
     "universityName": "XX大学",
@@ -2833,7 +3202,7 @@
     "eventPanel": null,
     "studentPanel": null,
     "resourceDetailPanel": {
-      "__id__": 67
+      "__id__": 76
     },
     "_id": "94ihZkzD1JBbyylRyk8k8G"
   },
@@ -2849,7 +3218,7 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 68
+        "__id__": 77
       }
     ],
     "_prefab": null,
@@ -2984,7 +3353,7 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 74
+        "__id__": 83
       }
     ],
     "_prefab": null,
@@ -3035,11 +3404,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 73
+      "__id__": 82
     },
     "_enabled": true,
     "game": {
-      "__id__": 68
+      "__id__": 77
     },
     "currentTick": 0,
     "_id": "7b56WTjzdKJKh0eZoUuc4n"

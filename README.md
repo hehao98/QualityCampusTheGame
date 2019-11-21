@@ -4,7 +4,7 @@
 
 ## Play this Game
 
-![https://hehao98.github.io/UnivSimTheGame/](https://hehao98.github.io/UnivSimTheGame/)
+[https://hehao98.github.io/UnivSimTheGame/](https://hehao98.github.io/UnivSimTheGame/)
 
 ## Development Environment
 
