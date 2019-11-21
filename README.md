@@ -1,11 +1,5 @@
 # UniversitySim
 
-何昊 1600012742
-
-廖明洋 1600012768
-
-童派 1600011606
-
 [![pipeline status](https://se.jisuanke.com/hehao/universitysim/badges/master/pipeline.svg)](https://se.jisuanke.com/hehao/universitysim/commits/master)
 
 ## Play this Game
