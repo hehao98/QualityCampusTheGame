@@ -64,7 +64,8 @@ let Game = cc.Class({
         buildingPage: require("BuildingPage"),
         pkuHolePanel: require("PkuHolePanel"),
         eventPanel: require("EventPanel"),
-        studentPanel: require("StudentPanel")
+        studentPanel: require("StudentPanel"),
+        resourceDetailPanel: require("ResourceDetailPanel"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -222,6 +223,7 @@ let Game = cc.Class({
             if (this.pkuHolePanel) this.pkuHolePanel.updatePanel();
             if (this.eventPanel) this.eventPanel.updatePanel();
             if (this.studentPanel) this.studentPanel.updatePanel();
+            if (this.resourceDetailPanel) this.resourceDetailPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
@@ -232,6 +234,7 @@ let Game = cc.Class({
             this.buildingPage.updateBuildingListInfo();
             this.eventPanel.updatePanel();
             this.studentPanel.updatePanel();
+            this.resourceDetailPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }
