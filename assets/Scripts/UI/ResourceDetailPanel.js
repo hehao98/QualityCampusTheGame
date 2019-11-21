@@ -16,6 +16,10 @@ cc.Class({
         this.labels.forEach(label => {
             let value = 0;
             switch (label.node.name) {
+            case "TotalResourceLabel":
+                value = this.game.fund.value;
+                label.string = value + "万";
+                return;
             case "TotalResourceChangeLabel":
                 value = this.game.fund.getWeeklyModification();
                 break;
