@@ -107,19 +107,13 @@ cc.Class({
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
             buildingLevel.string = utilities.numberToRoman(building.tier + 1);
             let buildingProgressBar = node.getChildByName("BuildingProgressBar").getComponent(cc.ProgressBar);
-            if (building.buildingEndTime === 0) {
-                buildingProgressBar.node.active = false;
-            } else if (Globals.tick > building.buildingEndTime) {
-                buildingProgressBar.node.active = false;
-            } else if (Globals.tick === building.buildingEndTime) {
-                this.popupManager.showPopup("建筑建造已完成");
-                buildingProgressBar.node.active = false;
-            } else {
-                let totalBuildingTime = building.buildingEndTime - building.buildingStartTime;
-                let currentBuildingTime = Globals.tick - building.buildingStartTime;
-                let currentProgress = currentBuildingTime * 1.0 / totalBuildingTime;
-                buildingProgressBar.progress = currentProgress;
-                buildingProgressBar.node.active = true;
+            buildingProgressBar.node.active = false;
+            if (building.buildingEndTime || building.upgradingEndTime) {
+                if (building.buildingEndTime > building.upgradingEndTime) {
+                    this.checkIsBuilding(buildingProgressBar, building);
+                } else {
+                    this.checkIsUpgrading(buildingProgressBar, building);
+                }
             }
             this.contentPanel.addChild(node);
         }
@@ -175,10 +169,51 @@ cc.Class({
 
     upgradeSelectedBuilding () {
         let buildingLists = this.game.buildingManager.getBuildingLists();
-        let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
+        let building = buildingLists[selectedBuildingId];
+        if (Globals.tick < building.buildingEndTime) {
+            this.popupManager.showPopup("当前建筑还没建造完成，不能升级");
+            return;
+        } else if (Globals.tick < building.upgradingEndTime) {
+            this.popupManager.showPopup("当前升级尚未完成，不能再次升级");
+            return;
+        }
+        this.popupManager.showMessageBox(
+            "是否要升级所选建筑",
+            () => {
+                let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
+                if (succeeded) {
+                    this.popupManager.showPopup("升级成功，等待升级完成");
+                    this.showSelectedBuildingInfo(selectedBuildingId);
+                } else {
+                    this.popupManager.showPopup("升级失败，当前建筑已到最高等级或者资金不足以完成升级");
+                }
+            },
+            () => {
+            },
+            this
+        );
+    },
+
+    checkIsUpgrading (buildingProgressBar, building) {
+        if (building.upgradingEndTime === 0) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick > building.upgradingEndTime) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick === building.upgradingEndTime) {
+            this.popupManager.showPopup(building.name + "升级已完成");
+            buildingProgressBar.node.active = false;
+        } else {
+            let totalUpgradingTime = building.upgradingEndTime - building.upgradingStartTime;
+            let currentUpgradingTime = Globals.tick - building.upgradingStartTime;
+            let currentProgress = currentUpgradingTime * 1.0 / totalUpgradingTime;
+            buildingProgressBar.progress = currentProgress;
+            let label = buildingProgressBar.node.getChildByName("Label").getComponent(cc.Label);
+            label.string = "升级中";
+            buildingProgressBar.node.active = true;
+        }
     },
     
-    addBuilding(button) {
+    addBuilding (button) {
         this.popupManager.showMessageBox(
             "是否要添加新建筑",
             () => {
@@ -189,5 +224,24 @@ cc.Class({
             },
             this
         );
+    },
+
+    checkIsBuilding (buildingProgressBar, building) {
+        if (building.buildingEndTime === 0) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick > building.buildingEndTime) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick === building.buildingEndTime) {
+            this.popupManager.showPopup(building.name + "建造已完成");
+            buildingProgressBar.node.active = false;
+        } else {
+            let totalBuildingTime = building.buildingEndTime - building.buildingStartTime;
+            let currentBuildingTime = Globals.tick - building.buildingStartTime;
+            let currentProgress = currentBuildingTime * 1.0 / totalBuildingTime;
+            buildingProgressBar.progress = currentProgress;
+            let label = buildingProgressBar.node.getChildByName("Label").getComponent(cc.Label);
+            label.string = "建造中";
+            buildingProgressBar.node.active = true;
+        }
     }
 });
