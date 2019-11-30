@@ -105,6 +105,19 @@ cc.Class({
             buildingName.string = building.name;
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
             buildingLevel.string = utilities.numberToRoman(building.tier + 1);
+            let buildingProgressBar = node.getChildByName("BuildingProgressBar").getComponent(cc.ProgressBar);
+            if (building.buildingEndTime === 0) {
+                buildingProgressBar.node.active = false;
+            } else if (Globals.tick >= building.buildingEndTime) {
+                buildingProgressBar.node.active = false;
+            } else {
+                let totalBuildingTime = building.buildingEndTime - building.buildingStartTime;
+                let currentBuildingTime = Globals.tick - building.buildingStartTime;
+                let currentProgress = currentBuildingTime * 1.0 / totalBuildingTime;
+                buildingProgressBar.progress = currentProgress;
+                buildingProgressBar.node.active = true;
+                console.log("BuildingProgressBar:" + " currentProgress:" + currentProgress);
+            }
             this.contentPanel.addChild(node);
         }
     },
