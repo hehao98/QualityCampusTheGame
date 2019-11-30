@@ -45,6 +45,7 @@ cc.Class({
         buildingInfoPage: cc.Node,
         specificationPrefab: cc.Prefab,
         layoutPanel: cc.Node,
+        popupManager: require("PopupManager")
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -108,7 +109,10 @@ cc.Class({
             let buildingProgressBar = node.getChildByName("BuildingProgressBar").getComponent(cc.ProgressBar);
             if (building.buildingEndTime === 0) {
                 buildingProgressBar.node.active = false;
-            } else if (Globals.tick >= building.buildingEndTime) {
+            } else if (Globals.tick > building.buildingEndTime) {
+                buildingProgressBar.node.active = false;
+            } else if (Globals.tick === building.buildingEndTime) {
+                this.popupManager.showPopup("建筑建造已完成");
                 buildingProgressBar.node.active = false;
             } else {
                 let totalBuildingTime = building.buildingEndTime - building.buildingStartTime;
@@ -116,7 +120,6 @@ cc.Class({
                 let currentProgress = currentBuildingTime * 1.0 / totalBuildingTime;
                 buildingProgressBar.progress = currentProgress;
                 buildingProgressBar.node.active = true;
-                console.log("BuildingProgressBar:" + " currentProgress:" + currentProgress);
             }
             this.contentPanel.addChild(node);
         }
@@ -176,7 +179,15 @@ cc.Class({
     },
     
     addBuilding(button) {
-        let buildingType = button.node.name;
-        this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+        this.popupManager.showMessageBox(
+            "是否要添加新建筑",
+            () => {
+                let buildingType = button.node.name;
+                this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+            },
+            () => {
+            },
+            this
+        );
     }
 });
