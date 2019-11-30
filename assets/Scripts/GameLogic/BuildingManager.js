@@ -46,6 +46,8 @@ BuildingManager.prototype.add = function (properties) {
     building.buildingEndTime = properties.freeOfCharge ? 0 :
         Globals.tick + BuildingSpecifications[
             properties.type][0].buildTime;
+    building.upgradingStartTime = 0;
+    building.upgradingEndTime = 0;
     this.buildings.push(building);
     return true;
 };
@@ -67,20 +69,22 @@ BuildingManager.prototype.upgrade = function (properties) {
     }
     let newTier = target.tier + 1;
     if (properties.freeOfCharge != true) {
+        if (!BuildingSpecifications[target.type][newTier]) {
+            return false;
+        }
         // check whether resource is enough
         let fund = BuildingSpecifications[target.type][
             newTier].defaultProperties.fundToCurrentTier;
         const success = this.fund.use(fund);
         if (!success) return false;
     }
-    else {
-        target.upgradingStartTime = Globals.tick;
-        target.upgradingEndTime = properties.freeOfCharge ? 0 :
-            Globals.tick + BuildingSpecifications[
-                properties.type][newTier].buildTime;
-        target.tier++;
-        target.loadSpecifications();
-    }
+    target.upgradingStartTime = Globals.tick;
+    target.upgradingEndTime = properties.freeOfCharge ? 0 :
+        Globals.tick + BuildingSpecifications[
+            target.type][newTier].buildTime;
+    target.tier++;
+    target.loadSpecifications();
+    return true;
 };
 
 
