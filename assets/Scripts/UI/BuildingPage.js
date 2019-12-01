@@ -218,7 +218,12 @@ cc.Class({
             "是否要添加新建筑",
             () => {
                 let buildingType = button.node.name;
-                this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+                let succeeded = this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+                if (succeeded) {
+                    this.popupManager.showPopup("新建建筑成功，等待建造完成");
+                } else {
+                    this.popupManager.showPopup("新建建筑失败，当前资金不足以新建此类建筑");
+                }
             },
             () => {
             },
