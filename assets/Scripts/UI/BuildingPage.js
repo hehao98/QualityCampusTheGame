@@ -106,6 +106,8 @@ cc.Class({
             buildingName.string = building.name;
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
             buildingLevel.string = utilities.numberToRoman(building.tier + 1);
+            let studentNumber = node.getChildByName("StudentNumberLabel").getComponent(cc.Label);
+            studentNumber.string = "当前学生人数/建筑容量:" + building.nStudent + "/" + building.capacity;
             let buildingProgressBar = node.getChildByName("BuildingProgressBar").getComponent(cc.ProgressBar);
             buildingProgressBar.node.active = false;
             if (building.buildingEndTime || building.upgradingEndTime) {
@@ -146,6 +148,7 @@ cc.Class({
 
     showBuildNewBuildingPage () {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室"];
         this.layoutPanel.removeAllChildren();
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
@@ -157,7 +160,7 @@ cc.Class({
             let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
             buildingSprite.spriteFrame = BuildingIconsDict[buildingTypeArr[i]];
             let buildingName = node.getChildByName("BuildingNameLabel").getComponent(cc.Label);
-            buildingName.string = buildingTypeArr[i];
+            buildingName.string = buildingChineseName[i];
             let resourceInfoNode = node.getChildByName("ResourceInfo");
             let buildingFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
             buildingFund.string = buildingProperties["fundToCurrentTier"];
