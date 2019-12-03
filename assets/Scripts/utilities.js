@@ -33,6 +33,19 @@ let utilities = {
     },
 
     /**
+     * Replace all occurrence in a string
+     * @param {String} str 
+     * @param {String} find 
+     * @param {String} replace 
+     */
+    replaceAll: function(str, find, replace) {
+        return str.replace(
+            new RegExp(find.replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1"), "g"), 
+            replace
+        );
+    },
+
+    /**
      * Given min and max, return a random integer in [min, max]
      * @param {Number} min 
      * @param {Number} max 
