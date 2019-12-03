@@ -8,6 +8,7 @@ cc.Class({
     properties: {
         configWindow: cc.Node,
         loadingWindow: cc.Node,
+        licenseWindow: cc.Node,
         loadingLabel: cc.Label,
         universityNameInput: cc.EditBox,
     },
@@ -40,5 +41,9 @@ cc.Class({
 
     openGitRepository() {
         window.open("https://github.com/hehao98/QualityCampusTheGame");
+    },
+
+    openLicenseWindow() {
+        this.licenseWindow.active = !this.licenseWindow.active;
     }
 });
