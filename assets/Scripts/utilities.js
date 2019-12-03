@@ -37,7 +37,7 @@ let utilities = {
      * @param {Number} min 
      * @param {Number} max 
      */
-    randomInt: function(min, max) {
+    randomInt: function (min, max) {
         assert(Number.isInteger(min) && Number.isInteger(max));
         if (min > max) {
             let temp = min;
@@ -176,8 +176,8 @@ let utilities = {
         let newArr = [];
         let newStr;
         //先把数字转化为相应的罗马字母
-        while(num > 0) {
-            if(num - 1000 >= 0) {
+        while (num > 0) {
+            if (num - 1000 >= 0) {
                 newArr.push("M");
                 num -= 1000;
             } else if (num - 500 >= 0) {
@@ -189,21 +189,21 @@ let utilities = {
             } else if (num - 50 >= 0) {
                 newArr.push("L");
                 num -= 50;
-            } else if(num - 10 >= 0) {
+            } else if (num - 10 >= 0) {
                 newArr.push("X");
                 num -= 10;
-            } else if(num - 5 >= 0) {
+            } else if (num - 5 >= 0) {
                 newArr.push("V");
                 num -= 5;
-            } else if(num - 1 >= 0) {
+            } else if (num - 1 >= 0) {
                 newArr.push("I");
                 num -= 1;
             }
         }
         newStr = newArr.join("");
         //将4和9的情况进行替换
-        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function(match) {
-            switch(match) {
+        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function (match) {
+            switch (match) {
             case "VIIII":
                 return "IX";
             case "LXXXX":
@@ -215,11 +215,20 @@ let utilities = {
             case "XXXX":
                 return "XL";
             case "CCCC":
-                return "CD";  
+                return "CD";
             }
         });
         return newStr;
-    }
+    },
+
+    safeGet(obj, keys) {
+        let cur = obj;
+        for (let key of keys) {
+            if (cur === undefined) { return undefined; }
+            cur = cur[key];
+        }
+        return cur;
+    },
 };
 
 module.exports = utilities;

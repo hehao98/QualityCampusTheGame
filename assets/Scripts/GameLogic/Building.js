@@ -44,11 +44,12 @@ Building.prototype.loadSpecifications = function () {
         this[property] = specification[property];
     }
 };
-Building.prototype.upgrade = function () {
-    this.tier++;
-    this.loadSpecifications();
-    return true;
-};
+
+// Building.prototype.upgrade = function () {
+//     this.tier++;
+//     this.loadSpecifications();
+//     return OK;
+// };
 
 /**
  *

@@ -61,30 +61,32 @@ BuildingManager.prototype.add = function (properties) {
  * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.upgrade = function (properties) {
-    let target = _.find(this.buildings,
+    const target = _.find(this.buildings,
         function (building) { return building.id === properties.id; }
     );
-    if (target === undefined) {
-        throw new ReferenceError("Building ID not exists.");
+    if (!target) {
+        throw new RangeError("Building ID not exists: " + properties.id);
     }
-    let newTier = target.tier + 1;
+    const newTier = target.tier + 1;
+    const info = utilities.safeGet(BuildingSpecifications,
+        [target.type, newTier]);
+    if (!info) {
+        throw new RangeError("Building type not exists or " +
+            "no upgrade available for this type of building at " +
+            "this tier: " + target.type, newTier);
+    }
     if (properties.freeOfCharge != true) {
-        if (!BuildingSpecifications[target.type][newTier]) {
-            return false;
-        }
         // check whether resource is enough
-        let fund = BuildingSpecifications[target.type][
-            newTier].defaultProperties.fundToCurrentTier;
+        let fund = info.defaultProperties.fundToCurrentTier;
         const success = this.fund.use(fund);
-        if (!success) return false;
+        if (!success) return ERR_NOT_ENOUGH_RESOURCES;
     }
     target.upgradingStartTime = Globals.tick;
     target.upgradingEndTime = properties.freeOfCharge ? 0 :
-        Globals.tick + BuildingSpecifications[
-            target.type][newTier].buildTime;
+        Globals.tick + info.buildTime;
     target.tier++;
     target.loadSpecifications();
-    return true;
+    return OK;
 };
 
 

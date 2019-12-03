@@ -52,8 +52,22 @@ module.exports = {
     AFTERNOON: 2,
     EVENING: 3,
     NIGHT: 4,
+    // * return values
+    OK: 0,
+    ERR_NOT_ENOUGH_RESOURCES: -1,
 
     UI: {
         buildingListPageView: null,
     }
 };
+
+const globals = {
+    OK: 0,
+    ERR_NOT_ENOUGH_RESOURCES: -1,
+};
+
+
+Object.assign(exports, globals);
+if (typeof window !== 'undefined') {
+    Object.assign(window, globals);
+}
