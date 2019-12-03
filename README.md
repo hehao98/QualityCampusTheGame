@@ -8,7 +8,7 @@
 
 ## Play this Game
 
-1. [Web Mobile](https://hehao98.github.io/PlayQualityCampus/)
+1. [Web Mobile](https://hehao98.github.io/PlayQualityCampus-Mobile/)
 2. [Web Desktop](https://hehao98.github.io/PlayQualityCampus-Desktop/)
 
 ## Development Environment
