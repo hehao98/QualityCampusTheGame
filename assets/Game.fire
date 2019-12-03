@@ -5210,6 +5210,9 @@
     "resourceDetailPanel": {
       "__id__": 894
     },
+    "popupManager": {
+      "__id__": 694
+    },
     "_id": "2e6BIp/XlH15DtB72HqF4p"
   },
   {
@@ -25671,7 +25674,7 @@
     "_target": null,
     "_alignFlags": 32,
     "_left": 0,
-    "_right": 0.202608695652174,
+    "_right": 0.20260869565217393,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -26485,6 +26488,9 @@
     },
     "messageBoxPrefab": {
       "__uuid__": "417d512f-08e2-481a-b767-715b3cb17ce0"
+    },
+    "dialogBoxPrefab": {
+      "__uuid__": "040bd978-f012-4f92-8d3b-c47b0ab230e1"
     },
     "_id": "c2holMlzVMV5w1hjVOg37b"
   },
