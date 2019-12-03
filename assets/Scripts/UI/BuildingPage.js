@@ -185,12 +185,12 @@ cc.Class({
             () => {
                 try {
                     let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
-                if (!succeeded) {
-                    this.popupManager.showPopup("升级成功，等待升级完成");
-                    this.showSelectedBuildingInfo(selectedBuildingId);
-                } else {
-                    this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
-                }
+                    if (!succeeded) {
+                        this.popupManager.showPopup("升级成功，等待升级完成");
+                        this.showSelectedBuildingInfo(selectedBuildingId);
+                    } else {
+                        this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
+                    }
                 } catch (error) {
                     if (error.message > "Building type") {
                         this.popupManager.showPopup("升级失败，当前建筑已到最高等级");
