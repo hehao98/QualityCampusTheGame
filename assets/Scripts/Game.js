@@ -66,6 +66,7 @@ let Game = cc.Class({
         eventPanel: require("EventPanel"),
         studentPanel: require("StudentPanel"),
         resourceDetailPanel: require("ResourceDetailPanel"),
+        popupManager: require("PopupManager"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -144,6 +145,30 @@ let Game = cc.Class({
             this.studentManager.debugPrint();
         }
 
+        // Show an welcome dialog
+        this.isPaused = true;
+        this.popupManager.showDialogBox(
+            this.initialData.json.welcomeMessage.replace("{univname}", this.universityName),
+            [
+                {
+                    string: "开始！",
+                    callback: function() {
+                        this.isPaused = false;
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                },
+                {
+                    string: "查看详细教程",
+                    callback: function() {
+                        window.open("https://hehao98.github.io/posts/2019/12/quality-campus-tutorial/");
+                    },
+                    thisPointer: this,
+                    destroyDialog: false,
+                }
+            ]
+        );
+
         //if (Globals.TEST_MODE) {
         //    let test = require("testBasic.js");
         //    test();
@@ -210,6 +235,30 @@ let Game = cc.Class({
                 }
             }, this);
             if (flag) {
+                this.isPaused = true;
+                this.popupManager.showDialogBox(
+                    this.gameObjectives[this.currentObjective].achieveMessage.
+                        replace("{univname}", this.universityName),
+                    [
+                        {
+                            string: "好的！",
+                            callback: function() {
+                                this.isPaused = false;
+                            },
+                            thisPointer: this,
+                            destroyDialog: true,
+                        },
+                        {
+                            string: "再接再厉",
+                            callback: function() {
+                                this.isPaused = false;
+                            },
+                            thisPointer: this,
+                            destroyDialog: false,
+                        }
+                    ]
+                );
+
                 this.currentObjective++;
             }
         }
