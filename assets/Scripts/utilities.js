@@ -145,25 +145,25 @@ let utilities = {
                 }
                 return "";
             }).replace(/零+/g, "零").replace(/零([万亿])/g,
-                function (m, b) {
-                    // 零百 零千处理后 可能出现 零零相连的 再处理结尾为零的
-                    return b;
-                }).replace(/亿[万千百]/g, "亿").replace(/[零]$/, "").replace(
-                    /[@#%^&~]/g, function (m) {
-                        return {
-                            "@": "十", "#": "百", "%": "千", "^":
+            function (m, b) {
+                // 零百 零千处理后 可能出现 零零相连的 再处理结尾为零的
+                return b;
+            }).replace(/亿[万千百]/g, "亿").replace(/[零]$/, "").replace(
+            /[@#%^&~]/g, function (m) {
+                return {
+                    "@": "十", "#": "百", "%": "千", "^":
                                 "十", "&": "百", "~": "千"
-                        }[m];
-                    }).replace(/([亿万])([一-九])/g,
-                        function (m, d, b, c) {
-                            c = t.units.indexOf(d);
-                            if (c != -1) {
-                                if (a[j - c] == "0") {
-                                    return d + "零" + b;
-                                }
-                            }
-                            return m;
-                        });
+                }[m];
+            }).replace(/([亿万])([一-九])/g,
+            function (m, d, b, c) {
+                c = t.units.indexOf(d);
+                if (c != -1) {
+                    if (a[j - c] == "0") {
+                        return d + "零" + b;
+                    }
+                }
+                return m;
+            });
     },
 
     /**
@@ -204,18 +204,18 @@ let utilities = {
         //将4和9的情况进行替换
         newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function (match) {
             switch (match) {
-                case "VIIII":
-                    return "IX";
-                case "LXXXX":
-                    return "XC";
-                case "DCCCC":
-                    return "CM";
-                case "IIII":
-                    return "IV";
-                case "XXXX":
-                    return "XL";
-                case "CCCC":
-                    return "CD";
+            case "VIIII":
+                return "IX";
+            case "LXXXX":
+                return "XC";
+            case "DCCCC":
+                return "CM";
+            case "IIII":
+                return "IV";
+            case "XXXX":
+                return "XL";
+            case "CCCC":
+                return "CD";
             }
         });
         return newStr;
