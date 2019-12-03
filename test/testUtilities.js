@@ -3,6 +3,11 @@ let Utilities = require("utilities");
 let Globals = require("GlobalVariables");
 
 describe("Utilities", function() {
+    it("should replace all occurrences in a string correctly", function() {
+        let str = "aaacccaaa";
+        assert.strictEqual(Utilities.replaceAll(str, "aaa", "bbb"), "bbbcccbbb");
+    }), 
+
     it("should handle tick conversion correctly", function() {
         let tickProps = Utilities.getTickProperties(1600);
         assert.strictEqual(tickProps.year, 2019);

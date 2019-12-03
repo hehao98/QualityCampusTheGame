@@ -41,6 +41,8 @@ let Game = cc.Class({
         careerIndex: 0,
         studentSatisfaction: 0,
         professorSatisfaction: 0,
+        worldRankFlagTriggers: [400, 300, 200, 100, 50, 30, 10, 1],
+        worldRankFlags: [false, false, false, false, false, false, false, false],
 
         // Other Properties that will be read by event manager
         studyIndex: 0,
@@ -148,7 +150,8 @@ let Game = cc.Class({
         // Show an welcome dialog
         this.isPaused = true;
         this.popupManager.showDialogBox(
-            this.initialData.json.welcomeMessage.replace("{univname}", this.universityName),
+            utilities.replaceAll(this.initialData.json.welcomeMessage,
+                "{univname}", this.universityName),
             [
                 {
                     string: "开始！",
@@ -220,6 +223,18 @@ let Game = cc.Class({
         this.eventManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
+            // If the player have achieved a new ranking, popup
+            this.worldRankFlagTriggers.forEach((targetRank, idx) => {
+                let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
+                if (ranking < targetRank && this.worldRankFlags[idx] === false) {
+                    this.popupManager.showPopup("恭喜" + this.universityName 
+                        + "进入世界前" 
+                        + targetRank
+                        + "名"
+                    );
+                    this.worldRankFlags[idx] = true;
+                }
+            }, false);
         }
     },
 
@@ -237,8 +252,8 @@ let Game = cc.Class({
             if (flag) {
                 this.isPaused = true;
                 this.popupManager.showDialogBox(
-                    this.gameObjectives[this.currentObjective].achieveMessage.
-                        replace("{univname}", this.universityName),
+                    utilities.replaceAll(this.gameObjectives[this.currentObjective].achieveMessage,
+                        "{univname}", this.universityName),
                     [
                         {
                             string: "好的！",
