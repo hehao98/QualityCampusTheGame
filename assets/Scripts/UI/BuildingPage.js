@@ -183,12 +183,20 @@ cc.Class({
         this.popupManager.showMessageBox(
             "是否要升级所选建筑",
             () => {
-                let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
-                if (succeeded) {
+                try {
+                    let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
+                if (!succeeded) {
                     this.popupManager.showPopup("升级成功，等待升级完成");
                     this.showSelectedBuildingInfo(selectedBuildingId);
                 } else {
-                    this.popupManager.showPopup("升级失败，当前建筑已到最高等级或者资金不足以完成升级");
+                    this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
+                }
+                } catch (error) {
+                    if (error.message > "Building type") {
+                        this.popupManager.showPopup("升级失败，当前建筑已到最高等级");
+                    } else {
+                        this.popupManager.showPopup("升级失败，当前建筑不存在");
+                    }
                 }
             },
             () => {
