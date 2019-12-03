@@ -37,7 +37,7 @@ let utilities = {
      * @param {Number} min 
      * @param {Number} max 
      */
-    randomInt: function(min, max) {
+    randomInt: function (min, max) {
         assert(Number.isInteger(min) && Number.isInteger(max));
         if (min > max) {
             let temp = min;
@@ -145,25 +145,25 @@ let utilities = {
                 }
                 return "";
             }).replace(/零+/g, "零").replace(/零([万亿])/g,
-            function (m, b) {
-                // 零百 零千处理后 可能出现 零零相连的 再处理结尾为零的
-                return b;
-            }).replace(/亿[万千百]/g, "亿").replace(/[零]$/, "").replace(
-            /[@#%^&~]/g, function (m) {
-                return {
-                    "@": "十", "#": "百", "%": "千", "^":
+                function (m, b) {
+                    // 零百 零千处理后 可能出现 零零相连的 再处理结尾为零的
+                    return b;
+                }).replace(/亿[万千百]/g, "亿").replace(/[零]$/, "").replace(
+                    /[@#%^&~]/g, function (m) {
+                        return {
+                            "@": "十", "#": "百", "%": "千", "^":
                                 "十", "&": "百", "~": "千"
-                }[m];
-            }).replace(/([亿万])([一-九])/g,
-            function (m, d, b, c) {
-                c = t.units.indexOf(d);
-                if (c != -1) {
-                    if (a[j - c] == "0") {
-                        return d + "零" + b;
-                    }
-                }
-                return m;
-            });
+                        }[m];
+                    }).replace(/([亿万])([一-九])/g,
+                        function (m, d, b, c) {
+                            c = t.units.indexOf(d);
+                            if (c != -1) {
+                                if (a[j - c] == "0") {
+                                    return d + "零" + b;
+                                }
+                            }
+                            return m;
+                        });
     },
 
     /**
@@ -176,8 +176,8 @@ let utilities = {
         let newArr = [];
         let newStr;
         //先把数字转化为相应的罗马字母
-        while(num > 0) {
-            if(num - 1000 >= 0) {
+        while (num > 0) {
+            if (num - 1000 >= 0) {
                 newArr.push("M");
                 num -= 1000;
             } else if (num - 500 >= 0) {
@@ -189,37 +189,46 @@ let utilities = {
             } else if (num - 50 >= 0) {
                 newArr.push("L");
                 num -= 50;
-            } else if(num - 10 >= 0) {
+            } else if (num - 10 >= 0) {
                 newArr.push("X");
                 num -= 10;
-            } else if(num - 5 >= 0) {
+            } else if (num - 5 >= 0) {
                 newArr.push("V");
                 num -= 5;
-            } else if(num - 1 >= 0) {
+            } else if (num - 1 >= 0) {
                 newArr.push("I");
                 num -= 1;
             }
         }
         newStr = newArr.join("");
         //将4和9的情况进行替换
-        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function(match) {
-            switch(match) {
-            case "VIIII":
-                return "IX";
-            case "LXXXX":
-                return "XC";
-            case "DCCCC":
-                return "CM";
-            case "IIII":
-                return "IV";
-            case "XXXX":
-                return "XL";
-            case "CCCC":
-                return "CD";  
+        newStr = newStr.replace(/VI{4}|LX{4}|DC{4}|I{4}|X{4}|C{4}/g, function (match) {
+            switch (match) {
+                case "VIIII":
+                    return "IX";
+                case "LXXXX":
+                    return "XC";
+                case "DCCCC":
+                    return "CM";
+                case "IIII":
+                    return "IV";
+                case "XXXX":
+                    return "XL";
+                case "CCCC":
+                    return "CD";
             }
         });
         return newStr;
-    }
+    },
+
+    safeGet(obj, keys) {
+        let cur = obj;
+        for (let key of keys) {
+            if (cur === undefined) { return undefined; }
+            cur = cur[key];
+        }
+        return cur;
+    },
 };
 
 module.exports = utilities;

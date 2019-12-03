@@ -57,3 +57,8 @@ module.exports = {
         buildingListPageView: null,
     }
 };
+
+Object.assign(window, {
+    OK: 0,
+    ERR_NOT_ENOUGH_RESOURCES: -1,
+});
