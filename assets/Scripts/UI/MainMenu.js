@@ -40,5 +40,13 @@ cc.Class({
             }
             count += 1;
         }, 0.5);
+    },
+
+    openOfficialWebsite() {
+        window.open("https://hehao98.github.io/portfolio/1-quality-campus/");
+    },
+
+    openGitRepository() {
+        window.open("https://github.com/hehao98/QualityCampusTheGame");
     }
 });

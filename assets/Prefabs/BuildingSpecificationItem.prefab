@@ -31,7 +31,7 @@
       }
     ],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 45
@@ -1306,7 +1306,7 @@
     "_target": null,
     "_alignFlags": 32,
     "_left": 0,
-    "_right": 0.20260869565217393,
+    "_right": 0.202608695652174,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
