@@ -41,8 +41,8 @@ let Game = cc.Class({
         careerIndex: 0,
         studentSatisfaction: 0,
         professorSatisfaction: 0,
-        worldRankFlagTriggers: [400, 300, 200, 100, 50, 30, 10, 1],
-        worldRankFlags: [false, false, false, false, false, false, false, false],
+        worldRankFlagTriggers: [],
+        worldRankFlags: [],
 
         // Other Properties that will be read by event manager
         studyIndex: 0,
@@ -93,6 +93,8 @@ let Game = cc.Class({
         });
 
         this.gameObjectives = this.initialData.json.gameObjectives;
+        this.worldRankFlagTriggers = [400, 300, 200, 100, 50, 30, 10, 1];
+        this.worldRankFlags = [false, false, false, false, false, false, false, false];
 
         this.worldRankManager = new WorldRankManager({
             game: this,
