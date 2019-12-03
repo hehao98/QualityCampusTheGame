@@ -1,3 +1,6 @@
+npm run lint
+npm run test
+
 /Applications/CocosCreator.app/Contents/MacOS/CocosCreator --path . --build "platform=web-mobile"
 /Applications/CocosCreator.app/Contents/MacOS/CocosCreator --path . --build "platform=web-desktop"
 

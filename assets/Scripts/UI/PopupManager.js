@@ -5,6 +5,7 @@ cc.Class({
     properties: {
         popupPrefab: cc.Prefab,
         messageBoxPrefab: cc.Prefab,
+        dialogBoxPrefab: cc.Prefab,
     },
 
     /**
@@ -52,4 +53,49 @@ cc.Class({
             }
         });
     },
+
+    /**
+     * Show a dialog box which is larger than message box
+     * Can contain much more information, and you can configure the two buttons for any use
+     * @param {String} message the message to be displayed
+     * @param {Array} buttonConfig an array of two objects that specify button behavior
+     *         must be length of two because we only have two buttons
+     * @param {String} buttonConfig.string string to be displayed on button
+     * @param {Function} buttonConfig.callback button callback
+     * @param {Object} buttonConfig.thisPointer specify this in the callbacks
+     * @param {Boolean} buttonConfig.destroyDialog if true, clicking this button will destroy this dialog
+     */
+    showDialogBox(message, buttonConfig) {
+        let dialogBox = cc.instantiate(this.dialogBoxPrefab);
+        dialogBox.parent = this.node;
+
+        let label = dialogBox.getComponentInChildren(cc.Label);
+        label.string = message;
+
+        let buttons = dialogBox.getComponentsInChildren(cc.Button);
+        buttons.forEach(button => {
+            switch (button.node.name) {
+            case "OkButton":
+                button.getComponentInChildren(cc.Label).string = buttonConfig[0].string;
+                button.node.on("click", buttonConfig[0].callback, buttonConfig[0].thisPointer);
+                if (buttonConfig[0].destroyDialog) {
+                    button.node.on("click", function() {
+                        dialogBox.destroyAllChildren();
+                        dialogBox.destroy();
+                    });
+                }
+                break;
+            case "CancelButton":
+                button.getComponentInChildren(cc.Label).string = buttonConfig[1].string;
+                button.node.on("click", buttonConfig[1].callback, buttonConfig[1].thisPointer);
+                if (buttonConfig[1].destroyDialog) {
+                    button.node.on("click", function() {
+                        dialogBox.destroyAllChildren();
+                        dialogBox.destroy();
+                    });
+                }
+                break;
+            }
+        });
+    }
 });

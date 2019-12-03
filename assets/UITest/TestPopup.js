@@ -22,5 +22,29 @@ cc.Class({
             },
             this
         );
+    },
+
+    showTestDialogBox() {
+        this.popupManager.showDialogBox(
+            "AAA\n\nBBB\n\nCCC\n\nDDD\n\nEEE\n",
+            [
+                {
+                    string: "好的",
+                    callback: function() {
+                        console.log("ok");
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                },
+                {
+                    string: "不好",
+                    callback: function() {
+                        console.log("cancel");
+                    },
+                    thisPointer: this,
+                    destroyDialog: false,
+                }
+            ]
+        );
     }
 });
