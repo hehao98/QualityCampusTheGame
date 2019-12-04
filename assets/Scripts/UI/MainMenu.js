@@ -8,6 +8,7 @@ cc.Class({
     properties: {
         configWindow: cc.Node,
         loadingWindow: cc.Node,
+        licenseWindow: cc.Node,
         loadingLabel: cc.Label,
         universityNameInput: cc.EditBox,
     },
@@ -19,26 +20,30 @@ cc.Class({
     },
 
     startGame() {
+        this.loadingWindow.active = true;
+        this.configWindow.active = false;
+
         if (this.universityNameInput.string === "") {
             Globals.universityName = this.universityNameInput.placeholder;
         } else {
             Globals.universityName = this.universityNameInput.string;
         }
         
-        this.node.active = false;
-
-        cc.director.preloadScene("Game", () => {
+        cc.director.preloadScene("Game", function () {
+            console.log("Game Main Scene Preloaded!");
             cc.director.loadScene("Game");
         });
-        this.loadingWindow.active = true;
-        let label = this.loadingLabel;
-        let count = 1;
-        label.schedule(() => {
-            label.string = "加载中";
-            for (let i = 0; i < count % 4; ++i) {
-                label.string += ".";
-            }
-            count += 1;
-        }, 0.5);
+    },
+
+    openOfficialWebsite() {
+        window.open("https://hehao98.github.io/portfolio/quality-campus/");
+    },
+
+    openGitRepository() {
+        window.open("https://github.com/hehao98/QualityCampusTheGame");
+    },
+
+    openLicenseWindow() {
+        this.licenseWindow.active = !this.licenseWindow.active;
     }
 });

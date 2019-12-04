@@ -44,10 +44,14 @@ Building.prototype.loadSpecifications = function () {
         this[property] = specification[property];
     }
 };
-Building.prototype.upgrade = function () {
-    this.tier++;
-    this.loadSpecifications();
-    return true;
+
+Building.prototype.update = function () {
+    if (this.upgradingEndTime &&
+        Globals.tick === this.upgradingEndTime) {
+        this.tier++;
+        this.loadSpecifications();
+    }
+    return OK;
 };
 
 /**

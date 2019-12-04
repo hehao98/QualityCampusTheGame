@@ -14,6 +14,7 @@ let BuildingItem = require("BuildingItem");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingIconsDict = new Array();
 let BuildingPicturesDict = new Array();
+let infoPicturesDict = new Array();
 let selectedBuildingId = 0;
 
 cc.Class({
@@ -45,6 +46,7 @@ cc.Class({
         buildingInfoPage: cc.Node,
         specificationPrefab: cc.Prefab,
         layoutPanel: cc.Node,
+        popupManager: require("PopupManager")
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -55,6 +57,11 @@ cc.Class({
 
     start () {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingTypeLevels = new Array();
+        buildingTypeLevels["dorm"] = 6;
+        buildingTypeLevels["teaching"] = 6;
+        buildingTypeLevels["cafeteria"] = 5;
+        buildingTypeLevels["lab"] = 1;
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let iconUrl = "Icons/" + buildingTypeArr[i];
             let that = this;
@@ -79,6 +86,14 @@ cc.Class({
                     that.showSelectedBuildingInfo(0);
                 }
             });
+
+            let levels = buildingTypeLevels[buildingTypeArr[i]];
+            for ( let j = 0; j < levels; j++) {
+                let url = "Pictures/" + buildingTypeArr[i] + j;
+                cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+                    infoPicturesDict[buildingTypeArr[i] + j] = spriteFrame;
+                });
+            }
         }
 
         this.updateBuildingListInfo();
@@ -105,7 +120,21 @@ cc.Class({
             buildingName.string = building.name;
             let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
             buildingLevel.string = utilities.numberToRoman(building.tier + 1);
+            let studentNumber = node.getChildByName("StudentNumberLabel").getComponent(cc.Label);
+            studentNumber.string = "当前学生人数/建筑容量:" + building.nStudent + "/" + building.capacity;
+            let buildingProgressBar = node.getChildByName("BuildingProgressBar").getComponent(cc.ProgressBar);
+            buildingProgressBar.node.active = false;
+            if (building.buildingEndTime || building.upgradingEndTime) {
+                if (building.buildingEndTime > building.upgradingEndTime) {
+                    this.checkIsBuilding(buildingProgressBar, building);
+                } else {
+                    this.checkIsUpgrading(buildingProgressBar, building);
+                }
+            }
             this.contentPanel.addChild(node);
+            if (Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
+                this.showSelectedBuildingInfo(selectedBuildingId);
+            } 
         }
     },
 
@@ -119,9 +148,9 @@ cc.Class({
         let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
         buildingName.string = building.name;
         let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
-        buildingLevel.string = utilities.numberToRoman(building.tier + 1);
+        buildingLevel.string = "等级" + utilities.numberToRoman(building.tier + 1);
         let buildingPicture = node.getChildByName("BuildingPhoto").getComponent(cc.Sprite);
-        buildingPicture.spriteFrame = BuildingPicturesDict[building.type];
+        buildingPicture.spriteFrame = infoPicturesDict[building.type + building.tier];
         let buildingDescription = node.getChildByName("Description").getComponent(cc.Label);
         buildingDescription.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["description"];
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
@@ -136,6 +165,7 @@ cc.Class({
 
     showBuildNewBuildingPage () {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室"];
         this.layoutPanel.removeAllChildren();
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
@@ -147,7 +177,7 @@ cc.Class({
             let buildingSprite = node.getChildByName("BuildingSprite").getComponent(cc.Sprite);
             buildingSprite.spriteFrame = BuildingIconsDict[buildingTypeArr[i]];
             let buildingName = node.getChildByName("BuildingNameLabel").getComponent(cc.Label);
-            buildingName.string = buildingTypeArr[i];
+            buildingName.string = buildingChineseName[i];
             let resourceInfoNode = node.getChildByName("ResourceInfo");
             let buildingFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
             buildingFund.string = buildingProperties["fundToCurrentTier"];
@@ -159,11 +189,91 @@ cc.Class({
 
     upgradeSelectedBuilding () {
         let buildingLists = this.game.buildingManager.getBuildingLists();
-        let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
+        let building = buildingLists[selectedBuildingId];
+        if (Globals.tick < building.buildingEndTime) {
+            this.popupManager.showPopup("当前建筑还没建造完成，不能升级");
+            return;
+        } else if (Globals.tick < building.upgradingEndTime) {
+            this.popupManager.showPopup("当前升级尚未完成，不能再次升级");
+            return;
+        }
+        this.popupManager.showMessageBox(
+            "是否要升级所选建筑",
+            () => {
+                try {
+                    let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
+                    if (!succeeded) {
+                        this.popupManager.showPopup("升级成功，等待升级完成");
+                    } else {
+                        this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
+                    }
+                } catch (error) {
+                    if (error.message > "Building type") {
+                        this.popupManager.showPopup("升级失败，当前建筑已到最高等级");
+                    } else {
+                        this.popupManager.showPopup("升级失败，当前建筑不存在");
+                    }
+                }
+            },
+            () => {
+            },
+            this
+        );
+    },
+
+    checkIsUpgrading (buildingProgressBar, building) {
+        if (building.upgradingEndTime === 0) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick > building.upgradingEndTime) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick === building.upgradingEndTime) {
+            this.popupManager.showPopup(building.name + "升级已完成");
+            buildingProgressBar.node.active = false;
+        } else {
+            let totalUpgradingTime = building.upgradingEndTime - building.upgradingStartTime;
+            let currentUpgradingTime = Globals.tick - building.upgradingStartTime;
+            let currentProgress = currentUpgradingTime * 1.0 / totalUpgradingTime;
+            buildingProgressBar.progress = currentProgress;
+            let label = buildingProgressBar.node.getChildByName("Label").getComponent(cc.Label);
+            label.string = "升级中";
+            buildingProgressBar.node.active = true;
+        }
     },
     
-    addBuilding(button) {
-        let buildingType = button.node.name;
-        this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+    addBuilding (button) {
+        this.popupManager.showMessageBox(
+            "是否要添加新建筑",
+            () => {
+                let buildingType = button.node.name;
+                let succeeded = this.game.buildingManager.add({type: buildingType, freeOfCharge: false});
+                if (succeeded) {
+                    this.popupManager.showPopup("新建建筑成功，等待建造完成");
+                } else {
+                    this.popupManager.showPopup("新建建筑失败，当前资金不足以新建此类建筑");
+                }
+            },
+            () => {
+            },
+            this
+        );
+    },
+
+    checkIsBuilding (buildingProgressBar, building) {
+        if (building.buildingEndTime === 0) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick > building.buildingEndTime) {
+            buildingProgressBar.node.active = false;
+        } else if (Globals.tick === building.buildingEndTime) {
+            this.popupManager.showPopup(building.name + "建造已完成");
+            buildingProgressBar.node.active = false;
+        } else {
+            let totalBuildingTime = building.buildingEndTime - building.buildingStartTime;
+            let currentBuildingTime = Globals.tick - building.buildingStartTime;
+            let currentProgress = currentBuildingTime * 1.0 / totalBuildingTime;
+            buildingProgressBar.progress = currentProgress;
+            let label = buildingProgressBar.node.getChildByName("Label").getComponent(cc.Label);
+            label.string = "建造中";
+            buildingProgressBar.node.active = true;
+        }
     }
 });

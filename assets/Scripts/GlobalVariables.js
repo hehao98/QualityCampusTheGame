@@ -52,8 +52,29 @@ module.exports = {
     AFTERNOON: 2,
     EVENING: 3,
     NIGHT: 4,
+    // * return values
+    OK: 0,
+    ERR_NOT_ENOUGH_RESOURCES: -1,
 
     UI: {
         buildingListPageView: null,
     }
 };
+
+let globals = {
+    OK: 0,
+    ERR_NOT_ENOUGH_RESOURCES: -1,
+    SATISFACTIONS: [
+        "relaxationSatisfaction",
+        "studySatisfaction",
+    ],
+};
+globals.INDEXES = [
+    "studyIndex",
+].concat[globals.SATISFACTIONS];
+
+
+Object.assign(exports, globals);
+if (typeof window !== "undefined") {
+    Object.assign(window, globals);
+}

@@ -41,6 +41,8 @@ let Game = cc.Class({
         careerIndex: 0,
         studentSatisfaction: 0,
         professorSatisfaction: 0,
+        worldRankFlagTriggers: [],
+        worldRankFlags: [],
 
         // Other Properties that will be read by event manager
         studyIndex: 0,
@@ -66,6 +68,7 @@ let Game = cc.Class({
         eventPanel: require("EventPanel"),
         studentPanel: require("StudentPanel"),
         resourceDetailPanel: require("ResourceDetailPanel"),
+        popupManager: require("PopupManager"),
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -90,6 +93,8 @@ let Game = cc.Class({
         });
 
         this.gameObjectives = this.initialData.json.gameObjectives;
+        this.worldRankFlagTriggers = [400, 300, 200, 100, 50, 30, 10, 1];
+        this.worldRankFlags = [false, false, false, false, false, false, false, false];
 
         this.worldRankManager = new WorldRankManager({
             game: this,
@@ -144,6 +149,31 @@ let Game = cc.Class({
             this.studentManager.debugPrint();
         }
 
+        // Show an welcome dialog
+        this.isPaused = true;
+        this.popupManager.showDialogBox(
+            utilities.replaceAll(this.initialData.json.welcomeMessage,
+                "{univname}", this.universityName),
+            [
+                {
+                    string: "开始！",
+                    callback: function() {
+                        this.isPaused = false;
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                },
+                {
+                    string: "查看详细教程",
+                    callback: function() {
+                        window.open("https://hehao98.github.io/posts/2019/12/quality-campus-tutorial/");
+                    },
+                    thisPointer: this,
+                    destroyDialog: false,
+                }
+            ]
+        );
+
         //if (Globals.TEST_MODE) {
         //    let test = require("testBasic.js");
         //    test();
@@ -195,6 +225,18 @@ let Game = cc.Class({
         this.eventManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
+            // If the player have achieved a new ranking, popup
+            this.worldRankFlagTriggers.forEach((targetRank, idx) => {
+                let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
+                if (ranking < targetRank && this.worldRankFlags[idx] === false) {
+                    this.popupManager.showPopup("恭喜" + this.universityName 
+                        + "进入世界前" 
+                        + targetRank
+                        + "名"
+                    );
+                    this.worldRankFlags[idx] = true;
+                }
+            }, false);
         }
     },
 
@@ -210,6 +252,30 @@ let Game = cc.Class({
                 }
             }, this);
             if (flag) {
+                this.isPaused = true;
+                this.popupManager.showDialogBox(
+                    utilities.replaceAll(this.gameObjectives[this.currentObjective].achieveMessage,
+                        "{univname}", this.universityName),
+                    [
+                        {
+                            string: "好的！",
+                            callback: function() {
+                                this.isPaused = false;
+                            },
+                            thisPointer: this,
+                            destroyDialog: true,
+                        },
+                        {
+                            string: "再接再厉",
+                            callback: function() {
+                                this.isPaused = false;
+                            },
+                            thisPointer: this,
+                            destroyDialog: false,
+                        }
+                    ]
+                );
+
                 this.currentObjective++;
             }
         }
