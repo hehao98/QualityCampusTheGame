@@ -16,7 +16,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: Globals.TICKS_SEMESTER,
+            // buildTime: Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         1: {
             defaultProperties: {
@@ -30,7 +31,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         2: {
             defaultProperties: {
@@ -44,7 +46,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         3: {
             defaultProperties: {
@@ -58,7 +61,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         4: {
             defaultProperties: {
@@ -72,7 +76,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         5: {
             defaultProperties: {
@@ -86,7 +91,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
-            buildTime: 2 * Globals.TICKS_SEMESTER,
+            // buildTime: 2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         nameGenerator: function* () {
             let id = 28;
@@ -109,7 +115,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: Globals.TICKS_SEMESTER,
+            // buildTime: Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         1: {
             defaultProperties: {
@@ -123,7 +130,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         2: {
             defaultProperties: {
@@ -137,7 +145,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         3: {
             defaultProperties: {
@@ -151,7 +160,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.4 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         4: {
             defaultProperties: {
@@ -165,7 +175,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         5: {
             defaultProperties: {
@@ -179,7 +190,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
             },
-            buildTime: 2 * Globals.TICKS_SEMESTER,
+            // buildTime: 2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         nameGenerator: function* () {
             yield "理科教学楼";
@@ -203,7 +215,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/cafeteria",
                 iconPath: "Icons/cafeteria",
             },
-            buildTime: Globals.TICKS_SEMESTER,
+            // buildTime: Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         1: {
             defaultProperties: {
@@ -216,7 +229,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/cafeteria",
                 iconPath: "Icons/cafeteria",
             },
-            buildTime: 1.5 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.5 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         2: {
             defaultProperties: {
@@ -229,7 +243,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/cafeteria",
                 iconPath: "Icons/cafeteria",
             },
-            buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         3: {
             defaultProperties: {
@@ -242,7 +257,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/cafeteria",
                 iconPath: "Icons/cafeteria",
             },
-            buildTime: 1.5 * Globals.TICKS_SEMESTER,
+            // buildTime: 1.5 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         4: {
             defaultProperties: {
@@ -255,7 +271,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/cafeteria",
                 iconPath: "Icons/cafeteria",
             },
-            buildTime: 2 * Globals.TICKS_SEMESTER,
+            // buildTime: 2 * Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         nameGenerator: function* () {
             yield "勺园食堂";
@@ -280,7 +297,8 @@ let BuildingSpecifications = {
                 picturePath: "Pictures/lab",
                 iconPath: "Icons/lab",
             },
-            buildTime: Globals.TICKS_SEMESTER,
+            // buildTime: Globals.TICKS_SEMESTER,
+            buildTime: 10,
         },
         nameGenerator: function* () {
             let id = 1;
