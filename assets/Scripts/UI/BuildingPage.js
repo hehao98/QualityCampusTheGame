@@ -132,6 +132,9 @@ cc.Class({
                 }
             }
             this.contentPanel.addChild(node);
+            if (Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
+                this.showSelectedBuildingInfo(selectedBuildingId);
+            } 
         }
     },
 
@@ -201,7 +204,6 @@ cc.Class({
                     let succeeded = this.game.buildingManager.upgrade({id: selectedBuildingId, freeOfCharge: false});
                     if (!succeeded) {
                         this.popupManager.showPopup("升级成功，等待升级完成");
-                        this.showSelectedBuildingInfo(selectedBuildingId);
                     } else {
                         this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
                     }
