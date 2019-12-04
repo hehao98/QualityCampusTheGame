@@ -16,6 +16,10 @@ class Resource {
         this.value = properties.value || 0;
         this.nextModifierId = 0;
         this.modifiers = [];
+
+        // Some statistics for showing game progress
+        this.totalEarned = 0;
+        this.totalSpent = 0;
     }
 }
 
@@ -29,6 +33,11 @@ Resource.prototype.updateResource = function (tick) {
     if (tick % Globals.TICKS_WEEK === 0) {
         this.modifiers.forEach(modifier => {
             this.value += modifier.amount;
+            if (modifier.amount > 0) {
+                this.totalEarned += modifier.amount;
+            } else {
+                this.totalSpent -= modifier.amount;
+            }
         }, this);
     }
 };
@@ -130,6 +139,7 @@ Resource.prototype.getWeeklyCost = function (type) {
 Resource.prototype.use = function (amount) {
     if (this.value >= amount) {
         this.value -= amount;
+        this.totalSpent += amount;
         return true;
     }
     else {

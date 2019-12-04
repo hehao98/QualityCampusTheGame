@@ -9,6 +9,7 @@ describe("Resource", function() {
         assert.strictEqual(resource.value, 10);
         resource.use(5);
         assert.strictEqual(resource.value, 5);
+        assert.strictEqual(resource.totalSpent, 5);
     });
 
     it("should update resource with modifiers", function() {
@@ -24,7 +25,10 @@ describe("Resource", function() {
         resource.removeModifier(id);   
         assert.strictEqual(resource.modifiers.length, 0);
         resource.updateResource(Globals.TICKS_WEEK * 6);
-        assert.strictEqual(resource.value, 20);  
+        assert.strictEqual(resource.value, 20); 
+        
+        assert.strictEqual(resource.totalSpent, 0);
+        assert.strictEqual(resource.totalEarned, 10);
     });
 
     it("should sum different modifiers correctly", function() {
