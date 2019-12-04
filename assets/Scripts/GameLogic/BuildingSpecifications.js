@@ -118,7 +118,7 @@ let BuildingSpecifications = {
                 cleaningSatisfaction: 0.5,
                 studySatisfaction: 0.5,
                 fundToCurrentTier: 6000,
-                description: "要是有人在抖腿的话，整排桌子都会跟着一期晃。",
+                description: "要是有人在抖腿的话，整排桌子都会跟着一起晃。",
                 effects: "休闲满意度：0.5\n\n清洁满意度：0.5\n\n学习满意度：0.5",
                 picturePath: "Pictures/teaching",
                 iconPath: "Icons/teaching",
