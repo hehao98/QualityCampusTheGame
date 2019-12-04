@@ -46,7 +46,8 @@ Building.prototype.loadSpecifications = function () {
 };
 
 Building.prototype.update = function () {
-    if (Globals.tick === this.upgradingEndTime) {
+    if (this.upgradingEndTime &&
+        Globals.tick === this.upgradingEndTime) {
         this.tier++;
         this.loadSpecifications();
     }

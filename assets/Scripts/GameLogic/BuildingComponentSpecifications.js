@@ -28,8 +28,35 @@ let BuildingComponentSpecifications = {
             },
         },
     },
-
-
+    studyArea: {
+        0: {
+            defaultProperties: {
+                studySatisfaction: +0.10,
+                fundToCurrentTier: 2000,
+                description: "自习区",
+                picturePath: "",
+                iconPath: "",
+            },
+        },
+        1: {
+            defaultProperties: {
+                studySatisfaction: +0.15,
+                fundToCurrentTier: 5000,
+                description: "自习区",
+                picturePath: "",
+                iconPath: "",
+            },
+        },
+        2: {
+            defaultProperties: {
+                studySatisfaction: +0.20,
+                fundToCurrentTier: 8000,
+                description: "自习区",
+                picturePath: "",
+                iconPath: "",
+            },
+        },
+    },
 
     noRepair: {
         0: {
