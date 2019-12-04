@@ -84,8 +84,6 @@ BuildingManager.prototype.upgrade = function (properties) {
     target.upgradingStartTime = Globals.tick;
     target.upgradingEndTime = properties.freeOfCharge ? 0 :
         Globals.tick + info.buildTime;
-    target.tier++;
-    target.loadSpecifications();
     return OK;
 };
 
@@ -228,6 +226,7 @@ BuildingManager.prototype.update = function (tick) {
     // if (tick % Globals.TICKS_SEMESTER === 0) {
     // }
     for (let building of this.buildings) {
+        building.update();
         building.nStudent = building.nStudentAssigned[inDayTime];
     }
 };
