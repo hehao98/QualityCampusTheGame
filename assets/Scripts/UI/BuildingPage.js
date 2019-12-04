@@ -14,6 +14,7 @@ let BuildingItem = require("BuildingItem");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingIconsDict = new Array();
 let BuildingPicturesDict = new Array();
+let infoPicturesDict = new Array();
 let selectedBuildingId = 0;
 
 cc.Class({
@@ -56,6 +57,11 @@ cc.Class({
 
     start () {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingTypeLevels = new Array();
+        buildingTypeLevels["dorm"] = 6;
+        buildingTypeLevels["teaching"] = 6;
+        buildingTypeLevels["cafeteria"] = 5;
+        buildingTypeLevels["lab"] = 1;
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let iconUrl = "Icons/" + buildingTypeArr[i];
             let that = this;
@@ -80,6 +86,14 @@ cc.Class({
                     that.showSelectedBuildingInfo(0);
                 }
             });
+
+            let levels = buildingTypeLevels[buildingTypeArr[i]];
+            for ( let j = 0; j < levels; j++) {
+                let url = "Pictures/" + buildingTypeArr[i] + j;
+                cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+                    infoPicturesDict[buildingTypeArr[i] + j] = spriteFrame;
+                });
+            }
         }
 
         this.updateBuildingListInfo();
@@ -133,7 +147,7 @@ cc.Class({
         let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
         buildingLevel.string = utilities.numberToRoman(building.tier + 1);
         let buildingPicture = node.getChildByName("BuildingPhoto").getComponent(cc.Sprite);
-        buildingPicture.spriteFrame = BuildingPicturesDict[building.type];
+        buildingPicture.spriteFrame = infoPicturesDict[building.type + building.tier];
         let buildingDescription = node.getChildByName("Description").getComponent(cc.Label);
         buildingDescription.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["description"];
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
