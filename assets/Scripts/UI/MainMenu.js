@@ -36,7 +36,7 @@ cc.Class({
     },
 
     openOfficialWebsite() {
-        window.open("https://hehao98.github.io/portfolio/1-quality-campus/");
+        window.open("https://hehao98.github.io/portfolio/quality-campus/");
     },
 
     openGitRepository() {
