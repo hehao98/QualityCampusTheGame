@@ -45,11 +45,13 @@ Building.prototype.loadSpecifications = function () {
     }
 };
 
-// Building.prototype.upgrade = function () {
-//     this.tier++;
-//     this.loadSpecifications();
-//     return OK;
-// };
+Building.prototype.update = function () {
+    if (Globals.tick === this.upgradingEndTime) {
+        this.tier++;
+        this.loadSpecifications();
+    }
+    return OK;
+};
 
 /**
  *
