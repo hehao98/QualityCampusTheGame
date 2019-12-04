@@ -148,7 +148,7 @@ cc.Class({
         let buildingName = node.getChildByName("BuildingName").getComponent(cc.Label);
         buildingName.string = building.name;
         let buildingLevel = node.getChildByName("BuildingLevel").getComponent(cc.Label);
-        buildingLevel.string = utilities.numberToRoman(building.tier + 1);
+        buildingLevel.string = "等级" + utilities.numberToRoman(building.tier + 1);
         let buildingPicture = node.getChildByName("BuildingPhoto").getComponent(cc.Sprite);
         buildingPicture.spriteFrame = infoPicturesDict[building.type + building.tier];
         let buildingDescription = node.getChildByName("Description").getComponent(cc.Label);
