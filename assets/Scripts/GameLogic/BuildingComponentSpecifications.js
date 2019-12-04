@@ -2,20 +2,35 @@ let BuildingComponentSpecifications = {
     clean: {
         0: {
             defaultProperties: {
-                description: "",
+                cleaningSatisfaction: +0.10,
+                fundToCurrentTier: 1500,
+                description: "雇佣了负责的清洁工人。",
                 picturePath: "",
                 iconPath: "",
             },
         },
         1: {
             defaultProperties: {
-                description: "",
+                cleaningSatisfaction: +0.15,
+                fundToCurrentTier: 2500,
+                description: "雇佣了负责的清洁工人。",
+                picturePath: "",
+                iconPath: "",
+            },
+        },
+        2: {
+            defaultProperties: {
+                cleaningSatisfaction: +0.20,
+                fundToCurrentTier: 4000,
+                description: "雇佣了负责的清洁工人。",
                 picturePath: "",
                 iconPath: "",
             },
         },
     },
-    
+
+
+
     noRepair: {
         0: {
             defaultProperties: {
@@ -75,9 +90,9 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 name: "摩肩接踵",
-                description: "该建筑设计存在缺陷，导致实际容量下降。"+
-                "可能的原因有座椅拥挤，桌面狭小，桌面晃动严重；"+
-                "水房龙头紧贴，水花飞溅；排队空间狭小或与建筑安全出入口重叠。",
+                description: "该建筑设计存在缺陷，导致实际容量下降。" +
+                    "可能的原因有座椅拥挤，桌面狭小，桌面晃动严重；" +
+                    "水房龙头紧贴，水花飞溅；排队空间狭小或与建筑安全出入口重叠。",
                 capacity: -0.3,
                 picturePath: "",
                 iconPath: "",
