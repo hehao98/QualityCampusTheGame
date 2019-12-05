@@ -132,7 +132,7 @@ cc.Class({
                 }
             }
             this.contentPanel.addChild(node);
-            if (Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
+            if (building.upgradingEndTime !== 0 && Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
                 this.showSelectedBuildingInfo(selectedBuildingId);
             } 
         }
