@@ -82,8 +82,9 @@ BuildingManager.prototype.upgrade = function (properties) {
         if (!success) return ERR_NOT_ENOUGH_RESOURCES;
     }
     target.upgradingStartTime = Globals.tick;
-    target.upgradingEndTime = properties.freeOfCharge ? 0 :
-        Globals.tick + info.buildTime;
+    target.upgradingEndTime = Math.ceil(
+        properties.freeOfCharge ? 0 :
+            Globals.tick + info.buildTime);
     return OK;
 };
 
