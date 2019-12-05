@@ -16,7 +16,7 @@
   },
   "scripts": {
     "lint": "eslint assets/ --fix && eslint test/ --fix",
-    "test": "cross-env NODE_ENV=production NODE_PATH=./:./assets/Scripts:./assets/Scripts/GameLogic mocha"
+    "test": "cross-env NODE_ENV=production NODE_PATH=./:./assets/Scripts:./assets/Scripts/GameLogic:./assets/Scripts/GameLogic/Satisfactions mocha"
   },
   "repository": {
     "type": "git",

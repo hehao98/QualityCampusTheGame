@@ -1359,8 +1359,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "Git仓库",
-    "_N$string": "Git仓库",
+    "_string": "GitHub",
+    "_N$string": "GitHub",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": false,
