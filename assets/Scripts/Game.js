@@ -216,7 +216,7 @@ let Game = cc.Class({
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
-        this.buildingManager.debugPrint();
+        // this.buildingManager.debugPrint();
         this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
         this.studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"

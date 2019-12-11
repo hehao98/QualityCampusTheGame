@@ -27,9 +27,11 @@ CareerIndex.prototype.debugPrint = function () {
  */
 CareerIndex.prototype.update = function () {
     const student = Globals.studentManager.getStudentById(this.studentID);
-    const dailyGain = Globals.careerTrainingProvided *
-        student.indexes.studyIndex / (8 * Globals.TICKS_SEMESTER);
+    const dailyGain = Globals.universityLevelModifiers.careerTrainingProvided *
+        student.indexes.studyIndex.value / (8 * Globals.TICKS_SEMESTER);
     this.value = this.value + dailyGain;
+    utilities.log(dailyGain + " " + Globals.universityLevelModifiers.careerTrainingProvided + " " +
+        student.indexes.studyIndex.value + " " + (8 * Globals.TICKS_SEMESTER),"debug");
 };
 
 module.exports = CareerIndex;
