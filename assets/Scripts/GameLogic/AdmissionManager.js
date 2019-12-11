@@ -26,7 +26,6 @@ AdmissionManager.prototype.admit = function () {
     for (let i = 0; i < this.admissionTarget; ++i) {
         Globals.studentManager.add({});
     }
-    this.admissionTarget = 0;
 };
 
 

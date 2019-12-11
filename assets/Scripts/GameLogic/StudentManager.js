@@ -141,6 +141,7 @@ StudentManager.prototype.debugPrint = function () {
         this.getOverallIndex("studySatisfaction") +
         " " + this.getOverallIndex("livingConditionSatisfaction") +
         " " + this.getOverallIndex("studyIndex"));
+    utilities.log(this);
     console.log("------------------------------------------------------");
 };
 

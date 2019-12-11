@@ -117,6 +117,11 @@ let Game = cc.Class({
         this.pkuHoleManager = new PkuHoleManager({ game: this });
         this.eventManager = new EventManager({ game: this });
 
+        // * university level modifiers
+        Globals.universityLevelModifiers = {
+            careerTrainingProvided: 0,
+            researchTrainingProvided: 0,
+        };
         this.universityName = Globals.universityName;
         // Init game logic
         this.worldRankManager.addPlayerUniversity(
@@ -157,7 +162,7 @@ let Game = cc.Class({
             [
                 {
                     string: "开始！",
-                    callback: function() {
+                    callback: function () {
                         this.isPaused = false;
                     },
                     thisPointer: this,
@@ -165,7 +170,7 @@ let Game = cc.Class({
                 },
                 {
                     string: "查看详细教程",
-                    callback: function() {
+                    callback: function () {
                         window.open("https://hehao98.github.io/posts/2019/12/quality-campus-tutorial/");
                     },
                     thisPointer: this,
@@ -181,8 +186,8 @@ let Game = cc.Class({
     },
 
     update(dt) {
-    // dt is in seconds
-    // Manage time
+        // dt is in seconds
+        // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
@@ -206,12 +211,12 @@ let Game = cc.Class({
     updateGameSystem() {
         // Update corresponding game logic
         this.fund.updateResource(this.currentTick);
-            
+
         this.studentManager.update(this.currentTick);
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
-        this.buildingManager.debugPrint();
+        // this.buildingManager.debugPrint();
         this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
         this.studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
@@ -229,8 +234,8 @@ let Game = cc.Class({
             this.worldRankFlagTriggers.forEach((targetRank, idx) => {
                 let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
                 if (ranking < targetRank && this.worldRankFlags[idx] === false) {
-                    this.popupManager.showPopup("恭喜" + this.universityName 
-                        + "进入世界前" 
+                    this.popupManager.showPopup("恭喜" + this.universityName
+                        + "进入世界前"
                         + targetRank
                         + "名"
                     );
@@ -259,7 +264,7 @@ let Game = cc.Class({
                     [
                         {
                             string: "好的！",
-                            callback: function() {
+                            callback: function () {
                                 this.isPaused = false;
                             },
                             thisPointer: this,
@@ -267,7 +272,7 @@ let Game = cc.Class({
                         },
                         {
                             string: "再接再厉",
-                            callback: function() {
+                            callback: function () {
                                 this.isPaused = false;
                             },
                             thisPointer: this,

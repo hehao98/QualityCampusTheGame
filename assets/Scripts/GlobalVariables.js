@@ -71,6 +71,7 @@ let globals = {
 };
 globals.INDEXES = [
     "studyIndex",
+    "careerIndex",
 ].concat[globals.SATISFACTIONS];
 
 

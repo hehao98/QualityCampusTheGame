@@ -3,6 +3,7 @@
 let RelaxationSatisfacion = require("RelaxationSatisfacion");
 let StudySatisfaction = require("StudySatisfaction");
 let StudyIndex = require("StudyIndex");
+const CareerIndex = require("CareerIndex");
 let utilities = require("utilities");
 let _ = require("lodash");
 
@@ -31,6 +32,10 @@ class Student {
             studyIndex: new StudyIndex({
                 studentID: this.id,
                 value: this.talent * 0.45
+            }),
+            careerIndex: new CareerIndex({
+                studentID: this.id,
+                value: 0
             }),
         };
         this.where = undefined;
