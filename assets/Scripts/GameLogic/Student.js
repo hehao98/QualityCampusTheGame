@@ -32,6 +32,7 @@ class Student {
                 studentID: this.id,
                 value: this.talent * 0.45
             }),
+            
         };
         this.where = undefined;
 
