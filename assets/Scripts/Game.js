@@ -110,6 +110,7 @@ let Game = cc.Class({
             new StudentManager({
                 scheduleManager: this.scheduleManager,
                 buildingManager: this.buildingManager,
+                fund: this.fund,
             });
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager({});
