@@ -14,8 +14,8 @@ cc.Class({
         researchIndexLabel: cc.Label,
         teachIndexLabel: cc.Label,
         careerIndexLabel: cc.Label,
-        studentSatisfactionLabel: cc.Label,
-        professorSatisfactionLabel: cc.Label,
+        studentNumberLabel: cc.Label,
+        professorNumberLabel: cc.Label,
     },
 
     updatePanel () { 
@@ -34,8 +34,8 @@ cc.Class({
         this.researchIndexLabel.string = this.game.researchIndex;
         this.teachIndexLabel.string = this.game.teachIndex;
         this.careerIndexLabel.string = this.game.careerIndex;
-        this.studentSatisfactionLabel.string = this.game.studentSatisfaction.toFixed(2);
-        this.professorSatisfactionLabel.string = this.game.professorSatisfaction;
+        this.studentNumberLabel.string = this.game.studentManager.students.length;
+        this.professorNumberLabel.string = this.game.professorManager.number;
 
         let rank = this.game.worldRankManager.getCurrentRanking(this.game.universityName);
         let total = this.game.worldRankManager.getUniversityCount();
