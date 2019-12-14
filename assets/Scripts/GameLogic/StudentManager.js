@@ -24,6 +24,7 @@ class StudentManager {
         this.scheduleManager = properties.scheduleManager;
         this.buildingManager = properties.buildingManager;
         this.fund = properties.fund;
+        this.fundModifierId = this.fund.addModifier({ type: "student", amount: 0});
 
         // constructor left-overs
     }
@@ -41,7 +42,7 @@ StudentManager.prototype.add = function (properties) {
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
     this.students.push(student);
-
+    this.fund.setModifierAmount(this.fundModifierId, this.students.length * 10);
 };
 
 /**

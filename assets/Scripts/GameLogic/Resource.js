@@ -43,6 +43,22 @@ Resource.prototype.updateResource = function (tick) {
 };
 
 /**
+ * Try to use <amount> of this resource.
+ * @param {Number} amount
+ * @return {Boolean} success or not. only cost when succeed.
+ */
+Resource.prototype.use = function (amount) {
+    if (this.value >= amount) {
+        this.value -= amount;
+        this.totalSpent += amount;
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
+/**
  * Add a modifier to this resource, returns its id.
  * If the caller want to remove this modifier some times later, 
  * it must use this id.
@@ -59,6 +75,17 @@ Resource.prototype.addModifier = function (modifier) {
     modifier.id = this.nextModifierId++;
     this.modifiers.push(modifier);
     return modifier.id;
+};
+
+/**
+ * Set a specific modifier to a new value
+ * @param {Number} modifierId
+ * @param {Number} newValue
+ */
+Resource.prototype.setModifierAmount = function (modifierId, newAmount) {
+    let idx = this.modifiers.findIndex(m => m.id === modifierId);
+    assert(idx !== -1);
+    this.modifiers[idx].amount = newAmount;
 };
 
 /**
@@ -129,22 +156,6 @@ Resource.prototype.getWeeklyCost = function (type) {
         }
     });
     return result;
-};
-
-/**
- * Try to use <amount> of this resource.
- * @param {Number} amount
- * @return {Boolean} success or not. only cost when succeed.
- */
-Resource.prototype.use = function (amount) {
-    if (this.value >= amount) {
-        this.value -= amount;
-        this.totalSpent += amount;
-        return true;
-    }
-    else {
-        return false;
-    }
 };
 
 module.exports = Resource;
