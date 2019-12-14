@@ -4,6 +4,8 @@ const BOOST_LEVEL = {
     teach: [0.1, 0.2, 0.3, 0.4, 0.5],
 };
 
+const PROF_COST = -80;
+
 class ProfessorManager {
     constructor(properties) {
         this.fund = properties.fund;
@@ -14,6 +16,10 @@ class ProfessorManager {
         this.careerLevel = properties.initialData.professorCareerLevel;
 
         this.nextRecruitCost = this.getRecruitCost(); 
+        this.modifierId = this.fund.addModifier({ 
+            type: "professor", 
+            amount: this.number * PROF_COST
+        });
     }
 }
 
@@ -33,6 +39,7 @@ ProfessorManager.prototype.recruitProfessor = function() {
     }
     this.nextRecruitCost = this.getRecruitCost();
     this.number++;
+    this.fund.setModifierAmount(this.modifierId, this.number * PROF_COST);
     return true;
 };
 
@@ -48,6 +55,9 @@ ProfessorManager.prototype.upgradeLevel = function(type) {
     return true;
 };
 
+/**
+ * @return {Number} the boost adjusted by professor student ratio
+ */
 ProfessorManager.prototype.getProfNumberBoost = function() {
     let ratio = this.number / this.studentManager.students.length;
     return ratio * 10;
@@ -72,3 +82,4 @@ ProfessorManager.prototype.getEffect = function() {
 };
 
 module.exports = ProfessorManager;
+module.exports.PROF_COST = PROF_COST;

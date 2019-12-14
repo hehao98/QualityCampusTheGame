@@ -24,6 +24,8 @@ describe("ProfessorManager", function () {
         assert.strictEqual(ret, true);
         assert.strictEqual(professorManager.fund.value, 1000 - cost);
         assert.strictEqual(professorManager.number, 6);
+        assert.strictEqual(professorManager.fund.getWeeklyModification("professor"), 
+            ProfessorManager.PROF_COST * 6);
     });
 
     it("should upgrade professor level and get boosting result", function () {
