@@ -4,7 +4,7 @@ let assert = require("assert");
 let _ = require("lodash");
 let Globals = require("GlobalVariables");
 
-let modifierTypes = ["fixed", "building", "student", "teacher"];
+let modifierTypes = ["fixed", "building", "student", "professor"];
 
 class Resource {
     /**
