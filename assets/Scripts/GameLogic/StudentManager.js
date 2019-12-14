@@ -14,6 +14,7 @@ class StudentManager {
      * 
      * @param {ScheduleManager} properties.scheduleManager
      * @param {BuildingManager} properties.buildingManager
+     * @param {Resource} properties.fund
      */
     constructor(properties) {
         // properties
@@ -22,6 +23,7 @@ class StudentManager {
         this.students = [];
         this.scheduleManager = properties.scheduleManager;
         this.buildingManager = properties.buildingManager;
+        this.fund = properties.fund;
 
         // constructor left-overs
     }
