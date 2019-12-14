@@ -165,7 +165,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 278.86018001858923
+      "z": 259.8076211353316
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -31831,6 +31831,12 @@
     },
     "studyIndexLabel": {
       "__id__": 861
+    },
+    "careerIndexLabel": {
+      "__id__": 867
+    },
+    "researchIndexLabel": {
+      "__id__": 864
     },
     "admissionNumberLabel": {
       "__id__": 885
