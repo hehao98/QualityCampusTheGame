@@ -50,5 +50,8 @@ describe("Resource", function() {
         assert.strictEqual(resource.getWeeklyModification("building"), 10); 
         assert.strictEqual(resource.getWeeklyGain("student"), 20); 
         assert.strictEqual(resource.getWeeklyCost("teacher"), -15); 
+
+        resource.setModifierAmount(id2, 100);
+        assert.strictEqual(100, resource.getWeeklyGain("student"));
     });
 });
