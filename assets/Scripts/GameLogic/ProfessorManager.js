@@ -1,5 +1,3 @@
-let Globals = require("Globals");
-
 const BOOST_LEVEL = {
     research: [0.1, 0.2, 0.3, 0.4, 0.5],
     career: [0.1, 0.2, 0.3, 0.4, 0.5],
