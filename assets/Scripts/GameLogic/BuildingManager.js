@@ -1,10 +1,12 @@
 // Class BuildingManager manages all in-game buildings
 
-let _ = require("lodash");
-let utilities = require("utilities");
-let BuildingSpecifications = require("BuildingSpecifications");
-let Building = require("Building");
-let Globals = require("GlobalVariables");
+const _ = require("lodash");
+const utilities = require("utilities");
+const BuildingSpecifications = require("BuildingSpecifications");
+const BuildingComponentSpecifications =
+    require("BuildingComponentSpecifications");
+const Building = require("Building");
+const Globals = require("GlobalVariables");
 
 /**
  * constructor. param  
@@ -106,6 +108,7 @@ BuildingManager.prototype.upgrade = function (properties) {
 /**
  * 
  * @param {Object} properties.buildingID - ID of the building
+ * @param {String} properties.componentName - name of component
  * 
  */
 BuildingManager.prototype.addComponent = function (properties) {
@@ -119,6 +122,12 @@ BuildingManager.prototype.addComponent = function (properties) {
         throw new ReferenceError("Building ID not exists.");
     }
     // TODO check funding
+    const fund = BuildingComponentSpecifications[
+        properties.componentName][0].defaultProperties.fundToCurrentTier;
+    const success = this.fund.use(fund);
+    if (!success) {
+        return ERR_NOT_ENOUGH_RESOURCES;
+    }
 
     let properties_revised = _.cloneDeep(properties);
     properties_revised["id"] = this.nextBuildingComponentID++;

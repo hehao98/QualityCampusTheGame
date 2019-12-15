@@ -139,8 +139,6 @@ let Game = cc.Class({
         this.admissionManager.admit();
         this.pkuHoleManager.init();
         this.eventManager.init();
-
-        this.buildingManager.add({ type: "careerCenter", freeOfCharge: true });
     },
 
     start() {

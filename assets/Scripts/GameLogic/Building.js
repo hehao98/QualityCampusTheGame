@@ -97,10 +97,9 @@ Building.prototype.update = function () {
 };
 
 /**
- *
+ * @param {String} properties.componentName - name of component
  */
 Building.prototype.addComponent = function (properties) {
-
     this.components.push(
         new BuildingComponent(properties));
     this.loadSpecifications();
