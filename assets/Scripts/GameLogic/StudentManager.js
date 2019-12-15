@@ -16,14 +16,12 @@ class StudentManager {
      * @param {BuildingManager} properties.buildingManager
      * @param {Resource} properties.fund
      */
-    constructor(properties={}) {
+    constructor(properties = {}) {
         // properties
         this.nextStudentID = 0;
         // this.nextBuildingComponentID = 0;
         this.students = [];
-
-        this.fund = properties.fund;
-        this.fundModifierId = this.fund.addModifier({ type: "student", amount: 0});
+        this.fundModifierId = Globals.game.fund.addModifier({ type: "student", amount: 0 });
 
         // constructor left-overs
     }
@@ -41,7 +39,7 @@ StudentManager.prototype.add = function (properties) {
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
     this.students.push(student);
-    this.fund.setModifierAmount(this.fundModifierId, this.students.length * 10);
+    Globals.game.fund.setModifierAmount(this.fundModifierId, this.students.length * 10);
 };
 
 /**
