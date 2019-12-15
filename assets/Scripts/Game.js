@@ -1,15 +1,14 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
-let assert = require("assert");
 let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let Resource = require("Resource");
 let WorldRankManager = require("WorldRankManager");
 let BuildingManager = require("BuildingManager");
 let StudentManager = require("StudentManager");
+let ProfessorManager = require("ProfessorManager");
 let ScheduleManager = require("ScheduleManager");
-let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
 let PkuHoleManager = require("PkuHoleManager");
 let EventManager = require("EventManager");
@@ -55,6 +54,7 @@ let Game = cc.Class({
         buildingManager: Object,
         studentManager: Object,
         scheduleManager: Object,
+        professorManager: Object,
         worldRankManager: Object,
         pkuHoleManager: Object,
         eventManager: Object,
@@ -108,6 +108,13 @@ let Game = cc.Class({
             new StudentManager();
         Globals.AdmissionManager = this.admissionManager =
             new AdmissionManager();
+
+        this.professorManager = new ProfessorManager({
+            fund: this.fund,
+            studentManager: this.studentManager,
+            initialData: this.initialData.json,
+        });
+
         this.pkuHoleManager = new PkuHoleManager({ game: this });
         this.eventManager = new EventManager({ game: this });
 
