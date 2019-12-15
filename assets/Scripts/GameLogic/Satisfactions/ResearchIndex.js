@@ -1,7 +1,8 @@
 // ResearchIndex abstruct Research Index for students
-let utilities = require("utilities");
-let Index = require("Index");
-let Globals = require("GlobalVariables");
+const utilities = require("utilities");
+const Index = require("Index");
+const Globals = require("GlobalVariables");
+const _ = require("lodash");
 
 /**
  * 
@@ -28,7 +29,7 @@ ResearchIndex.prototype.debugPrint = function () {
 ResearchIndex.prototype.update = function () {
     const student = Globals.studentManager.getStudentById(this.studentID);
     const dailyGain = Globals.universityLevelModifiers.careerTrainingProvided *
-        _.min([0, student.indexes.studyIndex.value - 0.3]) /
+        _.max([0, student.indexes.studyIndex.value - 0.3]) /
         (8 * Globals.TICKS_SEMESTER);
     this.value = this.value + dailyGain;
 };

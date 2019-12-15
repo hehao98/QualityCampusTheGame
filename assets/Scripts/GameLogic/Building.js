@@ -9,6 +9,7 @@ let nameGenerators = {
     teaching: BuildingSpecifications.teaching.nameGenerator(),
     cafeteria: BuildingSpecifications.cafeteria.nameGenerator(),
     lab: BuildingSpecifications.lab.nameGenerator(),
+    careerCenter: BuildingSpecifications.careerCenter.nameGenerator(),
 };
 
 class Building {
@@ -38,19 +39,27 @@ class Building {
 // methods
 
 Building.prototype.loadSpecifications = function () {
+
     const specification =
         BuildingSpecifications[this.type][this.tier].defaultProperties;
     for (let property in specification) {
         this[property] = specification[property];
     }
-    utilities.log(this);
+    utilities.log("loading for", "debug");
+    utilities.log(this, "debug");
     if (this.researchTrainingProvided > 0) {
         let sum = 0;
         for (let building of Globals.buildingManager.buildings) {
             sum += building.researchTrainingProvided || 0;
         }
-        utilities.log(sum);
         Globals.universityLevelModifiers.researchTrainingProvided = sum;
+    }
+    if (this.careerTrainingProvided > 0) {
+        let sum = 0;
+        for (let building of Globals.buildingManager.buildings) {
+            sum += building.careerTrainingProvided || 0;
+        }
+        Globals.universityLevelModifiers.careerTrainingProvided = sum;
     }
 };
 
@@ -72,8 +81,11 @@ Building.prototype.update = function () {
  *
  */
 Building.prototype.addComponent = function (properties) {
+
     this.components.push(
         new BuildingComponent(properties));
+
+    return OK;
 };
 
 Building.prototype.debugPrint = function () {

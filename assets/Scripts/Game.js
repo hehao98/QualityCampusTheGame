@@ -139,6 +139,8 @@ let Game = cc.Class({
         this.admissionManager.admit();
         this.pkuHoleManager.init();
         this.eventManager.init();
+
+        this.buildingManager.add({ type: "careerCenter", freeOfCharge: true });
     },
 
     start() {
@@ -221,7 +223,7 @@ let Game = cc.Class({
         this.relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
-        utilities.log(Globals.universityLevelModifiers);
+        utilities.log(Globals.universityLevelModifiers, "debug");
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);

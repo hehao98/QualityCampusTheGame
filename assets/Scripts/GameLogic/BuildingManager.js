@@ -42,6 +42,7 @@ BuildingManager.prototype.add = function (properties) {
     let revised = _.cloneDeep(properties);
     revised["id"] = this.nextBuildingID++;
     let building = new Building(revised);
+    this.buildings.push(building);
     building.buildingStartTime = Globals.tick;
     if (properties.freeOfCharge) {
         building.buildingEndTime = 0;
@@ -53,7 +54,7 @@ BuildingManager.prototype.add = function (properties) {
     }
     building.upgradingStartTime = 0;
     building.upgradingEndTime = 0;
-    this.buildings.push(building);
+
     return OK;
 };
 
@@ -120,7 +121,7 @@ BuildingManager.prototype.addComponent = function (properties) {
     else {
         let properties_revised = _.cloneDeep(properties);
         properties_revised["id"] = this.nextBuildingComponentID++;
-        target.addComponent(properties_revised);
+        return target.addComponent(properties_revised);
     }
 };
 
@@ -260,13 +261,9 @@ BuildingManager.prototype.getMaxStudentCapacity = function () {
 
 
 BuildingManager.prototype.debugPrint = function () {
-    utilities.log("[BuildingManager DebugPrint]");
-    utilities.log("building number: " + this.buildings.length);
-    for (let building of this.buildings) {
-        building.debugPrint();
-    }
+    utilities.log("building number: " + this.buildings.length, "debug");
     utilities.log(this);
-    utilities.log("------------------------------------------------------");
+    utilities.log("------------------------------------------------------", "debug");
 };
 
 

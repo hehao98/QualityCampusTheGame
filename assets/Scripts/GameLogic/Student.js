@@ -1,11 +1,12 @@
 // Student abstruct all in-game students
 // let StudentSpecifications = require("StudentSpecifications");
-let RelaxationSatisfacion = require("RelaxationSatisfacion");
-let StudySatisfaction = require("StudySatisfaction");
-let StudyIndex = require("StudyIndex");
+const RelaxationSatisfacion = require("RelaxationSatisfacion");
+const StudySatisfaction = require("StudySatisfaction");
+const StudyIndex = require("StudyIndex");
 const CareerIndex = require("CareerIndex");
-let utilities = require("utilities");
-let _ = require("lodash");
+const ResearchIndex = require("ResearchIndex");
+const utilities = require("utilities");
+const _ = require("lodash");
 
 /**
  *  
@@ -34,6 +35,10 @@ class Student {
                 value: this.talent * 0.45
             }),
             careerIndex: new CareerIndex({
+                studentID: this.id,
+                value: 0
+            }),
+            researchIndex: new ResearchIndex({
                 studentID: this.id,
                 value: 0
             }),
@@ -70,11 +75,11 @@ Student.prototype.getIndex = function (name) {
         return this.indexes[name].value;
     }
     switch (name) {
-    case "livingConditionSatisfaction":
-        return _.meanBy(["relaxationSatisfaction"],
-            (type) => this.indexes[type].value);
-    default:
-        throw new Error("Unknown index: " + name);
+        case "livingConditionSatisfaction":
+            return _.meanBy(["relaxationSatisfaction"],
+                (type) => this.indexes[type].value);
+        default:
+            throw new Error("Unknown index: " + name);
     }
 };
 
