@@ -101,18 +101,14 @@ let Game = cc.Class({
             universityData: this.universityData
         });
 
-        this.buildingManager = new BuildingManager();
-
-        this.scheduleManager = new ScheduleManager({
-            buildingManager: this.buildingManager
-        });
+        Globals.buildingManager = this.buildingManager =
+            new BuildingManager();
+        Globals.scheduleManager = this.scheduleManager =
+            new ScheduleManager();
         Globals.studentManager = this.studentManager =
-            new StudentManager({
-                scheduleManager: this.scheduleManager,
-                buildingManager: this.buildingManager,
-            });
+            new StudentManager();
         Globals.AdmissionManager = this.admissionManager =
-            new AdmissionManager({});
+            new AdmissionManager();
 
         this.pkuHoleManager = new PkuHoleManager({ game: this });
         this.eventManager = new EventManager({ game: this });
