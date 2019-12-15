@@ -38,10 +38,17 @@ class Building {
 // methods
 
 Building.prototype.loadSpecifications = function () {
-    let specification =
+    const specification =
         BuildingSpecifications[this.type][this.tier].defaultProperties;
     for (let property in specification) {
         this[property] = specification[property];
+    }
+    if (this.researchTrainingProvided > 0) {
+        let sum = 0;
+        for (let building of Globals.buildingManager.buildings) {
+            sum += building.researchTrainingProvided || 0;
+        }
+        Globals.universityLevelModifiers.researchTrainingProvided = sum;
     }
 };
 
