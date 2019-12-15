@@ -1,4 +1,4 @@
-// ResearchIndex abstruct all in-game ResearchIndex
+// ResearchIndex abstruct Research Index for students
 let utilities = require("utilities");
 let Index = require("Index");
 let Globals = require("GlobalVariables");

@@ -283,10 +283,18 @@ let BuildingSpecifications = {
             buildTime: Globals.TICKS_WEEK,
         },
         nameGenerator: function* () {
-            let id = 1;
+            yield "理科一号楼";
+            yield "理科二号楼";
+            yield "社科研究所";
+            yield "朗润园";
+            yield "微电子大厦";
+            let id = 3;
             while (true) {
-                yield "第" + utilities.numberToChinese(
-                    id++) + "实验室";
+                yield "理科" + utilities.numberToChinese(
+                    id) + "号楼";
+                yield "社科" + utilities.numberToChinese(
+                    id) + "号楼";
+                id++;
             }
         },
     }
