@@ -1,6 +1,6 @@
 {
   "initialStudentNumber": 100,
-  "startFund": 50000,
+  "startFund": 5000000,
   "fundModifiers": [
     {
       "type": "fixed",

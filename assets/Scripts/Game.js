@@ -212,6 +212,7 @@ let Game = cc.Class({
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
+        this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
         this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
         this.studySatisfaction = this.studentManager.getOverallIndex(
@@ -220,6 +221,7 @@ let Game = cc.Class({
         this.relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
+        utilities.log(Globals.universityLevelModifiers);
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);
