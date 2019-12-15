@@ -37,19 +37,24 @@ BuildingManager.prototype.add = function (properties) {
         let fund = BuildingSpecifications[properties.type][
             0].defaultProperties.fundToCurrentTier;
         const success = this.fund.use(fund);
-        if (!success) { return false; }
+        if (!success) { return ERR_NOT_ENOUGH_RESOURCES; }
     }
     let revised = _.cloneDeep(properties);
     revised["id"] = this.nextBuildingID++;
     let building = new Building(revised);
     building.buildingStartTime = Globals.tick;
-    building.buildingEndTime = properties.freeOfCharge ? 0 :
-        Globals.tick + BuildingSpecifications[
-            properties.type][0].buildTime;
+    if (properties.freeOfCharge) {
+        building.buildingEndTime = 0;
+        building.loadSpecifications();
+    } else {
+        building.buildingEndTime =
+            Globals.tick + BuildingSpecifications[
+                properties.type][0].buildTime;
+    }
     building.upgradingStartTime = 0;
     building.upgradingEndTime = 0;
     this.buildings.push(building);
-    return true;
+    return OK;
 };
 
 
@@ -70,6 +75,7 @@ BuildingManager.prototype.upgrade = function (properties) {
     const newTier = target.tier + 1;
     const info = utilities.safeGet(BuildingSpecifications,
         [target.type, newTier]);
+    utilities.log(info);
     if (!info) {
         throw new RangeError("Building type not exists or " +
             "no upgrade available for this type of building at " +
@@ -81,10 +87,17 @@ BuildingManager.prototype.upgrade = function (properties) {
         const success = this.fund.use(fund);
         if (!success) return ERR_NOT_ENOUGH_RESOURCES;
     }
+    utilities.log("check passed");
+
     target.upgradingStartTime = Globals.tick;
-    target.upgradingEndTime = Math.ceil(
-        properties.freeOfCharge ? 0 :
+    if (properties.freeOfCharge) {
+        target.upgradingEndTime = 0;
+        target.tier++;
+        target.loadSpecifications();
+    } else {
+        target.upgradingEndTime = Math.ceil(
             Globals.tick + info.buildTime);
+    }
     return OK;
 };
 
@@ -252,6 +265,7 @@ BuildingManager.prototype.debugPrint = function () {
     for (let building of this.buildings) {
         building.debugPrint();
     }
+    utilities.log(this);
     utilities.log("------------------------------------------------------");
 };
 

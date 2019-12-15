@@ -102,19 +102,14 @@ let Game = cc.Class({
             universityData: this.universityData
         });
 
-        this.buildingManager = new BuildingManager();
-
-        this.scheduleManager = new ScheduleManager({
-            buildingManager: this.buildingManager
-        });
+        Globals.buildingManager = this.buildingManager =
+            new BuildingManager();
+        Globals.scheduleManager = this.scheduleManager =
+            new ScheduleManager();
         Globals.studentManager = this.studentManager =
-            new StudentManager({
-                scheduleManager: this.scheduleManager,
-                buildingManager: this.buildingManager,
-                fund: this.fund,
-            });
+            new StudentManager();
         Globals.AdmissionManager = this.admissionManager =
-            new AdmissionManager({});
+            new AdmissionManager();
 
         this.professorManager = new ProfessorManager({
             fund: this.fund,
@@ -224,6 +219,7 @@ let Game = cc.Class({
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
+        this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
         this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
         this.studySatisfaction = this.studentManager.getOverallIndex(
@@ -232,6 +228,7 @@ let Game = cc.Class({
         this.relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
+        utilities.log(Globals.universityLevelModifiers);
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);

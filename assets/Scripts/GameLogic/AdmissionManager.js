@@ -6,7 +6,7 @@ let utilities = require("utilities");
  * @param -  
  */
 class AdmissionManager {
-    constructor(properties) {
+    constructor(properties = {}) {
         // properties
         this.admissionTarget = 0;
     }
