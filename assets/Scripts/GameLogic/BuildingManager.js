@@ -109,7 +109,7 @@ BuildingManager.prototype.upgrade = function (properties) {
  * 
  */
 BuildingManager.prototype.addComponent = function (properties) {
-    let target = _.find(
+    const target = _.find(
         this.buildings,
         function (building) {
             return building.id === properties.buildingID;
@@ -118,11 +118,12 @@ BuildingManager.prototype.addComponent = function (properties) {
     if (target === undefined) {
         throw new ReferenceError("Building ID not exists.");
     }
-    else {
-        let properties_revised = _.cloneDeep(properties);
-        properties_revised["id"] = this.nextBuildingComponentID++;
-        return target.addComponent(properties_revised);
-    }
+    // TODO check funding
+
+    let properties_revised = _.cloneDeep(properties);
+    properties_revised["id"] = this.nextBuildingComponentID++;
+    return target.addComponent(properties_revised);
+
 };
 
 /**

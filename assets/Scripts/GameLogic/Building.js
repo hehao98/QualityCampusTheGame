@@ -39,14 +39,14 @@ class Building {
 // methods
 
 Building.prototype.loadSpecifications = function () {
-
+    utilities.log("loading for", "debug");
+    utilities.log(this, "debug");
     const specification =
         BuildingSpecifications[this.type][this.tier].defaultProperties;
     for (let property in specification) {
         this[property] = specification[property];
     }
-    utilities.log("loading for", "debug");
-    utilities.log(this, "debug");
+    // * updating unversity level modifiers
     if (this.researchTrainingProvided > 0) {
         let sum = 0;
         for (let building of Globals.buildingManager.buildings) {
@@ -61,6 +61,25 @@ Building.prototype.loadSpecifications = function () {
         }
         Globals.universityLevelModifiers.careerTrainingProvided = sum;
     }
+    // * updating modifiers provided by components
+    let modifiers = {
+        // <target property name>: multiplier
+    };
+    for (let component of this.components) {
+        for (let property in component) {
+            if (property === "capacity" || INDEXES.includes(property)) {
+                if (modifiers[property] === undefined) {
+                    modifiers[property] = 1.0;
+                }
+                modifiers[property] *= (1 + component[property]);
+            }
+        }
+    }
+    for (let target in modifiers) {
+        this[target] *= modifiers[target];
+    }
+    return OK;
+
 };
 
 Building.prototype.update = function () {
@@ -84,7 +103,7 @@ Building.prototype.addComponent = function (properties) {
 
     this.components.push(
         new BuildingComponent(properties));
-
+    this.loadSpecifications();
     return OK;
 };
 

@@ -61,6 +61,7 @@ let BuildingComponentSpecifications = {
     noRepair: {
         0: {
             defaultProperties: {
+                fundToRemove: 800,
                 name: "皇帝的新修理工",
                 description: "该建筑内大量设施损坏而不见修理。",
                 capacity: -0.3,
@@ -72,6 +73,7 @@ let BuildingComponentSpecifications = {
     buildingAtNight: {
         0: {
             defaultProperties: {
+                fundToRemove: 2000,
                 name: "夜间施工",
                 description: "该建筑附近有工地夜间施工，学生难以安眠。",
                 relaxationSatisfaction: -0.3,
@@ -83,6 +85,7 @@ let BuildingComponentSpecifications = {
     unstableWaterTemperature: {
         0: {
             defaultProperties: {
+                fundToRemove: 1500,
                 name: "薛定谔的水温",
                 description: "浴室水温忽高忽低。小概率导致学生感冒/烧伤。",
                 cleaningSatisfaction: -0.2,
@@ -94,6 +97,7 @@ let BuildingComponentSpecifications = {
     dirtyFood: {
         0: {
             defaultProperties: {
+                fundToRemove: 4000,
                 name: "屡教不改",
                 description: "该餐厅因食品安全问题被长期投诉，真诚道歉，永不悔改。",
                 cleaningSatisfaction: -0.2,
@@ -105,6 +109,7 @@ let BuildingComponentSpecifications = {
     highHCHO: {
         0: {
             defaultProperties: {
+                fundToRemove: 800,
                 name: "高效人肉除甲醛",
                 description: "该建筑内甲醛超标。",
                 cleaningSatisfaction: -0.2,
@@ -116,6 +121,7 @@ let BuildingComponentSpecifications = {
     crowdedByDesign: {
         0: {
             defaultProperties: {
+                fundToRemove: 1000,
                 name: "摩肩接踵",
                 description: "该建筑设计存在缺陷，导致实际容量下降。" +
                     "可能的原因有座椅拥挤，桌面狭小，桌面晃动严重；" +
