@@ -1,28 +1,28 @@
 let BuildingComponentSpecifications = {
-    clean: {
+    relax: {
         0: {
             defaultProperties: {
-                cleaningSatisfaction: +0.10,
+                relaxationSatisfaction: +0.10,
                 fundToCurrentTier: 1500,
-                description: "雇佣了负责的清洁工人。",
+                description: "加强了建筑隔音效果。",
                 picturePath: "",
                 iconPath: "",
             },
         },
         // 1: {
         //     defaultProperties: {
-        //         cleaningSatisfaction: +0.15,
+        //         relaxationSatisfaction: +0.15,
         //         fundToCurrentTier: 2500,
-        //         description: "雇佣了负责的清洁工人。",
+        //         description: "休息区。",
         //         picturePath: "",
         //         iconPath: "",
         //     },
         // },
         // 2: {
         //     defaultProperties: {
-        //         cleaningSatisfaction: +0.20,
+        //         relaxationSatisfaction: +0.20,
         //         fundToCurrentTier: 4000,
-        //         description: "雇佣了负责的清洁工人。",
+        //         description: "休息区。",
         //         picturePath: "",
         //         iconPath: "",
         //     },

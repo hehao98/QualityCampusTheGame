@@ -3,6 +3,7 @@ let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let BuildingSpecifications = require("BuildingSpecifications");
 let BuildingComponent = require("BuildingComponent");
+const _ = require("lodash");
 
 let nameGenerators = {
     dorm: BuildingSpecifications.dorm.nameGenerator(),
@@ -65,9 +66,11 @@ Building.prototype.loadSpecifications = function () {
     let modifiers = {
         // <target property name>: multiplier
     };
+
+
     for (let component of this.components) {
         for (let property in component) {
-            if (property === "capacity" || INDEXES.includes(property)) {
+            if (property === "capacity" || Globals.INDEXES.includes(property)) {
                 if (modifiers[property] === undefined) {
                     modifiers[property] = 1.0;
                 }
@@ -78,7 +81,9 @@ Building.prototype.loadSpecifications = function () {
     for (let target in modifiers) {
         this[target] *= modifiers[target];
     }
-    return OK;
+
+
+    return Globals.OK;
 
 };
 
@@ -93,7 +98,7 @@ Building.prototype.update = function () {
         this.tier = 0;
         this.loadSpecifications();
     }
-    return OK;
+    return Globals.OK;
 };
 
 /**
@@ -103,7 +108,18 @@ Building.prototype.addComponent = function (properties) {
     this.components.push(
         new BuildingComponent(properties));
     this.loadSpecifications();
-    return OK;
+    return Globals.OK;
+};
+
+/**
+ * @param {Number} id component id for removal
+ */
+Building.prototype.removeComponent = function (id) {
+
+    _.remove(this.components, { id: id });
+    this.loadSpecifications();
+
+    return Globals.OK;
 };
 
 Building.prototype.debugPrint = function () {
