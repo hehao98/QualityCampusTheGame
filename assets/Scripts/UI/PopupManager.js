@@ -22,7 +22,7 @@ cc.Class({
     /**
      * Show a message box to the player to ask for decision
      * @param {String} message the message to be displayed on the message box
-     * @param {Function} okCallback the function to call when ok button is pressed
+     * @param {Function} okCallback the function to call when OK button is pressed
      * @param {Function} cancelCallback the function to call when cancel button is pressed
      * @param {Object} thisPointer specify this in the callbacks
      */

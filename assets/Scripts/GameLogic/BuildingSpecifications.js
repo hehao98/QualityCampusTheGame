@@ -325,7 +325,59 @@ let BuildingSpecifications = {
                 id++;
             }
         },
+    },
+    careerCenter: {
+        0: {
+            defaultProperties: {
+                capacity: 100,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                careerTrainingProvided: 0.2,
+                fundToCurrentTier: 4000,
+                description: "车库上的创新创业中心。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: Globals.TICKS_WEEK,
+        },
+        1: {
+            defaultProperties: {
+                capacity: 200,
+                relaxationSatisfaction: 0.7,
+                cleaningSatisfaction: 0.8,
+                careerTrainingProvided: 0.4,
+                fundToCurrentTier: 14000,
+                description: "创新创业。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: 2 * Globals.TICKS_WEEK,
+        },
+        2: {
+            defaultProperties: {
+                capacity: 300,
+                relaxationSatisfaction: 0.8,
+                cleaningSatisfaction: 0.95,
+                careerTrainingProvided: 0.8,
+                fundToCurrentTier: 40000,
+                description: "百强企业的摇篮。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: 4 * Globals.TICKS_WEEK,
+        },
+        nameGenerator: function* () {
+            let id = 1;
+            while (true) {
+                yield "双创中心" + utilities.numberToChinese(
+                    id) + "号楼";
+            }
+        },
     }
+
 };
 
 module.exports = BuildingSpecifications;

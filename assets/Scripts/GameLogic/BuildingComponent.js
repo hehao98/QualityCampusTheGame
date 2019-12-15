@@ -9,7 +9,7 @@ let BuildingComponentSpecifications =
 class BuildingComponent {
     constructor(properties) {
         // properties
-        this.type = properties.type;
+        this.type = properties.componentName;
         this.id = properties.id;
         this.tier = 0;
 

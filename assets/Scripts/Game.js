@@ -76,8 +76,7 @@ let Game = cc.Class({
     onLoad() {
         // Set game reference in window
         // so that it can be accessed in Chrome console for debugging
-        // IT SHOULD NOT BE USED FOR OTHER PURPOSE!!!
-        window.game = this;
+        Globals.game = window.game = this;
 
         // Copy initial data to Globals
         // Must be done before the initilization of all game objects!
@@ -85,7 +84,6 @@ let Game = cc.Class({
 
         // Initialize all game objects from here
         // Initialize Resource System
-        // TODO ES6
         Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
         this.fund.value = this.initialData.json.startFund;
@@ -133,14 +131,13 @@ let Game = cc.Class({
             this.researchIndex,
             this.careerIndex
         );
+        utilities.log(this.fund);
 
         this.buildingManager.init({
             difficulty: this.difficulty,
-            fund: this.fund,
         });
-
+        utilities.log(this.fund);
         this.studentManager.init(this.difficulty);
-
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
@@ -189,13 +186,14 @@ let Game = cc.Class({
     },
 
     update(dt) {
+
+
         // dt is in seconds
         // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
-
                 utilities.log(this.currentTick);
 
                 this.updateGameSystem();
@@ -228,7 +226,7 @@ let Game = cc.Class({
         this.relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
-        utilities.log(Globals.universityLevelModifiers);
+        utilities.log(Globals.universityLevelModifiers, "debug");
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);

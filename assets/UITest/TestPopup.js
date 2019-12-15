@@ -31,7 +31,7 @@ cc.Class({
                 {
                     string: "好的",
                     callback: function() {
-                        console.log("ok");
+                        console.log("OK");
                     },
                     thisPointer: this,
                     destroyDialog: true,

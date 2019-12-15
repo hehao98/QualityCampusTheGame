@@ -203,7 +203,7 @@ cc.Class({
                 try {
                     const result = this.game.buildingManager.upgrade({ id: selectedBuildingId, freeOfCharge: false });
                     utilities.log("update: " + result);
-                    if (result === OK) {
+                    if (result === Globals.OK) {
                         this.popupManager.showPopup("升级成功，等待升级完成");
                     } else {
                         this.popupManager.showPopup("升级失败，当前资金不足以完成升级");
@@ -248,7 +248,7 @@ cc.Class({
             () => {
                 let buildingType = button.node.name;
                 const result = this.game.buildingManager.add({ type: buildingType, freeOfCharge: false });
-                if (result === OK) {
+                if (result === Globals.OK) {
                     this.popupManager.showPopup("新建建筑成功，等待建造完成");
                 } else {
                     this.popupManager.showPopup("新建建筑失败，当前资金不足以新建此类建筑");
