@@ -131,12 +131,10 @@ let Game = cc.Class({
             this.researchIndex,
             this.careerIndex
         );
-        utilities.log(this.fund);
 
         this.buildingManager.init({
             difficulty: this.difficulty,
         });
-        utilities.log(this.fund);
         this.studentManager.init(this.difficulty);
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
