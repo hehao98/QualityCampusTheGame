@@ -38,7 +38,11 @@ describe("BuildingManager", function () {
         assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.55);
     });
 
-
+    it("should remove building component correctly", function () {
+        assert.strictEqual(buildingManager.removeComponent(
+            { buildingID: dormID, componentName: "studyArea", componentId: 0 }), Globals.OK);
+        assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.50);
+    });
 
 });
 
