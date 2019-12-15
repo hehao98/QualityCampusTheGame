@@ -1,5 +1,3 @@
-let assert = require("assert");
-
 cc.Class({
     extends: cc.Component,
 
@@ -10,9 +8,10 @@ cc.Class({
         studySatisfactionLabel: cc.Label,
         relaxationSatisfactionLabel: cc.Label,
         studyIndexLabel: cc.Label,
+        careerIndexLabel: cc.Label,
+        researchIndexLabel: cc.Label,
         admissionNumberLabel: cc.Label,
         studentQualityLabel: cc.Label,
-        slider: cc.Slider
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -20,7 +19,6 @@ cc.Class({
     // onLoad () {},
 
     start() {
-        this.slider = this.getComponentInChildren(cc.Slider);
     },
 
     updatePanel() {
@@ -35,13 +33,11 @@ cc.Class({
             this.game.studentManager.getOverallIndex("livingConditionSatisfaction").toFixed(3);
         this.studyIndexLabel.string =
             "学业水平：" + this.game.studentManager.getOverallIndex("studyIndex").toFixed(3);
-        this.admissionNumberLabel.string = "计划招生目标/最大招生容量：" 
+        this.careerIndexLabel.string =
+            "职业水平：" + this.game.studentManager.getOverallIndex("careerIndex").toFixed(3);
+        this.admissionNumberLabel.string = "计划招生/最大容量：" 
             + this.game.admissionManager.admissionTarget
             + "/" + this.game.buildingManager.getMaxStudentCapacity();
-        this.slider.progress =
-            this.game.admissionManager.admissionTarget /
-            this.game.buildingManager.getMaxStudentCapacity();
-        assert(this.slider.progress <= 1 && this.slider.progress >= 0);
     },
 
     updateAdmissionStrategy(slider) {

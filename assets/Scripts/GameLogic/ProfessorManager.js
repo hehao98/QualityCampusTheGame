@@ -1,31 +1,33 @@
-let Globals = require("Globals");
-
 const BOOST_LEVEL = {
-    academic: [],
-    career: [],
-    teach: [],
+    research: [0.1, 0.2, 0.3, 0.4, 0.5],
+    career: [0.1, 0.2, 0.3, 0.4, 0.5],
+    teach: [0.1, 0.2, 0.3, 0.4, 0.5],
 };
+
+const PROF_COST = -80;
 
 class ProfessorManager {
     constructor(properties) {
-        this.game = properties.game;
         this.fund = properties.fund;
-
-        this.number = Globals.initialData.professorNumber;
-        this.teachLevel = Globals.initialData.professorTeachLevel;
-        this.academicLevel = Globals.initialData.professorAcademicLevel;
-        this.careerLevel = Globals.initialData.professorCareerLevel;
+        this.studentManager = properties.studentManager;
+        this.number = properties.initialData.professorNumber;
+        this.teachLevel = properties.initialData.professorTeachLevel;
+        this.researchLevel = properties.initialData.professorAcademicLevel;
+        this.careerLevel = properties.initialData.professorCareerLevel;
 
         this.nextRecruitCost = this.getRecruitCost(); 
-
-        this.MAX_TEACH_LEVEL = 5;
-        this.MAX_ACADEMIC_LEVEL = 5;
-        this.MAX_CAREER_LEVEL = 5;
+        this.modifierId = this.fund.addModifier({ 
+            type: "professor", 
+            amount: this.number * PROF_COST
+        });
     }
 }
 
+/**
+ * @return {Number} cost needed to recruit next professor
+ */
 ProfessorManager.prototype.getRecruitCost = function() {
-
+    return this.number * 100;
 };
 
 /**
@@ -36,6 +38,8 @@ ProfessorManager.prototype.recruitProfessor = function() {
         return false;
     }
     this.nextRecruitCost = this.getRecruitCost();
+    this.number++;
+    this.fund.setModifierAmount(this.modifierId, this.number * PROF_COST);
     return true;
 };
 
@@ -44,11 +48,19 @@ ProfessorManager.prototype.recruitProfessor = function() {
  * @return {Boolean} true when success, false otherwise
  */
 ProfessorManager.prototype.upgradeLevel = function(type) {
-    if (this[type + "Level"] === this["MAX_" + type.toUpperCase() + "_LEVEL"]) {
+    if (this[type + "Level"] + 1 >= BOOST_LEVEL[type].length) {
         return false;
     }
     this[type + "Level"]++;
     return true;
+};
+
+/**
+ * @return {Number} the boost adjusted by professor student ratio
+ */
+ProfessorManager.prototype.getProfNumberBoost = function() {
+    let ratio = this.number / this.studentManager.students.length;
+    return ratio * 10;
 };
 
 /**
@@ -59,7 +71,15 @@ ProfessorManager.prototype.upgradeLevel = function(type) {
  * }
  */
 ProfessorManager.prototype.getEffect = function() {
-    
+    return {
+        teachIndexBoost: BOOST_LEVEL.teach[this.teachLevel] 
+            * this.getProfNumberBoost(),
+        careerIndexBoost: BOOST_LEVEL.career[this.careerLevel] 
+            * this.getProfNumberBoost(),
+        researchIndexBoost: BOOST_LEVEL.research[this.researchLevel] 
+            * this.getProfNumberBoost(),
+    };
 };
 
 module.exports = ProfessorManager;
+module.exports.PROF_COST = PROF_COST;

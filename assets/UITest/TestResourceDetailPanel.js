@@ -22,7 +22,7 @@ cc.Class({
             amount: 100,
         });
         this.game.fund.addModifier({
-            type: "teacher",
+            type: "professor",
             amount: -100,
         });
         this.game.fund.addModifier({

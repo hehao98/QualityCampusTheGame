@@ -36,7 +36,7 @@ cc.Class({
                 value = this.game.fund.getWeeklyGain("student");
                 break;
             case "TeacherCostLabel":
-                value = this.game.fund.getWeeklyCost("teacher");
+                value = this.game.fund.getWeeklyCost("professor");
                 break;
             }
 
