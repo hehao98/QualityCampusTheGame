@@ -1,8 +1,12 @@
+let Globals = require("GlobalVariables");
+
 const BOOST_LEVEL = {
     research: [0.1, 0.2, 0.3, 0.4, 0.5],
     career: [0.1, 0.2, 0.3, 0.4, 0.5],
     teach: [0.1, 0.2, 0.3, 0.4, 0.5],
 };
+
+const LEVEL_UPGRADE_COST = [1000, 2000, 3000, 5000, 0];
 
 const PROF_COST = -80;
 
@@ -44,15 +48,26 @@ ProfessorManager.prototype.recruitProfessor = function() {
 };
 
 /**
- * @param {String} type "academic", "teach", or "career"
- * @return {Boolean} true when success, false otherwise
+ * @param {String} type "research", "teach", or "career"
+ * @return {Boolean} true or false
+ */
+ProfessorManager.prototype.isHighestLevel = function(type) {
+    return this[type + "Level"] === BOOST_LEVEL[type].length - 1;
+};
+
+/**
+ * @param {String} type "research", "teach", or "career"
+ * @return {Number} 0 when success, < 0 otherwise
  */
 ProfessorManager.prototype.upgradeLevel = function(type) {
     if (this[type + "Level"] + 1 >= BOOST_LEVEL[type].length) {
-        return false;
+        return Globals.ERR_NO_MORE_LEVEL;
+    }
+    if (this.fund.use(LEVEL_UPGRADE_COST[this[type + "Level"]]) === false) {
+        return Globals.ERR_NOT_ENOUGH_RESOURCES;
     }
     this[type + "Level"]++;
-    return true;
+    return 0;
 };
 
 /**
@@ -82,4 +97,6 @@ ProfessorManager.prototype.getEffect = function() {
 };
 
 module.exports = ProfessorManager;
+module.exports.BOOST_LEVEL = BOOST_LEVEL;
 module.exports.PROF_COST = PROF_COST;
+module.exports.LEVEL_UPGRADE_COST = LEVEL_UPGRADE_COST;
