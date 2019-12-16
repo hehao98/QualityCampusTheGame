@@ -39,14 +39,9 @@ let Game = cc.Class({
         teachIndex: 0,
         careerIndex: 0,
         studentSatisfaction: 0,
-        professorSatisfaction: 0,
+        professorNumber: 0,
         worldRankFlagTriggers: [],
         worldRankFlags: [],
-
-        // Other Properties that will be read by event manager
-        studyIndex: 0,
-        relaxationSatisfaction: 0,
-        studySatisfaction: 0,
 
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
@@ -69,6 +64,7 @@ let Game = cc.Class({
         studentPanel: require("StudentPanel"),
         professorPanel: require("ProfessorPanel"),
         resourceDetailPanel: require("ResourceDetailPanel"),
+        configPanel: require("ConfigPanel"),
         popupManager: require("PopupManager"),
     }),
 
@@ -199,11 +195,11 @@ let Game = cc.Class({
 
                 this.updateGameObjective();
 
-                this.timeString = utilities.getTickString(this.currentTick);
-                Globals.tick = ++this.currentTick;
-
                 // Finally Update all UIs
                 this.refreshUI();
+
+                this.timeString = utilities.getTickString(this.currentTick);
+                Globals.tick = ++this.currentTick;
 
                 if (this.fund.value < 0) {
                     this.gameOver();
@@ -222,24 +218,34 @@ let Game = cc.Class({
         this.studentManager.debugPrint();
         this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
-        this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
-        this.studySatisfaction = this.studentManager.getOverallIndex(
+
+        // Update game objective values
+        let professorBuff = this.professorManager.getEffect();
+        this.teachIndex = (1 + professorBuff.teachIndexBoost) 
+            * this.studentManager.getOverallIndex("studyIndex");
+        this.careerIndex = (1 + professorBuff.careerIndexBoost) 
+            * this.studentManager.getOverallIndex("careerIndex");
+        this.researchIndex = (1 + professorBuff.researchIndexBoost) 
+            * this.studentManager.getOverallIndex("researchIndex");
+        let studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
         );
-        this.relaxationSatisfaction = this.studentManager.getOverallIndex(
+        let relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
-        utilities.log(Globals.universityLevelModifiers, "debug");
+        this.studentSatisfaction = (relaxationSatisfaction + studySatisfaction) / 2;
+        this.professorNumber = this.professorManager.number;
 
-        // Overall satisfaction is the average value of all detailed satisfactions
-        this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        // Update event system
         this.pkuHoleManager.update(this.currentTick);
         this.eventManager.update(this.currentTick);
+
+        // Update world rank
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
             // If the player have achieved a new ranking, popup
             this.worldRankFlagTriggers.forEach((targetRank, idx) => {
-                let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
+                let ranking = this.worldRankManager.getPlayerRanking();
                 if (ranking < targetRank && this.worldRankFlags[idx] === false) {
                     this.popupManager.showPopup("恭喜" + this.universityName
                         + "进入世界前"
@@ -303,6 +309,7 @@ let Game = cc.Class({
             if (this.studentPanel) this.studentPanel.updatePanel();
             if (this.professorPanel) this.professorPanel.updatePanel();
             if (this.resourceDetailPanel) this.resourceDetailPanel.updatePanel();
+            if (this.configPanel) this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
@@ -315,6 +322,7 @@ let Game = cc.Class({
             this.studentPanel.updatePanel();
             this.professorPanel.updatePanel();
             this.resourceDetailPanel.updatePanel();
+            this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }

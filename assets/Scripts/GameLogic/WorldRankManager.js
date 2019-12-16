@@ -2,21 +2,24 @@
 
 let assert = require("assert");
 
+const UNIV_TOTAL = 500;
+
 class WorldRankManager {
     constructor(properties) {
         this.game = properties.game;
+        this.playerRanking = 0;
         this.universities = [];
 
         properties.universityData.json
-            .filter((x, i) => i < 500)
+            .filter((x, i) => i < UNIV_TOTAL)
             .forEach((univ, i) => {
                 if (univ.name === this.game.universityName) return;
                 this.universities.push({
                     name: univ.name,
                     rank: i,
-                    teachIndex: Math.floor(20000 / (i + 1)),
-                    researchIndex: Math.floor(20000 / (i + 1)),
-                    careerIndex: Math.floor(20000 / (i + 1))
+                    teachIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
+                    researchIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
+                    careerIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
                 });
             });
 
@@ -66,10 +69,11 @@ WorldRankManager.prototype.updateRanking = function() {
         }
         let fluctuation =
             (univ.teachIndex + univ.careerIndex + univ.researchIndex) * 0.03;
-        univ.teachIndex += Math.floor((Math.random() - 0.5) * fluctuation);
-        univ.researchIndex += Math.floor((Math.random() - 0.5) * fluctuation);
-        univ.careerIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+        univ.teachIndex += (Math.random() - 0.5) * fluctuation;
+        univ.researchIndex += (Math.random() - 0.5) * fluctuation;
+        univ.careerIndex += (Math.random() - 0.5) * fluctuation;
     });
+
     this.universities.sort((a, b) => {
         return (
             b.teachIndex +
@@ -80,9 +84,12 @@ WorldRankManager.prototype.updateRanking = function() {
             a.careerIndex
         );
     });
+
     this.universities.forEach((univ, i) => {
         univ.rank = i + 1;
     });
+
+    this.playerRanking = this.getCurrentRanking(this.game.universityName);
 };
 
 WorldRankManager.prototype.getNeighborUniversities = function(univName, size) {
@@ -105,13 +112,19 @@ WorldRankManager.prototype.getNeighborUniversities = function(univName, size) {
 
     let result = [];
     for (let i = idx - beforeSize; i <= idx + afterSize; ++i) {
-        result.push(this.universities[i]);
+        result.push(i);
     }
     return result;
 };
 
 WorldRankManager.prototype.getCurrentRanking = function(univName) {
-    return this.universities.filter(univ => univ.name === univName)[0].rank;
+    let results = this.universities.filter(univ => univ.name === univName);
+    if (results.length === 0) return -1;
+    return results[0].rank;
+};
+
+WorldRankManager.prototype.getPlayerRanking = function() {
+    return this.playerRanking;
 };
 
 WorldRankManager.prototype.getUniversity = function(univName) {

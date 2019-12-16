@@ -29,7 +29,8 @@ cc.Class({
                 this.game.universityName,
                 this.contentPoolSize
             )
-            .forEach((univ, i) => {
+            .forEach((val, i) => {
+                let univ = this.game.worldRankManager.universities[val];
                 let node = this.contentPool[i];
 
                 let labels = node.getComponentsInChildren(cc.Label);
@@ -39,13 +40,13 @@ cc.Class({
                         label.string = "#" + univ.rank + "\t" + univ.name;
                         break;
                     case "TeachIndexLabel":
-                        label.string = univ.teachIndex;
+                        label.string = univ.teachIndex.toFixed(2);
                         break;
                     case "ResearchIndexLabel":
-                        label.string = univ.researchIndex;
+                        label.string = univ.researchIndex.toFixed(2);
                         break;
                     case "CareerIndexLabel":
-                        label.string = univ.careerIndex;
+                        label.string = univ.careerIndex.toFixed(2);
                         break;
                     }
                 });

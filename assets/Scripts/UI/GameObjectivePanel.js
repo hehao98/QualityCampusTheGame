@@ -25,7 +25,7 @@ cc.Class({
             ["researchPanel", "researchIndex"],
             ["careerPanel", "careerIndex"],
             ["studentSatisfactionPanel", "studentSatisfaction"],
-            ["professorSatisfactionPanel", "professorSatisfaction"]
+            ["professorSatisfactionPanel", "professorNumber"]
         ];
 
         this.panels.forEach(x => {
