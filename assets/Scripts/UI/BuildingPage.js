@@ -56,12 +56,13 @@ cc.Class({
     },
 
     start() {
-        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
         let buildingTypeLevels = new Array();
         buildingTypeLevels["dorm"] = 6;
         buildingTypeLevels["teaching"] = 6;
         buildingTypeLevels["cafeteria"] = 5;
-        buildingTypeLevels["lab"] = 1;
+        buildingTypeLevels["lab"] = 3;
+        buildingTypeLevels["careerCenter"] = 3;
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let iconUrl = "Icons/" + buildingTypeArr[i];
             let that = this;
@@ -164,8 +165,8 @@ cc.Class({
     },
 
     showBuildNewBuildingPage() {
-        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
-        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室"];
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
+        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室", "职业发展中心"];
         this.layoutPanel.removeAllChildren();
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
