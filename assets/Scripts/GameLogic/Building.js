@@ -65,6 +65,7 @@ Building.prototype.updateEffectString = function () {
             effectString += effectKeyTranslation[i] + "：" + this[effectKeys[i]] + "\n";
         }
     }
+    
     this.effects = effectString;
 };
 
