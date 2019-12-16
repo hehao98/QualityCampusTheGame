@@ -204,6 +204,10 @@ let Game = cc.Class({
 
                 // Finally Update all UIs
                 this.refreshUI();
+
+                if (this.fund.value < 0) {
+                    this.gameOver();
+                }
             }
         }
     },
@@ -226,6 +230,7 @@ let Game = cc.Class({
             "relaxationSatisfaction"
         );
         utilities.log(Globals.universityLevelModifiers, "debug");
+
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);
@@ -314,6 +319,31 @@ let Game = cc.Class({
                 this.worldRankPanel.updateInfo();
             }
         }
+    },
+
+    gameOver() {
+        this.isPaused = true;
+        this.popupManager.showDialogBox( 
+            utilities.replaceAll(this.initialData.json.gameOverMessage, "{univname}", this.universityName), 
+            [
+                {
+                    string: "回到主菜单",
+                    callback: function () {
+                        cc.director.loadScene("MainMenu");
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                },
+                {
+                    string: "辣鸡游戏！不玩了！",
+                    callback: function () {
+                        window.close();
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                }
+            ]
+        );
     },
 
     // callback for buttons that control time elapse
