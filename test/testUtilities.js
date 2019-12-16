@@ -11,8 +11,8 @@ describe("Utilities", function() {
     it("should handle tick conversion correctly", function() {
         let tickProps = Utilities.getTickProperties(1600);
         assert.strictEqual(tickProps.year, 2024);
-        assert.strictEqual(tickProps.semester, 3);
-        assert.strictEqual(tickProps.week, 6);
+        assert.strictEqual(tickProps.semester, 12);
+        assert.strictEqual(tickProps.week, 2);
         assert.strictEqual(tickProps.day, Globals.DAY.SAT);
         assert.strictEqual(tickProps.time, Globals.TIME.MORNING);     
     });
