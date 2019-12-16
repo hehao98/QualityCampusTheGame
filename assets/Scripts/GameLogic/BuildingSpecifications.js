@@ -106,9 +106,9 @@ let BuildingSpecifications = {
         0: {
             defaultProperties: {
                 capacity: 50,
-                relaxationSatisfaction: 0.5,
-                cleaningSatisfaction: 0.5,
-                studySatisfaction: 0.5,
+                relaxationSatisfaction: 0.3,
+                cleaningSatisfaction: 0.3,
+                studySatisfaction: 0.3,
                 fundToCurrentTier: 5000,
                 income: -10,
                 description: "虽然黑板、投影仪和桌椅都有不少问题，但是至少可以拿来上课。",
@@ -121,9 +121,9 @@ let BuildingSpecifications = {
         1: {
             defaultProperties: {
                 capacity: 100,
-                relaxationSatisfaction: 0.5,
-                cleaningSatisfaction: 0.5,
-                studySatisfaction: 0.5,
+                relaxationSatisfaction: 0.4,
+                cleaningSatisfaction: 0.4,
+                studySatisfaction: 0.4,
                 fundToCurrentTier: 6000,
                 income: -20,
                 description: "要是有人在抖腿的话，整排桌子都会跟着一起晃。",
@@ -207,8 +207,8 @@ let BuildingSpecifications = {
         0: {
             defaultProperties: {
                 capacity: 100,
-                relaxationSatisfaction: 0.5,
-                cleaningSatisfaction: 0.5,
+                relaxationSatisfaction: 0.3,
+                cleaningSatisfaction: 0.3,
                 fundToCurrentTier: 5000,
                 income: 100,
                 description: "虽然学校一直不承认，但似乎总有学生吃完之后会拉肚子。",
@@ -221,7 +221,7 @@ let BuildingSpecifications = {
         1: {
             defaultProperties: {
                 capacity: 150,
-                relaxationSatisfaction: 0.5,
+                relaxationSatisfaction: 0.4,
                 cleaningSatisfaction: 0.6,
                 fundToCurrentTier: 8000,
                 income: 200,
