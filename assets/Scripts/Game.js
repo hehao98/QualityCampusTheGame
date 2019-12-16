@@ -64,6 +64,7 @@ let Game = cc.Class({
         studentPanel: require("StudentPanel"),
         professorPanel: require("ProfessorPanel"),
         resourceDetailPanel: require("ResourceDetailPanel"),
+        configPanel: require("ConfigPanel"),
         popupManager: require("PopupManager"),
     }),
 
@@ -194,11 +195,11 @@ let Game = cc.Class({
 
                 this.updateGameObjective();
 
-                this.timeString = utilities.getTickString(this.currentTick);
-                Globals.tick = ++this.currentTick;
-
                 // Finally Update all UIs
                 this.refreshUI();
+
+                this.timeString = utilities.getTickString(this.currentTick);
+                Globals.tick = ++this.currentTick;
 
                 if (this.fund.value < 0) {
                     this.gameOver();
@@ -244,7 +245,7 @@ let Game = cc.Class({
             this.worldRankManager.updateRanking();
             // If the player have achieved a new ranking, popup
             this.worldRankFlagTriggers.forEach((targetRank, idx) => {
-                let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
+                let ranking = this.worldRankManager.getPlayerRanking();
                 if (ranking < targetRank && this.worldRankFlags[idx] === false) {
                     this.popupManager.showPopup("恭喜" + this.universityName
                         + "进入世界前"
@@ -308,6 +309,7 @@ let Game = cc.Class({
             if (this.studentPanel) this.studentPanel.updatePanel();
             if (this.professorPanel) this.professorPanel.updatePanel();
             if (this.resourceDetailPanel) this.resourceDetailPanel.updatePanel();
+            if (this.configPanel) this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
@@ -320,6 +322,7 @@ let Game = cc.Class({
             this.studentPanel.updatePanel();
             this.professorPanel.updatePanel();
             this.resourceDetailPanel.updatePanel();
+            this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }

@@ -29,7 +29,8 @@ cc.Class({
                 this.game.universityName,
                 this.contentPoolSize
             )
-            .forEach((univ, i) => {
+            .forEach((val, i) => {
+                let univ = this.game.worldRankManager.universities[val];
                 let node = this.contentPool[i];
 
                 let labels = node.getComponentsInChildren(cc.Label);

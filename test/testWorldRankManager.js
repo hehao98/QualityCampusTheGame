@@ -36,7 +36,7 @@ describe("WorldRankManager", function() {
         // last univeristy should be removed
         assert.strictEqual(worldRankManager.universities.length, 3);
         assert.strictEqual(worldRankManager.universities[2].name, "pku");
-        assert.strictEqual(worldRankManager.getCurrentRanking("pku"), 3);
+        assert.strictEqual(worldRankManager.getPlayerRanking(), 3);
 
         game.teachIndex = 100000;
         game.researchIndex = 100000;
@@ -44,7 +44,7 @@ describe("WorldRankManager", function() {
 
         worldRankManager.updateRanking();
 
-        assert.strictEqual(worldRankManager.getCurrentRanking("pku"), 1);
+        assert.strictEqual(worldRankManager.getPlayerRanking(), 1);
     });
 
     it("should hold player ranking values while altering other universities' ranking", function() {

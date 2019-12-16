@@ -7,6 +7,7 @@ const UNIV_TOTAL = 500;
 class WorldRankManager {
     constructor(properties) {
         this.game = properties.game;
+        this.playerRanking = 0;
         this.universities = [];
 
         properties.universityData.json
@@ -72,6 +73,7 @@ WorldRankManager.prototype.updateRanking = function() {
         univ.researchIndex += (Math.random() - 0.5) * fluctuation;
         univ.careerIndex += (Math.random() - 0.5) * fluctuation;
     });
+
     this.universities.sort((a, b) => {
         return (
             b.teachIndex +
@@ -82,9 +84,12 @@ WorldRankManager.prototype.updateRanking = function() {
             a.careerIndex
         );
     });
+
     this.universities.forEach((univ, i) => {
         univ.rank = i + 1;
     });
+
+    this.playerRanking = this.getCurrentRanking(this.game.universityName);
 };
 
 WorldRankManager.prototype.getNeighborUniversities = function(univName, size) {
@@ -107,13 +112,19 @@ WorldRankManager.prototype.getNeighborUniversities = function(univName, size) {
 
     let result = [];
     for (let i = idx - beforeSize; i <= idx + afterSize; ++i) {
-        result.push(this.universities[i]);
+        result.push(i);
     }
     return result;
 };
 
 WorldRankManager.prototype.getCurrentRanking = function(univName) {
-    return this.universities.filter(univ => univ.name === univName)[0].rank;
+    let results = this.universities.filter(univ => univ.name === univName);
+    if (results.length === 0) return -1;
+    return results[0].rank;
+};
+
+WorldRankManager.prototype.getPlayerRanking = function() {
+    return this.playerRanking;
 };
 
 WorldRankManager.prototype.getUniversity = function(univName) {

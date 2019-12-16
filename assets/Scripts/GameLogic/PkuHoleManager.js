@@ -13,7 +13,7 @@ class PkuHoleManager {
         this.specifications = PkuHoleSpecifications;
         this.posts = []; // ordered from most recent to old
         this.postPoolSize = 30;
-        this.nextPostID = 1;
+        this.nextPostID = 0;
         // constructor left-overs
     }
 }

@@ -37,7 +37,7 @@ cc.Class({
         this.studentNumberLabel.string = this.game.studentManager.students.length;
         this.professorNumberLabel.string = this.game.professorManager.number;
 
-        let rank = this.game.worldRankManager.getCurrentRanking(this.game.universityName);
+        let rank = this.game.worldRankManager.getPlayerRanking();
         let total = this.game.worldRankManager.getUniversityCount();
         this.worldRankLabel.string = rank + "/" + total;
 
