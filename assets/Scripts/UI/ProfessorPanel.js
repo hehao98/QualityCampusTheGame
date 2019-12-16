@@ -1,4 +1,5 @@
 let Utilities = require("utilities");
+let Globals = require("GlobalVariables");
 let ProfessorManager = require("ProfessorManager");
 
 cc.Class({
@@ -24,16 +25,25 @@ cc.Class({
 
     updatePanel () {
         this.professorNumberLabel.string = this.game.professorManager.number;
-        this.addProfessorLabel.string = "升级(" + this.game.professorManager.getRecruitCost() + "万)";
+        this.addProfessorLabel.string = "招募(" + this.game.professorManager.getRecruitCost() + "万)";
         this.studentProfessorRatioLabel.string = this.game.professorManager.number + "/" + this.game.studentManager.students.length;
 
         this.teachingLevelLabel.string = "等级" + Utilities.numberToRoman(this.game.professorManager.teachLevel + 1);
         this.careerLevelLabel.string = "等级" + Utilities.numberToRoman(this.game.professorManager.careerLevel + 1);
         this.researchLevelLabel.string = "等级" + Utilities.numberToRoman(this.game.professorManager.researchLevel + 1);
 
-        this.upgradeTeachingLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.teachLevel] + "万)";
-        this.upgradeCareerLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.careerLevel] + "万)";
-        this.upgradeResearchLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.researchLevel] + "万)";
+        if (!this.game.professorManager.isHighestLevel("teach"))
+            this.upgradeTeachingLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.teachLevel] + "万)";
+        else
+            this.upgradeTeachingLevelLabel.string = "最高等级";
+        if (!this.game.professorManager.isHighestLevel("career"))
+            this.upgradeCareerLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.careerLevel] + "万)";
+        else
+            this.upgradeCareerLevelLabel.string = "最高等级";
+        if (!this.game.professorManager.isHighestLevel("research"))
+            this.upgradeResearchLevelLabel.string = "升级(" + ProfessorManager.LEVEL_UPGRADE_COST[this.game.professorManager.researchLevel] + "万)";
+        else
+            this.upgradeResearchLevelLabel.string = "最高等级";
 
         let boost = (this.game.professorManager.getProfNumberBoost() * 100 - 100).toFixed(2);
         if (boost >= 0) {
@@ -64,8 +74,9 @@ cc.Class({
 
     upgradeLevel(event, customEventData) {
         let type = customEventData;
-        if (this.game.professorManager.upgradeLevel(type) === false) {
-            this.popupManager.showPopup("升级失败！");
+        let ret = this.game.professorManager.upgradeLevel(type);
+        if (ret === Globals.ERR_NOT_ENOUGH_RESOURCES) {
+            this.popupManager.showPopup("资金不足，升级失败！");
         }
     },
 });

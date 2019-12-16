@@ -55,6 +55,7 @@ let GlobalVariables = {
     // * return values
     OK: 0,
     ERR_NOT_ENOUGH_RESOURCES: -1,
+    ERR_NO_MORE_LEVEL: -2,
 
     UI: {
         buildingListPageView: null,
@@ -63,6 +64,7 @@ let GlobalVariables = {
     returnCodes: {
         OK: 0,
         ERR_NOT_ENOUGH_RESOURCES: -1,
+        ERR_NO_MORE_LEVEL: -2,
     },
 
     // * these variables will be made global
