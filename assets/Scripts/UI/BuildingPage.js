@@ -12,10 +12,12 @@ let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let BuildingItem = require("BuildingItem");
 let BuildingSpecifications = require("BuildingSpecifications");
+let BuildingComponentSpecifications = require("BuildingComponentSpecifications");
 let BuildingIconsDict = new Array();
 let BuildingPicturesDict = new Array();
 let infoPicturesDict = new Array();
 let selectedBuildingId = 0;
+const _ = require("lodash");
 
 cc.Class({
     extends: cc.Component,
@@ -46,7 +48,9 @@ cc.Class({
         buildingInfoPage: cc.Node,
         specificationPrefab: cc.Prefab,
         layoutPanel: cc.Node,
-        popupManager: require("PopupManager")
+        popupManager: require("PopupManager"),
+        componentPrefab: cc.Prefab,
+        componentLayout: cc.Node
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -56,22 +60,18 @@ cc.Class({
     },
 
     start() {
-        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
         let buildingTypeLevels = new Array();
         buildingTypeLevels["dorm"] = 6;
         buildingTypeLevels["teaching"] = 6;
         buildingTypeLevels["cafeteria"] = 5;
-        buildingTypeLevels["lab"] = 1;
+        buildingTypeLevels["lab"] = 3;
+        buildingTypeLevels["careerCenter"] = 3;
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let iconUrl = "Icons/" + buildingTypeArr[i];
             let that = this;
             cc.loader.loadRes(iconUrl, cc.SpriteFrame, function (err, spriteFrame) {
                 BuildingIconsDict[buildingTypeArr[i]] = spriteFrame;
-                let buildingLists = that.game.buildingManager.getBuildingLists();
-                let buildingListSize = buildingLists.length;
-                if (buildingListSize > 0) {
-                    that.showSelectedBuildingInfo(0);
-                }
             });
         }
 
@@ -80,11 +80,6 @@ cc.Class({
             let that = this;
             cc.loader.loadRes(pictureUrl, cc.SpriteFrame, function (err, spriteFrame) {
                 BuildingPicturesDict[buildingTypeArr[i]] = spriteFrame;
-                let buildingLists = that.game.buildingManager.getBuildingLists();
-                let buildingListSize = buildingLists.length;
-                if (buildingListSize > 0) {
-                    that.showSelectedBuildingInfo(0);
-                }
             });
 
             let levels = buildingTypeLevels[buildingTypeArr[i]];
@@ -164,8 +159,8 @@ cc.Class({
     },
 
     showBuildNewBuildingPage() {
-        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab"];
-        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室"];
+        let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
+        let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室", "职业发展中心"];
         this.layoutPanel.removeAllChildren();
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let buildingProperties = BuildingSpecifications[buildingTypeArr[i]][0]["defaultProperties"];
@@ -277,5 +272,48 @@ cc.Class({
             label.string = "建造中";
             buildingProgressBar.node.active = true;
         }
+    },
+
+    showSelectedBuildingComponent(id) {
+        let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
+        let componentChineseName = ["休息区", "自习区", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
+        this.componentLayout.removeAllChildren();
+        for (let i = 0; i < componentTypeArr.length; ++i) {
+            let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];
+            let buildingLists = this.game.buildingManager.getBuildingLists();
+            let building = buildingLists[id];
+            const target = _.find(
+                building.components,
+                function (component) {
+                    return component.type === componentTypeArr[i];
+                }
+            );
+            if (componentProperties["userAdditionAllowed"] === true) {
+                console.log("component" + componentProperties["name"]);
+                let node = cc.instantiate(this.componentPrefab);
+                node.on("click", this.addComponent, this);
+                node.name = componentTypeArr[i];
+                let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
+                componentName.string = componentChineseName[i];
+                let resourceInfoNode = node.getChildByName("ResourceInfo");
+                let componentFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
+                componentFund.string = componentProperties["fundToCurrentTier"];
+                this.componentLayout.addChild(node);
+            } else if (target !== undefined) {
+                let node = cc.instantiate(this.componentPrefab);
+                node.on("click", this.addComponent, this);
+                node.name = componentTypeArr[i];
+                let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
+                componentName.string = componentChineseName[i];
+                let resourceInfoNode = node.getChildByName("ResourceInfo");
+                let componentFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
+                componentFund.string = componentProperties["fundToRemove"];
+                this.componentLayout.addChild(node);
+            }
+        }
+    },
+
+    addComponent() {
+
     }
 });

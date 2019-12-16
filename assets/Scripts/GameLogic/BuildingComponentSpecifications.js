@@ -2,11 +2,13 @@ let BuildingComponentSpecifications = {
     relax: {
         0: {
             defaultProperties: {
+                name: "休息区",
                 relaxationSatisfaction: +0.10,
                 fundToCurrentTier: 1500,
                 description: "加强了建筑隔音效果。",
                 picturePath: "",
                 iconPath: "",
+                userAdditionAllowed: true,
             },
         },
         // 1: {
@@ -31,11 +33,13 @@ let BuildingComponentSpecifications = {
     studyArea: {
         0: {
             defaultProperties: {
+                name: "自习区",
                 studySatisfaction: +0.10,
                 fundToCurrentTier: 2000,
                 description: "自习区",
                 picturePath: "",
                 iconPath: "",
+                userAdditionAllowed: true,
             },
         },
         // 1: {
