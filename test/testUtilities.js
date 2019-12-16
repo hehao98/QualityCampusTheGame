@@ -10,7 +10,7 @@ describe("Utilities", function() {
 
     it("should handle tick conversion correctly", function() {
         let tickProps = Utilities.getTickProperties(1600);
-        assert.strictEqual(tickProps.year, 2019);
+        assert.strictEqual(tickProps.year, 2024);
         assert.strictEqual(tickProps.semester, 3);
         assert.strictEqual(tickProps.week, 6);
         assert.strictEqual(tickProps.day, Globals.DAY.SAT);
@@ -19,7 +19,7 @@ describe("Utilities", function() {
 
     it("should convert tick to string correctly", function() {
         let tickString = Utilities.getTickString(1600);
-        assert.strictEqual(tickString, "2019学年第一学期第6周星期六 上午");
+        assert.strictEqual(tickString, "2024学年第二学期第2周星期六 上午");
     });
 
     it("should generate random int numbers", function() {
