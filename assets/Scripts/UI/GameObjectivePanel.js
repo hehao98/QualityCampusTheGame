@@ -12,7 +12,8 @@ cc.Class({
         professorSatisfactionPanel: cc.Node,
         labels: Object,
         bars: Object,
-        panels: [String]
+        panels: [String],
+        progressBars: [cc.ProgressBar]
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -34,6 +35,8 @@ cc.Class({
                 .filter(label => label.node.name.includes("Value"))[0];
             this.bars[x[0]] = this[x[0]].getComponentInChildren(cc.ProgressBar);
         }, this);
+
+        this.progressBars = this.getComponentsInChildren(cc.ProgressBar);
     },
 
     updatePanel() {
@@ -51,5 +54,9 @@ cc.Class({
             this.labels[x[0]].string = current.toFixed(2) + "/" + target;
             this.bars[x[0]].progress = current / target;
         });
+
+        this.progressBars.forEach(bar => {
+            bar.totalLength = this.node.width;
+        }, this);
     }
 });

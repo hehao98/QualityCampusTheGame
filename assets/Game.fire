@@ -1795,7 +1795,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -150,
+      "x": -170.83999999999997,
       "y": 0,
       "z": 0
     },
@@ -1859,7 +1859,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 13,
     "_left": 0,
     "_right": 150,
     "_top": 0,
@@ -2548,7 +2548,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -150,
+      "x": -170.83999999999997,
       "y": 0,
       "z": 0
     },
@@ -2612,7 +2612,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 13,
     "_left": 0,
     "_right": 150,
     "_top": 0,
@@ -3291,7 +3291,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
+      "width": 180,
       "height": 33.2
     },
     "_anchorPoint": {
@@ -3301,7 +3301,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -150,
+      "x": -170.83999999999997,
       "y": 0,
       "z": 0
     },
@@ -3365,7 +3365,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 13,
     "_left": 0,
     "_right": 150,
     "_top": 0,
@@ -3427,7 +3427,7 @@
       "__id__": 76
     },
     "_N$mode": 0,
-    "_N$progress": 0.3,
+    "_N$progress": 0.6,
     "_N$reverse": false,
     "_id": "83xeb3exBI1rB3j6Sa1OOv"
   },
@@ -4054,7 +4054,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -150,
+      "x": -170.83999999999997,
       "y": 0,
       "z": 0
     },
@@ -4118,7 +4118,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 13,
     "_left": 0,
     "_right": 150,
     "_top": 0,
@@ -4807,7 +4807,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -150,
+      "x": -170.83999999999997,
       "y": 0,
       "z": 0
     },
@@ -4871,7 +4871,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 13,
     "_left": 0,
     "_right": 150,
     "_top": 0,
@@ -5147,6 +5147,7 @@
     "labels": null,
     "bars": null,
     "panels": [],
+    "progressBars": [],
     "_id": "1bTUsrreVBKphKF04KjuYV"
   },
   {
@@ -25722,7 +25723,7 @@
     "_target": null,
     "_alignFlags": 32,
     "_left": 0,
-    "_right": 0.202608695652174,
+    "_right": 0.20260869565217393,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
