@@ -12,8 +12,7 @@ describe("BuildingManager", function () {
     let dorm = undefined;
     let dormID = undefined;
     Globals.game = {};
-    let fund = Globals.game.fund = new Resource({ name: "fund" });
-    fund.value = 80000000;
+    let fund = Globals.game.fund = new Resource({ name: "fund", value: 80000000 });
 
     it("should init correctly", function () {
         assert.isTrue(buildingManager != undefined);
@@ -35,13 +34,13 @@ describe("BuildingManager", function () {
     it("should add building component correctly", function () {
         assert.strictEqual(buildingManager.addComponent(
             { buildingID: dormID, componentName: "studyArea" }), Globals.OK);
-        assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.55);
+        assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.33);
     });
 
     it("should remove building component correctly", function () {
         assert.strictEqual(buildingManager.removeComponent(
             { buildingID: dormID, componentName: "studyArea", componentId: 0 }), Globals.OK);
-        assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.50);
+        assert.strictEqual(buildingManager.getBuildingById(dormID).studySatisfaction, 0.3);
     });
 
 });
