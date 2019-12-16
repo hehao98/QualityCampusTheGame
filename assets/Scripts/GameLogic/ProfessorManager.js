@@ -4,6 +4,8 @@ const BOOST_LEVEL = {
     teach: [0.1, 0.2, 0.3, 0.4, 0.5],
 };
 
+const LEVEL_UPGRADE_COST = [1000, 2000, 3000, 4000, 5000];
+
 const PROF_COST = -80;
 
 class ProfessorManager {
@@ -44,11 +46,14 @@ ProfessorManager.prototype.recruitProfessor = function() {
 };
 
 /**
- * @param {String} type "academic", "teach", or "career"
+ * @param {String} type "research", "teach", or "career"
  * @return {Boolean} true when success, false otherwise
  */
 ProfessorManager.prototype.upgradeLevel = function(type) {
     if (this[type + "Level"] + 1 >= BOOST_LEVEL[type].length) {
+        return false;
+    }
+    if (this.fund.use(LEVEL_UPGRADE_COST[this[type + "Level"]]) === false) {
         return false;
     }
     this[type + "Level"]++;
@@ -82,4 +87,6 @@ ProfessorManager.prototype.getEffect = function() {
 };
 
 module.exports = ProfessorManager;
+module.exports.BOOST_LEVEL = BOOST_LEVEL;
 module.exports.PROF_COST = PROF_COST;
+module.exports.LEVEL_UPGRADE_COST = LEVEL_UPGRADE_COST;
