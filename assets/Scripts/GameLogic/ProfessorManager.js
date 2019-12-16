@@ -8,7 +8,7 @@ const BOOST_LEVEL = {
 
 const LEVEL_UPGRADE_COST = [1000, 2000, 3000, 5000, 0];
 
-const PROF_COST = -80;
+const PROF_COST = -8;
 
 class ProfessorManager {
     constructor(properties) {

@@ -33,11 +33,40 @@ class Building {
         // constructor left-overs
         // this.loadSpecifications();
         this.name = nameGenerators[this.type].next().value;
+        
+        this.modifierId = Globals.game.fund.addModifier({ type: "building", amount: 0 });
     }
 
 }
 
 // methods
+
+Building.prototype.updateEffectString = function () {
+    let effectKeys = [
+        "income",
+        "relaxationSatisfaction", 
+        "cleaningSatisfaction",
+        "studySatisfaction",
+        "researchTrainingProvided",
+        "careerTrainingProvided",
+    ];   
+    let effectKeyTranslation = [
+        "建筑收支",
+        "休闲满意度",
+        "清洁满意度",
+        "学习满意度",
+        "提供科研训练",
+        "提供生涯训练",
+    ];
+    let effectString = "";
+
+    for (let i = 0; i < effectKeys.length; ++i) {
+        if (_.has(this, effectKeys[i])) {
+            effectString += effectKeyTranslation[i] + "：" + this[effectKeys[i]] + "\n";
+        }
+    }
+    this.effects = effectString;
+};
 
 Building.prototype.loadSpecifications = function () {
     utilities.log("loading for", "debug");
@@ -82,9 +111,13 @@ Building.prototype.loadSpecifications = function () {
         this[target] *= modifiers[target];
     }
 
+    if (_.has(this, "income")) {
+        Globals.game.fund.setModifierAmount(this.modifierId, this.income);
+    }
+
+    this.updateEffectString();
 
     return Globals.OK;
-
 };
 
 Building.prototype.update = function () {
