@@ -2,21 +2,23 @@
 
 let assert = require("assert");
 
+const UNIV_TOTAL = 500;
+
 class WorldRankManager {
     constructor(properties) {
         this.game = properties.game;
         this.universities = [];
 
         properties.universityData.json
-            .filter((x, i) => i < 500)
+            .filter((x, i) => i < UNIV_TOTAL)
             .forEach((univ, i) => {
                 if (univ.name === this.game.universityName) return;
                 this.universities.push({
                     name: univ.name,
                     rank: i,
-                    teachIndex: Math.floor(20000 / (i + 1)),
-                    researchIndex: Math.floor(20000 / (i + 1)),
-                    careerIndex: Math.floor(20000 / (i + 1))
+                    teachIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
+                    researchIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
+                    careerIndex: (1 / UNIV_TOTAL) * (UNIV_TOTAL - i),
                 });
             });
 
@@ -66,9 +68,9 @@ WorldRankManager.prototype.updateRanking = function() {
         }
         let fluctuation =
             (univ.teachIndex + univ.careerIndex + univ.researchIndex) * 0.03;
-        univ.teachIndex += Math.floor((Math.random() - 0.5) * fluctuation);
-        univ.researchIndex += Math.floor((Math.random() - 0.5) * fluctuation);
-        univ.careerIndex += Math.floor((Math.random() - 0.5) * fluctuation);
+        univ.teachIndex += (Math.random() - 0.5) * fluctuation;
+        univ.researchIndex += (Math.random() - 0.5) * fluctuation;
+        univ.careerIndex += (Math.random() - 0.5) * fluctuation;
     });
     this.universities.sort((a, b) => {
         return (

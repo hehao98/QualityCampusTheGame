@@ -27,7 +27,7 @@ cc.Class({
             this.fundChangeLabel.node.color = cc.Color.GREEN;
         } else {
             this.fundChangeLabel.node.color = cc.Color.RED;
-            suffix = "-";
+            suffix = "";
         }
         this.fundChangeLabel.string = "(" + suffix + value + "万)";
 

@@ -39,13 +39,13 @@ cc.Class({
                         label.string = "#" + univ.rank + "\t" + univ.name;
                         break;
                     case "TeachIndexLabel":
-                        label.string = univ.teachIndex;
+                        label.string = univ.teachIndex.toFixed(2);
                         break;
                     case "ResearchIndexLabel":
-                        label.string = univ.researchIndex;
+                        label.string = univ.researchIndex.toFixed(2);
                         break;
                     case "CareerIndexLabel":
-                        label.string = univ.careerIndex;
+                        label.string = univ.careerIndex.toFixed(2);
                         break;
                     }
                 });

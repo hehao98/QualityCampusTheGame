@@ -218,9 +218,14 @@ let Game = cc.Class({
         this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
 
-        this.teachIndex = this.studentManager.getOverallIndex("studyIndex");
-        this.careerIndex = this.studentManager.getOverallIndex("careerIndex");
-        this.researchIndex = this.studentManager.getOverallIndex("researchIndex");
+        // Update game objective values
+        let professorBuff = this.professorManager.getEffect();
+        this.teachIndex = (1 + professorBuff.teachIndexBoost) 
+            * this.studentManager.getOverallIndex("studyIndex");
+        this.careerIndex = (1 + professorBuff.careerIndexBoost) 
+            * this.studentManager.getOverallIndex("careerIndex");
+        this.researchIndex = (1 + professorBuff.researchIndexBoost) 
+            * this.studentManager.getOverallIndex("researchIndex");
         let studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
         );
@@ -230,8 +235,11 @@ let Game = cc.Class({
         this.studentSatisfaction = (relaxationSatisfaction + studySatisfaction) / 2;
         this.professorNumber = this.professorManager.number;
 
+        // Update event system
         this.pkuHoleManager.update(this.currentTick);
         this.eventManager.update(this.currentTick);
+
+        // Update world rank
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
             // If the player have achieved a new ranking, popup

@@ -13,7 +13,7 @@ class Satisfaction extends Index {
      */
     constructor(properties) {
         if (properties.value === undefined) {
-            properties.value = 0.5;
+            properties.value = 0.3;
         }
         // deligate
         super(properties);
