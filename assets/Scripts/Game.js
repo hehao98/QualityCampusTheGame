@@ -39,14 +39,9 @@ let Game = cc.Class({
         teachIndex: 0,
         careerIndex: 0,
         studentSatisfaction: 0,
-        professorSatisfaction: 0,
+        professorNumber: 0,
         worldRankFlagTriggers: [],
         worldRankFlags: [],
-
-        // Other Properties that will be read by event manager
-        studyIndex: 0,
-        relaxationSatisfaction: 0,
-        studySatisfaction: 0,
 
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
@@ -222,17 +217,19 @@ let Game = cc.Class({
         this.studentManager.debugPrint();
         this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
-        this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
-        this.studySatisfaction = this.studentManager.getOverallIndex(
+
+        this.teachIndex = this.studentManager.getOverallIndex("studyIndex");
+        this.careerIndex = this.studentManager.getOverallIndex("careerIndex");
+        this.researchIndex = this.studentManager.getOverallIndex("researchIndex");
+        let studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
         );
-        this.relaxationSatisfaction = this.studentManager.getOverallIndex(
+        let relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
-        utilities.log(Globals.universityLevelModifiers, "debug");
+        this.studentSatisfaction = (relaxationSatisfaction + studySatisfaction) / 2;
+        this.professorNumber = this.professorManager.number;
 
-        // Overall satisfaction is the average value of all detailed satisfactions
-        this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);
         this.eventManager.update(this.currentTick);
         if (this.currentTick % Globals.TICKS_WEEK === 0) {

@@ -31,9 +31,9 @@ cc.Class({
         }
         this.fundChangeLabel.string = "(" + suffix + value + "万)";
 
-        this.researchIndexLabel.string = this.game.researchIndex;
-        this.teachIndexLabel.string = this.game.teachIndex;
-        this.careerIndexLabel.string = this.game.careerIndex;
+        this.researchIndexLabel.string = this.game.researchIndex.toFixed(2);
+        this.teachIndexLabel.string = this.game.teachIndex.toFixed(2);
+        this.careerIndexLabel.string = this.game.careerIndex.toFixed(2);
         this.studentNumberLabel.string = this.game.studentManager.students.length;
         this.professorNumberLabel.string = this.game.professorManager.number;
 
