@@ -74,6 +74,6 @@ describe("WorldRankManager", function() {
     it("should return neighboring ranking universities correctly", function() {
         let univs = worldRankManager.getNeighborUniversities("pku", 3);
         assert.strictEqual(univs.length, 3);
-        assert.strictEqual(univs[0].name, "pku");
+        assert.strictEqual(worldRankManager.universities[univs[0]].name, "pku");
     });
 });
