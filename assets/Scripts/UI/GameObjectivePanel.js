@@ -37,6 +37,9 @@ cc.Class({
     },
 
     updatePanel() {
+        if (this.game.currentObjective >= this.game.gameObjectives.length) {
+            return;
+        }
         this.targetLabel.string =
             "目标：" +
             this.game.gameObjectives[this.game.currentObjective].name;

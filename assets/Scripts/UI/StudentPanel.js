@@ -24,17 +24,19 @@ cc.Class({
     updatePanel() {
         this.studentNumberLabel.string = "当前学生人数：" + this.game.studentManager.students.length;
         this.overallSatisfactionLabel.string =
-            "总体满意度：" + this.game.studentSatisfaction.toFixed(3);
+            "总体满意度：" + this.game.studentSatisfaction.toFixed(4);
         this.studySatisfactionLabel.string =
             "学习满意度：" +
-            this.game.studentManager.getOverallIndex("studySatisfaction").toFixed(3);
+            this.game.studentManager.getOverallIndex("studySatisfaction").toFixed(4);
         this.relaxationSatisfactionLabel.string =
             "生活满意度：" +
-            this.game.studentManager.getOverallIndex("livingConditionSatisfaction").toFixed(3);
+            this.game.studentManager.getOverallIndex("livingConditionSatisfaction").toFixed(4);
         this.studyIndexLabel.string =
-            "学业水平：" + this.game.studentManager.getOverallIndex("studyIndex").toFixed(3);
+            "学业水平：" + this.game.studentManager.getOverallIndex("studyIndex").toFixed(4);
         this.careerIndexLabel.string =
-            "职业水平：" + this.game.studentManager.getOverallIndex("careerIndex").toFixed(3);
+            "职业水平：" + this.game.studentManager.getOverallIndex("careerIndex").toFixed(4);
+        this.researchIndexLabel.string =
+            "科研水平：" + this.game.studentManager.getOverallIndex("researchIndex").toFixed(4);
         this.admissionNumberLabel.string = "计划招生/最大容量：" 
             + this.game.admissionManager.admissionTarget
             + "/" + this.game.buildingManager.getMaxStudentCapacity();
