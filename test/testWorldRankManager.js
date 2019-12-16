@@ -4,20 +4,21 @@ let WorldRankManager = require("WorldRankManager");
 describe("WorldRankManager", function() {
     let game = {
         universityName: "pku",
-        teachIndex: 123,
-        researchIndex: 456,
-        careerIndex: 789
+        teachIndex: 0,
+        researchIndex: 0,
+        careerIndex: 0
+    };
+    let universityData = {
+        json: [
+            { name: "thu" },
+            { name: "pku" },
+            { name: "fdu" },
+            { name: "sjtu" }
+        ]
     };
     let worldRankManager = new WorldRankManager({
         game: game,
-        universityData: {
-            json: [
-                { name: "thu" },
-                { name: "pku" },
-                { name: "fdu" },
-                { name: "sjtu" }
-            ]
-        }
+        universityData: universityData
     });
 
     it("should load initial data while ignoring player univerisity in initial data", function() {
