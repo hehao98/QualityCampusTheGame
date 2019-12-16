@@ -50,7 +50,8 @@ cc.Class({
         layoutPanel: cc.Node,
         popupManager: require("PopupManager"),
         componentPrefab: cc.Prefab,
-        componentLayout: cc.Node
+        componentLayout: cc.Node,
+        addComponentPanel: cc.Node,
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -314,6 +315,6 @@ cc.Class({
     },
 
     addComponent() {
-
-    }
+        this.addComponentPanel.active = !this.addComponentPanel.active;
+    },
 });
