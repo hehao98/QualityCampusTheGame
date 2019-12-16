@@ -1,6 +1,6 @@
 // The file that declares and stores all globals 
 
-module.exports = {
+let GlobalVariables = {
     // globals that will be set in the main menu scene
     // and will be loaded when initializing the game scene
     universityName: "中关村文理学院",
@@ -58,24 +58,25 @@ module.exports = {
 
     UI: {
         buildingListPageView: null,
-    }
-};
+    },
 
-let globals = {
-    OK: 0,
-    ERR_NOT_ENOUGH_RESOURCES: -1,
+    returnCodes: {
+        OK: 0,
+        ERR_NOT_ENOUGH_RESOURCES: -1,
+    },
+
+    // * these variables will be made global
     SATISFACTIONS: [
         "relaxationSatisfaction",
         "studySatisfaction",
     ],
+    INDEXES: [
+        "studyIndex",
+        "careerIndex",
+        "researchIndex",
+        "relaxationSatisfaction",
+        "studySatisfaction",
+    ],
 };
-globals.INDEXES = [
-    "studyIndex",
-    "careerIndex",
-].concat[globals.SATISFACTIONS];
 
-
-Object.assign(exports, globals);
-if (typeof window !== "undefined") {
-    Object.assign(window, globals);
-}
+module.exports = GlobalVariables;

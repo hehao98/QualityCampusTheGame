@@ -17,7 +17,6 @@ class ScheduleManager {
         // properties
         this.nextScheduleID = 0;
         this.schedules = [];
-        this.buildingManager = properties.buildingManager;
         // constructor left-overs
     }
 
@@ -30,19 +29,19 @@ class ScheduleManager {
  * @returns {Schedule} schedule -
  *  content of generated schedule
  */
-ScheduleManager.prototype.getNewSchedule = function (properties) {
+ScheduleManager.prototype.getNewSchedule = function (properties = {}) {
     let propertiesRevised = _.cloneDeep(properties);
     propertiesRevised["id"] = this.nextScheduleID++;
     propertiesRevised["content"] = {
-        [Globals.MORNING]: this.buildingManager.assignBuilding(
+        [Globals.MORNING]: Globals.buildingManager.assignBuilding(
             "teaching", Globals.MORNING),
-        [Globals.NOON]: this.buildingManager.assignBuilding(
+        [Globals.NOON]: Globals.buildingManager.assignBuilding(
             "cafeteria", Globals.NOON),
-        [Globals.AFTERNOON]: this.buildingManager.assignBuilding(
+        [Globals.AFTERNOON]: Globals.buildingManager.assignBuilding(
             "teaching", Globals.AFTERNOON),
-        [Globals.EVENING]: this.buildingManager.assignBuilding(
+        [Globals.EVENING]: Globals.buildingManager.assignBuilding(
             "cafeteria", Globals.EVENING),
-        [Globals.NIGHT]: this.buildingManager.assignBuilding(
+        [Globals.NIGHT]: Globals.buildingManager.assignBuilding(
             "dorm", Globals.NIGHT),
     };
 
@@ -65,7 +64,7 @@ ScheduleManager.prototype.remove = function (id) {
     else {
         for (let time in target.content) {
             let buildingID = target.content[time];
-            this.buildingManager.unAssignBuilding(buildingID, time);
+            Globals.buildingManager.unAssignBuilding(buildingID, time);
         }
         _.remove(this.schedules, (schedule) => (
             schedule.id === id

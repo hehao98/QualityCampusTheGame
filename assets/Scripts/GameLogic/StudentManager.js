@@ -16,15 +16,12 @@ class StudentManager {
      * @param {BuildingManager} properties.buildingManager
      * @param {Resource} properties.fund
      */
-    constructor(properties) {
+    constructor(properties = {}) {
         // properties
         this.nextStudentID = 0;
         // this.nextBuildingComponentID = 0;
         this.students = [];
-        this.scheduleManager = properties.scheduleManager;
-        this.buildingManager = properties.buildingManager;
-        this.fund = properties.fund;
-        this.fundModifierId = this.fund.addModifier({ type: "student", amount: 0});
+        this.fundModifierId = Globals.game.fund.addModifier({ type: "student", amount: 0 });
 
         // constructor left-overs
     }
@@ -42,7 +39,7 @@ StudentManager.prototype.add = function (properties) {
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
     this.students.push(student);
-    this.fund.setModifierAmount(this.fundModifierId, this.students.length * 10);
+    Globals.game.fund.setModifierAmount(this.fundModifierId, this.students.length * 10);
 };
 
 /**
@@ -54,14 +51,14 @@ StudentManager.prototype.reassign = function (properties) {
     // remove old
     for (let student of this.students) {
         if (student.schedule != undefined) {
-            this.scheduleManager.remove(student.schedule.id);
+            Globals.scheduleManager.remove(student.schedule.id);
             student.schedule = undefined;
         }
     }
 
     // assign new
     for (let student of this.students) {
-        student.assignSchedule(this.scheduleManager.getNewSchedule({
+        student.assignSchedule(Globals.scheduleManager.getNewSchedule({
             studentID: student.id,
         }));
     }
@@ -109,7 +106,7 @@ StudentManager.prototype.update = function (tick) {
 StudentManager.prototype.updateSatisfaction = function () {
     for (let student of this.students) {
         for (let type in student.indexes) {
-            let current = this.buildingManager.getSatisfaction(
+            let current = Globals.buildingManager.getSatisfaction(
                 student.where, type);
             utilities.log("sat update (undef. if no.): " + student.where +
                 " " + current, "debug");

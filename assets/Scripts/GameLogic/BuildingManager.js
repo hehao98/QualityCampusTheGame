@@ -1,10 +1,12 @@
 // Class BuildingManager manages all in-game buildings
 
-let _ = require("lodash");
-let utilities = require("utilities");
-let BuildingSpecifications = require("BuildingSpecifications");
-let Building = require("Building");
-let Globals = require("GlobalVariables");
+const _ = require("lodash");
+const utilities = require("utilities");
+const BuildingSpecifications = require("BuildingSpecifications");
+const BuildingComponentSpecifications =
+    require("BuildingComponentSpecifications");
+const Building = require("Building");
+const Globals = require("GlobalVariables");
 
 /**
  * constructor. param  
@@ -36,23 +38,38 @@ BuildingManager.prototype.add = function (properties) {
         // check whether resource is enough
         let fund = BuildingSpecifications[properties.type][
             0].defaultProperties.fundToCurrentTier;
-        const success = this.fund.use(fund);
-        if (!success) { return false; }
+        const success = Globals.game.fund.use(fund);
+        if (!success) { return Globals.ERR_NOT_ENOUGH_RESOURCES; }
     }
     let revised = _.cloneDeep(properties);
     revised["id"] = this.nextBuildingID++;
     let building = new Building(revised);
+    this.buildings.push(building);
     building.buildingStartTime = Globals.tick;
-    building.buildingEndTime = properties.freeOfCharge ? 0 :
-        Globals.tick + BuildingSpecifications[
-            properties.type][0].buildTime;
+    if (properties.freeOfCharge) {
+        building.buildingEndTime = 0;
+        building.loadSpecifications();
+    } else {
+        building.buildingEndTime =
+            Globals.tick + BuildingSpecifications[
+                properties.type][0].buildTime;
+    }
     building.upgradingStartTime = 0;
     building.upgradingEndTime = 0;
-    this.buildings.push(building);
-    return true;
+
+    return Globals.OK;
 };
 
+/**
+ * 
+ * @param {Number} id - ID of the building 
 
+ */
+BuildingManager.prototype.getBuildingById = function (id) {
+    return _.find(this.buildings,
+        function (building) { return building.id === id; }
+    );
+};
 /**
  * 
  * @param {Object} properties.id - ID of the building 
@@ -70,6 +87,7 @@ BuildingManager.prototype.upgrade = function (properties) {
     const newTier = target.tier + 1;
     const info = utilities.safeGet(BuildingSpecifications,
         [target.type, newTier]);
+    utilities.log(info, "debug");
     if (!info) {
         throw new RangeError("Building type not exists or " +
             "no upgrade available for this type of building at " +
@@ -78,24 +96,33 @@ BuildingManager.prototype.upgrade = function (properties) {
     if (properties.freeOfCharge != true) {
         // check whether resource is enough
         let fund = info.defaultProperties.fundToCurrentTier;
-        const success = this.fund.use(fund);
-        if (!success) return ERR_NOT_ENOUGH_RESOURCES;
+        const success = Globals.game.fund.use(fund);
+        if (!success) return Globals.ERR_NOT_ENOUGH_RESOURCES;
     }
+    utilities.log("check passed");
+
     target.upgradingStartTime = Globals.tick;
-    target.upgradingEndTime = Math.ceil(
-        properties.freeOfCharge ? 0 :
+    if (properties.freeOfCharge) {
+        target.upgradingEndTime = 0;
+        target.tier++;
+        target.loadSpecifications();
+    } else {
+        target.upgradingEndTime = Math.ceil(
             Globals.tick + info.buildTime);
-    return OK;
+    }
+    return Globals.OK;
 };
 
 
 /**
  * 
  * @param {Object} properties.buildingID - ID of the building
+ * @param {String} properties.componentName - name of component
  * 
  */
 BuildingManager.prototype.addComponent = function (properties) {
-    let target = _.find(
+    
+    const target = _.find(
         this.buildings,
         function (building) {
             return building.id === properties.buildingID;
@@ -104,20 +131,57 @@ BuildingManager.prototype.addComponent = function (properties) {
     if (target === undefined) {
         throw new ReferenceError("Building ID not exists.");
     }
-    else {
-        let properties_revised = _.cloneDeep(properties);
-        properties_revised["id"] = this.nextBuildingComponentID++;
-        target.addComponent(properties_revised);
+    // TODO check funding
+    const fund = BuildingComponentSpecifications[
+        properties.componentName][0].defaultProperties.fundToCurrentTier;
+    if (!fund) {
+        return Globals.ERR_NOT_ENOUGH_RESOURCES;
     }
+    const success = Globals.game.fund.use(fund);
+    if (!success) {
+        return Globals.ERR_NOT_ENOUGH_RESOURCES;
+    }
+
+    let properties_revised = _.cloneDeep(properties);
+    properties_revised["id"] = this.nextBuildingComponentID++;
+
+
+    return target.addComponent(properties_revised);
+
+};
+
+/**
+ * 
+ * @param {Object} properties.buildingID - ID of the building
+ * @param {String} properties.componentName - name of component
+ * @param {String} properties.componentId - ID of component
+ * 
+ */
+BuildingManager.prototype.removeComponent = function (properties) {
+    const target = _.find(
+        this.buildings,
+        function (building) {
+            return building.id === properties.buildingID;
+        }
+    );
+    if (target === undefined) {
+        throw new ReferenceError("Building ID not exists.");
+    }
+    // TODO check funding
+    const fund = BuildingComponentSpecifications[
+        properties.componentName][0].defaultProperties.fundToRemove || 0;
+    const success = Globals.game.fund.use(fund);
+    if (!success) {
+        return Globals.ERR_NOT_ENOUGH_RESOURCES;
+    }
+    return target.removeComponent(properties.componentId);
 };
 
 /**
  * 
  * @param {String} properties.difficulty - one of DIFFICULTY_*
- * @param {String} properties.fund
  */
 BuildingManager.prototype.init = function (properties) {
-    this.fund = properties.fund;
     for (let buildingProperties of Globals.initialData.buildings) {
         this.add(buildingProperties);
     }
@@ -247,12 +311,9 @@ BuildingManager.prototype.getMaxStudentCapacity = function () {
 
 
 BuildingManager.prototype.debugPrint = function () {
-    utilities.log("[BuildingManager DebugPrint]");
-    utilities.log("building number: " + this.buildings.length);
-    for (let building of this.buildings) {
-        building.debugPrint();
-    }
-    utilities.log("------------------------------------------------------");
+    utilities.log("building number: " + this.buildings.length, "debug");
+    utilities.log(this);
+    utilities.log("------------------------------------------------------", "debug");
 };
 
 

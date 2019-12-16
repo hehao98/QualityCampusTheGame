@@ -273,23 +273,111 @@ let BuildingSpecifications = {
                 capacity: 100,
                 relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.5,
-                researchIndex: 0.2,
+                researchTrainingProvided: 0.2,
                 fundToCurrentTier: 7000,
                 description: "虽然啥仪器也买不起，但这是迈向研究型大学的第一步！",
-                effects: "休闲满意度：0.5\n\n清洁满意度：0.5",
+                effects: "研究点数：0.2",
                 picturePath: "Pictures/lab",
                 iconPath: "Icons/lab",
             },
             buildTime: Globals.TICKS_WEEK,
         },
+        1: {
+            defaultProperties: {
+                capacity: 200,
+                relaxationSatisfaction: 0.7,
+                cleaningSatisfaction: 0.8,
+                researchTrainingProvided: 0.4,
+                fundToCurrentTier: 27000,
+                description: "建设研究型大学。",
+                effects: "研究点数：0.4",
+                picturePath: "Pictures/lab",
+                iconPath: "Icons/lab",
+            },
+            buildTime: 2 * Globals.TICKS_WEEK,
+        },
+        2: {
+            defaultProperties: {
+                capacity: 300,
+                relaxationSatisfaction: 0.8,
+                cleaningSatisfaction: 0.95,
+                researchTrainingProvided: 0.8,
+                fundToCurrentTier: 70000,
+                description: "国家重点实验室。",
+                effects: "研究点数：0.8",
+                picturePath: "Pictures/lab",
+                iconPath: "Icons/lab",
+            },
+            buildTime: 4 * Globals.TICKS_WEEK,
+        },
+        nameGenerator: function* () {
+            yield "理科一号楼";
+            yield "理科二号楼";
+            yield "社科研究所";
+            yield "朗润园";
+            yield "微电子大厦";
+            let id = 3;
+            while (true) {
+                yield "理科" + utilities.numberToChinese(
+                    id) + "号楼";
+                yield "社科" + utilities.numberToChinese(
+                    id) + "号楼";
+                id++;
+            }
+        },
+    },
+    careerCenter: {
+        0: {
+            defaultProperties: {
+                capacity: 100,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                careerTrainingProvided: 0.2,
+                fundToCurrentTier: 4000,
+                description: "车库上的创新创业中心。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: Globals.TICKS_WEEK,
+        },
+        1: {
+            defaultProperties: {
+                capacity: 200,
+                relaxationSatisfaction: 0.7,
+                cleaningSatisfaction: 0.8,
+                careerTrainingProvided: 0.4,
+                fundToCurrentTier: 14000,
+                description: "创新创业。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: 2 * Globals.TICKS_WEEK,
+        },
+        2: {
+            defaultProperties: {
+                capacity: 300,
+                relaxationSatisfaction: 0.8,
+                cleaningSatisfaction: 0.95,
+                careerTrainingProvided: 0.8,
+                fundToCurrentTier: 40000,
+                description: "百强企业的摇篮。",
+                effects: "",
+                picturePath: "",
+                iconPath: "",
+            },
+            buildTime: 4 * Globals.TICKS_WEEK,
+        },
         nameGenerator: function* () {
             let id = 1;
             while (true) {
-                yield "第" + utilities.numberToChinese(
-                    id++) + "实验室";
+                yield "双创中心" + utilities.numberToChinese(
+                    id) + "号楼";
             }
         },
     }
+
 };
 
 module.exports = BuildingSpecifications;

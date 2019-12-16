@@ -77,8 +77,7 @@ let Game = cc.Class({
     onLoad() {
         // Set game reference in window
         // so that it can be accessed in Chrome console for debugging
-        // IT SHOULD NOT BE USED FOR OTHER PURPOSE!!!
-        window.game = this;
+        Globals.game = window.game = this;
 
         // Copy initial data to Globals
         // Must be done before the initilization of all game objects!
@@ -86,7 +85,6 @@ let Game = cc.Class({
 
         // Initialize all game objects from here
         // Initialize Resource System
-        // TODO ES6
         Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
         this.fund.value = this.initialData.json.startFund;
@@ -103,19 +101,14 @@ let Game = cc.Class({
             universityData: this.universityData
         });
 
-        this.buildingManager = new BuildingManager();
-
-        this.scheduleManager = new ScheduleManager({
-            buildingManager: this.buildingManager
-        });
+        Globals.buildingManager = this.buildingManager =
+            new BuildingManager();
+        Globals.scheduleManager = this.scheduleManager =
+            new ScheduleManager();
         Globals.studentManager = this.studentManager =
-            new StudentManager({
-                scheduleManager: this.scheduleManager,
-                buildingManager: this.buildingManager,
-                fund: this.fund,
-            });
+            new StudentManager();
         Globals.AdmissionManager = this.admissionManager =
-            new AdmissionManager({});
+            new AdmissionManager();
 
         this.professorManager = new ProfessorManager({
             fund: this.fund,
@@ -142,11 +135,8 @@ let Game = cc.Class({
 
         this.buildingManager.init({
             difficulty: this.difficulty,
-            fund: this.fund,
         });
-
         this.studentManager.init(this.difficulty);
-
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
         this.admissionManager.admit();
@@ -195,13 +185,14 @@ let Game = cc.Class({
     },
 
     update(dt) {
+
+
         // dt is in seconds
         // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
-
                 utilities.log(this.currentTick);
 
                 this.updateGameSystem();
@@ -225,6 +216,7 @@ let Game = cc.Class({
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
+        this.buildingManager.debugPrint();
         // this.buildingManager.debugPrint();
         this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
         this.studySatisfaction = this.studentManager.getOverallIndex(
@@ -233,6 +225,7 @@ let Game = cc.Class({
         this.relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
+        utilities.log(Globals.universityLevelModifiers, "debug");
         // Overall satisfaction is the average value of all detailed satisfactions
         this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
         this.pkuHoleManager.update(this.currentTick);
