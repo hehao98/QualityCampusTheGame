@@ -261,7 +261,7 @@ let Game = cc.Class({
     updateGameObjective() {
         // After all game logic HAVE been updated
         // see whether we can update our game objectives
-        if (this.currentObjective + 1 < this.gameObjectives.length) {
+        if (this.currentObjective < this.gameObjectives.length) {
             let nextObjective = this.gameObjectives[this.currentObjective];
             let flag = true;
             Object.keys(nextObjective.thresholds).forEach(key => {
@@ -293,7 +293,6 @@ let Game = cc.Class({
                         }
                     ]
                 );
-
                 this.currentObjective++;
             }
         }

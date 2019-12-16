@@ -50,7 +50,7 @@
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界四流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
         "teachIndex": 0.4,
-        "careerIndex": 0.2,
+        "careerIndex": 0.1,
         "researchIndex": 0.0,
         "studentSatisfaction": 0.5,
         "professorNumber": 10
@@ -65,7 +65,7 @@
         "careerIndex": 0.2,
         "researchIndex": 0.0,
         "studentSatisfaction": 0.6,
-        "professorSatisfaction": 15
+        "professorNumber": 15
       }
     },
     {
@@ -77,7 +77,7 @@
         "careerIndex": 0.4,
         "researchIndex": 0.2,
         "studentSatisfaction": 0.7,
-        "professorSatisfaction": 20
+        "professorNumber": 20
       }
     },
     {
@@ -89,7 +89,7 @@
         "careerIndex": 0.7,
         "researchIndex": 0.7,
         "studentSatisfaction": 0.8,
-        "professorSatisfaction": 25
+        "professorNumber": 25
       }
     }
   ]

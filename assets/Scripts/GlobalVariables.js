@@ -7,7 +7,7 @@ let GlobalVariables = {
     initialData: {},
 
     // Constants related to game logic
-    TICKS_SEMESTER: 20 * 7 * 5,
+    TICKS_SEMESTER: 4 * 7 * 5,
     TICKS_WEEK: 7 * 5,
     TICKS_DAY: 5,
     DAY: {
