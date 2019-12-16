@@ -154,7 +154,7 @@ cc.Class({
         let buildingDescription = node.getChildByName("Description").getComponent(cc.Label);
         buildingDescription.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["description"];
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
-        buildingEffects.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["effects"];
+        buildingEffects.string = building.effects;
     },
 
     // update (dt) {},
