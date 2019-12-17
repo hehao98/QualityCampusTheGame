@@ -18,12 +18,11 @@ class Student {
      * 
      * @param {Object} properties
      * @param {Number} properties.id
-     * @param {Schedule} properties.schedule
+     * @param {Number} properties.talent
      */
     constructor(properties) {
         // properties
         this.id = properties.id;
-        this.schedule = properties.schedule;
         this.talent = 1.0;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(

@@ -12,8 +12,6 @@ class StudentManager {
 
     /**
      * 
-     * @param {ScheduleManager} properties.scheduleManager
-     * @param {BuildingManager} properties.buildingManager
      * @param {Resource} properties.fund
      */
     constructor(properties = {}) {
@@ -34,7 +32,7 @@ class StudentManager {
  *  - schedule assigned to this student
  * 
  */
-StudentManager.prototype.add = function (properties) {
+StudentManager.prototype.add = function (properties = {}) {
     let propertiesRevised = _.cloneDeep(properties);
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
@@ -47,7 +45,7 @@ StudentManager.prototype.add = function (properties) {
  * beginning of a semester
  * 
  */
-StudentManager.prototype.reassign = function (properties) {
+StudentManager.prototype.reassign = function (properties = {}) {
     // remove old
     for (let student of this.students) {
         if (student.schedule != undefined) {
@@ -88,7 +86,7 @@ StudentManager.prototype.update = function (tick) {
     const inDayTime = tick % Globals.TICKS_DAY;
 
     if (tick % Globals.TICKS_SEMESTER === 0) {
-        this.reassign({});
+        this.reassign();
     }
 
     // students leave old building and arrive at new building
