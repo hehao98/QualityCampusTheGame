@@ -282,7 +282,7 @@ cc.Class({
 
     showSelectedBuildingComponent(id) {
         let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
-        let componentChineseName = {"relax": "休息区", "studyArea": "自习区", "noRepair": "皇帝的新修理工", "buildingAtNight": "夜间施工", "unstableWaterTemperature": "薛定谔的水温", "dirtyFood": "屡教不改", "highHCHO": "高效人肉除甲醛", "crowdedByDesign": "摩肩接踵"};
+        let componentChineseName = {"relax": "休息区", "studyArea": "自习区", "cafe": "咖啡厅", "noRepair": "皇帝的新修理工", "buildingAtNight": "夜间施工", "unstableWaterTemperature": "薛定谔的水温", "dirtyFood": "屡教不改", "highHCHO": "高效人肉除甲醛", "crowdedByDesign": "摩肩接踵"};
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
         this.componentLayout.removeAllChildren();
@@ -307,8 +307,8 @@ cc.Class({
     showAddComponentPanel() {
         this.addComponentPanel.active = !this.addComponentPanel.active;
         if (this.addComponentPanel.active) {
-            let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
-            let componentChineseName = ["休息区", "自习区", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
+            let componentTypeArr = ["relax", "studyArea", "cafe", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
+            let componentChineseName = ["休息区", "自习区", "咖啡厅", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
             this.addComponentPanel.removeAllChildren();
             for (let i = 0; i < componentTypeArr.length; ++i) {
                 let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];
@@ -331,10 +331,11 @@ cc.Class({
         let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
         let studySat = componentProperties["studySatisfaction"] || 0;
         let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
+        let income = componentProperties["income"] || 0;
         let fund = componentProperties["fundToCurrentTier"] || 0;
         let description = componentProperties["description"];
         this.popupManager.showMessageBox(
-            "是否要添加该组件，该组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat,
+            "是否要添加该组件，该组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n收入：" + income + "万",
             () => {
                 const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
