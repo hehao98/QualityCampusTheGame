@@ -162,6 +162,7 @@ cc.Class({
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
         buildingEffects.string = building.effects;
         this.selectedComponentId = -1;
+        this.deleteComponentButtonLabel.string = "删除组件";
         this.showSelectedBuildingComponent(id);
     },
 
