@@ -17,8 +17,11 @@ let BuildingIconsDict = new Array();
 let BuildingPicturesDict = new Array();
 let infoPicturesDict = new Array();
 let selectedBuildingId = 0;
+let selectedComponentId = 0;
+let selectedCompType = null;
 const _ = require("lodash");
 let ComponentSpecificationItem = require("ComponentSpecificationItem");
+let ComponentItem = require("ComponentItem");
 
 cc.Class({
     extends: cc.Component,
@@ -53,7 +56,9 @@ cc.Class({
         componentPrefab: cc.Prefab,
         componentLayout: cc.Node,
         addComponentPanel: cc.Node,
-        componentSpecificationPrefab: cc.Prefab
+        componentSpecificationPrefab: cc.Prefab,
+        deleteComponentButton: cc.Button,
+        deleteComponentButtonLabel: cc.Label,
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -131,13 +136,16 @@ cc.Class({
             }
             this.contentPanel.addChild(node);
             if (building.upgradingEndTime !== 0 && Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
-                this.showSelectedBuildingInfo(selectedBuildingId);
+                this.showSelectedBuildingInfo(this.selectedBuildingId);
             }
         }
     },
 
     showSelectedBuildingInfo(id) {
-        selectedBuildingId = id;
+        if (this.addComponentPanel.active) {
+            this.addComponentPanel.active = !this.addComponentPanel.active;
+        }
+        this.selectedBuildingId = id;
         let node = this.buildingInfoPage;
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
@@ -188,7 +196,7 @@ cc.Class({
 
     upgradeSelectedBuilding() {
         let buildingLists = this.game.buildingManager.getBuildingLists();
-        let building = buildingLists[selectedBuildingId];
+        let building = buildingLists[this.selectedBuildingId];
         if (Globals.tick < building.buildingEndTime) {
             this.popupManager.showPopup("当前建筑还没建造完成，不能升级");
             return;
@@ -200,7 +208,7 @@ cc.Class({
             "是否要升级所选建筑",
             () => {
                 try {
-                    const result = this.game.buildingManager.upgrade({ id: selectedBuildingId, freeOfCharge: false });
+                    const result = this.game.buildingManager.upgrade({ id: this.selectedBuildingId, freeOfCharge: false });
                     utilities.log("update: " + result);
                     if (result === Globals.OK) {
                         this.popupManager.showPopup("升级成功，等待升级完成");
@@ -286,10 +294,15 @@ cc.Class({
         this.componentLayout.removeAllChildren();
         for (let i = 0; i < building.components.length; ++i) {
             let node = cc.instantiate(this.componentPrefab);
-            node.on("click", this.deleteComponent, this);
-            node.name = componentTypeArr[i];
+            // node.on("click", this.deleteComponent, this);
+            // node.name = componentTypeArr[i];
             let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
             componentName.string = componentChineseName[building.components[i].type];
+            let item = node.getComponent(ComponentItem);
+            console.log("selC" + building.components[i].type);
+            item.componentType = building.components[i].type;
+            item.buildingPage = this;
+            item.id = i;
             this.componentLayout.addChild(node);
         }
     },
@@ -317,15 +330,11 @@ cc.Class({
             }
         }
     },
-
-    deleteComponent() {
-
-    },
     
     dealWithComponent(button) {
         let componentType = button.node.name;
         let buildingLists = this.game.buildingManager.getBuildingLists();
-        let building = buildingLists[selectedBuildingId];
+        let building = buildingLists[this.selectedBuildingId];
         const target = _.find(
             building.components,
             function (component) {
@@ -336,7 +345,7 @@ cc.Class({
             this.popupManager.showMessageBox(
                 "该组件尚未添加，是否要添加",
                 () => {
-                    const result = this.game.buildingManager.addComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                    const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                     if (result === Globals.OK) {
                         this.popupManager.showPopup("组件添加成功");
                     } else {
@@ -351,7 +360,7 @@ cc.Class({
             this.popupManager.showMessageBox(
                 "该组件已添加，是否要移除",
                 () => {
-                    const result = this.game.buildingManager.removeComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                    const result = this.game.buildingManager.removeComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                     if (result === Globals.OK) {
                         this.popupManager.showPopup("组件移除成功");
                     } else {
@@ -369,10 +378,10 @@ cc.Class({
         this.popupManager.showMessageBox(
             "是否要添加该组件",
             () => {
-                const result = this.game.buildingManager.addComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
                     this.popupManager.showPopup("组件添加成功");
-                    this.showSelectedBuildingComponent(selectedBuildingId);
+                    this.showSelectedBuildingComponent(this.selectedBuildingId);
                 } else {
                     this.popupManager.showPopup("资金不足，组件添加失败");
                 }
@@ -381,5 +390,33 @@ cc.Class({
             },
             this
         );
+    },
+
+    deleteComponent() {
+        this.popupManager.showMessageBox(
+            "要移除该组件",
+            () => {
+                console.log("selected" + selectedCompType);
+                const result = this.game.buildingManager.removeComponent({ buildingID: this.selectedBuildingId, componentName: this.selectedCompType, componentId: this.selectedComponentId });
+                if (result === Globals.OK) {
+                    this.popupManager.showPopup("组件移除成功");
+                    this.showSelectedBuildingComponent(this.selectedBuildingId);
+                } else {
+                    this.popupManager.showPopup("资金不足，组件移除失败");
+                }
+            },
+            () => {
+            },
+            this
+        );
+    },
+
+    handleComponent(componentType, id) {
+        let componentFundToRemove = BuildingComponentSpecifications[componentType][0]["defaultProperties"]["fundToRemove"] || 0;
+        this.deleteComponentButtonLabel.string = "删除组件(花费" + componentFundToRemove + ")";
+        this.deleteComponentButton.node.on("click", this.deleteComponent, this);
+        console.log("selT" + componentType);
+        this.selectedCompType = componentType;
+        this.selectedComponentId = id;
     }
 });

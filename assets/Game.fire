@@ -165,7 +165,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 294.44863728670913
+      "z": 333.4197804570089
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -20162,6 +20162,12 @@
     },
     "componentSpecificationPrefab": {
       "__uuid__": "ee1f72e6-ecdb-4c36-9911-fd25c0d5955d"
+    },
+    "deleteComponentButton": {
+      "__id__": 657
+    },
+    "deleteComponentButtonLabel": {
+      "__id__": 653
     },
     "_id": "46c46tLptL+53QsH01j0sB"
   },
