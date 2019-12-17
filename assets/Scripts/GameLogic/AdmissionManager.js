@@ -37,8 +37,10 @@ AdmissionManager.prototype.admit = function () {
 AdmissionManager.prototype.debugPrint = function () {
 };
 
-AdmissionManager.prototype.update = function (buildingValue) {
-
+AdmissionManager.prototype.update = function () {
+    if (Globals.tick % (Globals.TICKS_SEMESTER * 2) === 0) {
+        this.admit();
+    }
 };
 
 

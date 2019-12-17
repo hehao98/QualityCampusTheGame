@@ -135,7 +135,6 @@ let Game = cc.Class({
         this.studentManager.init(this.difficulty);
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
-        this.admissionManager.admit();
         this.pkuHoleManager.init();
         this.eventManager.init();
     },
@@ -181,8 +180,6 @@ let Game = cc.Class({
     },
 
     update(dt) {
-
-
         // dt is in seconds
         // Manage time
         if (!this.isPaused) {
@@ -210,8 +207,9 @@ let Game = cc.Class({
 
     updateGameSystem() {
         // Update corresponding game logic
+        
         this.fund.updateResource(this.currentTick);
-
+        this.admissionManager.update();
         this.studentManager.update(this.currentTick);
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
@@ -221,11 +219,11 @@ let Game = cc.Class({
 
         // Update game objective values
         let professorBuff = this.professorManager.getEffect();
-        this.teachIndex = (1 + professorBuff.teachIndexBoost) 
+        this.teachIndex = (1 + professorBuff.teachIndexBoost)
             * this.studentManager.getOverallIndex("studyIndex");
-        this.careerIndex = (1 + professorBuff.careerIndexBoost) 
+        this.careerIndex = (1 + professorBuff.careerIndexBoost)
             * this.studentManager.getOverallIndex("careerIndex");
-        this.researchIndex = (1 + professorBuff.researchIndexBoost) 
+        this.researchIndex = (1 + professorBuff.researchIndexBoost)
             * this.studentManager.getOverallIndex("researchIndex");
         let studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
@@ -330,8 +328,8 @@ let Game = cc.Class({
 
     gameOver() {
         this.isPaused = true;
-        this.popupManager.showDialogBox( 
-            utilities.replaceAll(this.initialData.json.gameOverMessage, "{univname}", this.universityName), 
+        this.popupManager.showDialogBox(
+            utilities.replaceAll(this.initialData.json.gameOverMessage, "{univname}", this.universityName),
             [
                 {
                     string: "回到主菜单",
