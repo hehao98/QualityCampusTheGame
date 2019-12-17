@@ -31,6 +31,8 @@ class BuildingManager {
  * @param {Object} properties.type - The type of the building 
  * @param {Boolean} properties.freeOfCharge - 
  *  add building free of charge and time
+ * @param {Boolean} properties.componentsProperties - 
+ *  components that will add to this building
  * @returns {Boolean} whether succeed or not
  */
 BuildingManager.prototype.add = function (properties) {
@@ -56,6 +58,13 @@ BuildingManager.prototype.add = function (properties) {
     }
     building.upgradingStartTime = 0;
     building.upgradingEndTime = 0;
+
+    // * add components if any
+    for (let componentProperties of this.componentsProperties) {
+        let revisedComponentProperties = _.cloneDeep(componentProperties);
+        revisedComponentProperties.id = revised.id;
+        this.addComponent(revisedComponentProperties);
+    }
 
     return Globals.OK;
 };
@@ -187,6 +196,7 @@ BuildingManager.prototype.removeComponent = function (properties) {
 BuildingManager.prototype.init = function (properties) {
     for (let buildingProperties of Globals.initialData.buildings) {
         this.add(buildingProperties);
+
     }
 };
 

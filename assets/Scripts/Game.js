@@ -137,6 +137,7 @@ let Game = cc.Class({
             Globals.initialData.initialStudentNumber);
         this.pkuHoleManager.init();
         this.eventManager.init();
+
     },
 
     start() {
