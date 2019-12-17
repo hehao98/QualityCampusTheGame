@@ -23,13 +23,17 @@ AdmissionManager.prototype.setTarget = function (target) {
     this.admissionTarget = target;
 };
 
-AdmissionManager.prototype.admit = function () {
+AdmissionManager.prototype.getExpectedTalentForNewStudents = function () {
     const nStudent = Globals.studentManager.students.length;
     const overallSatisfaction = nStudent ? _.meanBy(Globals.SATISFACTIONS,
         (satisfaction) => Globals.studentManager.getOverallIndex(satisfaction)) : 0.46;
+    return (4 * overallSatisfaction - 1) / 3;
+}
 
+AdmissionManager.prototype.admit = function () {
+    const nStudent = Globals.studentManager.students.length;
     for (let i = 0; i < this.admissionTarget - nStudent; ++i) {
-        Globals.studentManager.add({ talent: (4 * overallSatisfaction - 1) / 3 });
+        Globals.studentManager.add({ talent: this.getExpectedTalentForNewStudents() });
     }
 };
 
