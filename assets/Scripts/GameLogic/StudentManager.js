@@ -26,10 +26,10 @@ class StudentManager {
 
 }
 
-// methods
+// * methods
 
 /**
- *  - schedule assigned to this student
+ * @param {Number} properties.talent
  * 
  */
 StudentManager.prototype.add = function (properties = {}) {

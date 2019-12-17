@@ -1,5 +1,6 @@
 let Globals = require("GlobalVariables");
 let utilities = require("utilities");
+const _ = require("lodash");
 
 /**
  * 
@@ -23,8 +24,12 @@ AdmissionManager.prototype.setTarget = function (target) {
 };
 
 AdmissionManager.prototype.admit = function () {
+    const nStudent = Globals.studentManager.students.length;
+    const overallSatisfaction = nStudent ? _.meanBy(Globals.SATISFACTIONS,
+        (satisfaction) => Globals.studentManager.getOverallIndex(satisfaction)) : 0.46;
+
     for (let i = 0; i < this.admissionTarget; ++i) {
-        Globals.studentManager.add({});
+        Globals.studentManager.add({ talent: (4 * overallSatisfaction - 1) / 3 });
     }
 };
 

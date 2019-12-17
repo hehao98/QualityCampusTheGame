@@ -23,7 +23,7 @@ class Student {
     constructor(properties) {
         // properties
         this.id = properties.id;
-        this.talent = 1.0;
+        this.talent = properties.talent || 1.0;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
                 { studentID: this.id }),
@@ -74,11 +74,11 @@ Student.prototype.getIndex = function (name) {
         return this.indexes[name].value;
     }
     switch (name) {
-    case "livingConditionSatisfaction":
-        return _.meanBy(["relaxationSatisfaction"],
-            (type) => this.indexes[type].value);
-    default:
-        throw new Error("Unknown index: " + name);
+        case "livingConditionSatisfaction":
+            return _.meanBy(["relaxationSatisfaction"],
+                (type) => this.indexes[type].value);
+        default:
+            throw new Error("Unknown index: " + name);
     }
 };
 
