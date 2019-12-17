@@ -280,34 +280,17 @@ cc.Class({
 
     showSelectedBuildingComponent(id) {
         let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
-        let componentChineseName = ["休息区", "自习区", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
+        let componentChineseName = {"relax": "休息区", "studyArea": "自习区", "noRepair": "皇帝的新修理工", "buildingAtNight": "夜间施工", "unstableWaterTemperature": "薛定谔的水温", "dirtyFood": "屡教不改", "highHCHO": "高效人肉除甲醛", "crowdedByDesign": "摩肩接踵"};
+        let buildingLists = this.game.buildingManager.getBuildingLists();
+        let building = buildingLists[id];
         this.componentLayout.removeAllChildren();
-        for (let i = 0; i < componentTypeArr.length; ++i) {
-            let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];
-            let buildingLists = this.game.buildingManager.getBuildingLists();
-            let building = buildingLists[id];
-            const target = _.find(
-                building.components,
-                function (component) {
-                    return component.type === componentTypeArr[i];
-                }
-            );
-            if (componentProperties["userAdditionAllowed"] === true) {
-                // console.log("component" + componentProperties["name"]);
-                let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.deleteComponent, this);
-                node.name = componentTypeArr[i];
-                let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
-                componentName.string = componentChineseName[i];
-                this.componentLayout.addChild(node);
-            } else if (target !== undefined) {
-                let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.deleteComponent, this);
-                node.name = componentTypeArr[i];
-                let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
-                componentName.string = componentChineseName[i];
-                this.componentLayout.addChild(node);
-            }
+        for (let i = 0; i < building.components.length; ++i) {
+            let node = cc.instantiate(this.componentPrefab);
+            node.on("click", this.deleteComponent, this);
+            node.name = componentTypeArr[i];
+            let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
+            componentName.string = componentChineseName[building.components[i].type];
+            this.componentLayout.addChild(node);
         }
     },
 
@@ -389,6 +372,7 @@ cc.Class({
                 const result = this.game.buildingManager.addComponent({ buildingID: selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
                     this.popupManager.showPopup("组件添加成功");
+                    this.showSelectedBuildingComponent(selectedBuildingId);
                 } else {
                     this.popupManager.showPopup("资金不足，组件添加失败");
                 }
