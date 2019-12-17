@@ -336,8 +336,13 @@ cc.Class({
     },
     
     addComponent(componentType) {
+        let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
+        let studySat = componentProperties["studySatisfaction"] || 0;
+        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
+        let fund = componentProperties["fundToCurrentTier"] || 0;
+        let description = componentProperties["description"];
         this.popupManager.showMessageBox(
-            "是否要添加该组件",
+            "是否要添加该组件，该组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat,
             () => {
                 const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
@@ -354,14 +359,29 @@ cc.Class({
     },
 
     deleteComponent() {
+        let componentProperties = BuildingComponentSpecifications[this.selectedCompType][0]["defaultProperties"];
+        let capacity = componentProperties["capacity"] || 0;
+        let studySat = componentProperties["studySatisfaction"] || 0;
+        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
+        let cleanSat = componentProperties["cleaningSatisfaction"] || 0;
+        let fund = componentProperties["fundToRemove"];
+        let description = componentProperties["description"];
+        let text = null;
+        if (fund === undefined) {
+            fund = 0;
+            text = "是否要移除该组件，移除该组件将消耗：" + fund +"万\n失去如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat;
+        } else {
+            text = "该组件是负面组件，移除该组件将消耗：" + fund +"万\n去掉以下负加成：\n休闲满意度：" + relaxSat + "\n学习满意度：" + studySat + "\n清洁满意度：" + cleanSat + "\n容量：" + capacity;
+        }
         this.popupManager.showMessageBox(
-            "要移除该组件",
+            text,
             () => {
                 console.log("selected" + selectedCompType);
                 const result = this.game.buildingManager.removeComponent({ buildingID: this.selectedBuildingId, componentName: this.selectedCompType, componentId: this.selectedComponentId });
                 if (result === Globals.OK) {
                     this.popupManager.showPopup("组件移除成功");
                     this.selectedComponentId = -1;
+                    this.deleteComponentButtonLabel.string = "删除组件";
                     this.showSelectedBuildingComponent(this.selectedBuildingId);
                 } else {
                     this.popupManager.showPopup("资金不足，组件移除失败");
