@@ -151,6 +151,7 @@ cc.Class({
         buildingDescription.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["description"];
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
         buildingEffects.string = building.effects;
+        this.showSelectedBuildingComponent(id);
     },
 
     // update (dt) {},
@@ -292,7 +293,7 @@ cc.Class({
             if (componentProperties["userAdditionAllowed"] === true) {
                 console.log("component" + componentProperties["name"]);
                 let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.addComponent, this);
+                node.on("click", this.dealWithComponent, this);
                 node.name = componentTypeArr[i];
                 let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
                 componentName.string = componentChineseName[i];
@@ -302,7 +303,7 @@ cc.Class({
                 this.componentLayout.addChild(node);
             } else if (target !== undefined) {
                 let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.addComponent, this);
+                node.on("click", this.dealWithComponent, this);
                 node.name = componentTypeArr[i];
                 let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
                 componentName.string = componentChineseName[i];
@@ -317,4 +318,47 @@ cc.Class({
     addComponent() {
         this.addComponentPanel.active = !this.addComponentPanel.active;
     },
+    
+    dealWithComponent(button) {
+        let componentType = button.node.name;
+        let buildingLists = this.game.buildingManager.getBuildingLists();
+        let building = buildingLists[selectedBuildingId];
+        const target = _.find(
+            building.components,
+            function (component) {
+                return component.type === componentType;
+            }
+        );
+        if (target === undefined) {
+            this.popupManager.showMessageBox(
+                "该组件尚未添加，是否要添加",
+                () => {
+                    const result = this.game.buildingManager.addComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                    if (result === Globals.OK) {
+                        this.popupManager.showPopup("组件添加成功");
+                    } else {
+                        this.popupManager.showPopup("资金不足，组件添加失败");
+                    }
+                },
+                () => {
+                },
+                this
+            );
+        } else {
+            this.popupManager.showMessageBox(
+                "该组件已添加，是否要移除",
+                () => {
+                    const result = this.game.buildingManager.removeComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                    if (result === Globals.OK) {
+                        this.popupManager.showPopup("组件移除成功");
+                    } else {
+                        this.popupManager.showPopup("资金不足，组件移除失败");
+                    }
+                },
+                () => {
+                },
+                this
+            );
+        }
+    }
 });
