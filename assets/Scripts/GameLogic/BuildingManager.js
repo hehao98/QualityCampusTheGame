@@ -118,10 +118,11 @@ BuildingManager.prototype.upgrade = function (properties) {
  * 
  * @param {Object} properties.buildingID - ID of the building
  * @param {String} properties.componentName - name of component
+ * @param {String} properties.freeOfCharge - requires no fund or time
  * 
  */
 BuildingManager.prototype.addComponent = function (properties) {
-    
+
     const target = _.find(
         this.buildings,
         function (building) {
@@ -131,15 +132,17 @@ BuildingManager.prototype.addComponent = function (properties) {
     if (target === undefined) {
         throw new ReferenceError("Building ID not exists.");
     }
-    // TODO check funding
-    const fund = BuildingComponentSpecifications[
-        properties.componentName][0].defaultProperties.fundToCurrentTier;
-    if (!fund) {
-        return Globals.ERR_NOT_ENOUGH_RESOURCES;
-    }
-    const success = Globals.game.fund.use(fund);
-    if (!success) {
-        return Globals.ERR_NOT_ENOUGH_RESOURCES;
+    // * check funding
+    if (!properties.freeOfCharge) {
+        const fund = BuildingComponentSpecifications[
+            properties.componentName][0].defaultProperties.fundToCurrentTier;
+        if (!fund) {
+            return Globals.ERR_NOT_ENOUGH_RESOURCES;
+        }
+        const success = Globals.game.fund.use(fund);
+        if (!success) {
+            return Globals.ERR_NOT_ENOUGH_RESOURCES;
+        }
     }
 
     let properties_revised = _.cloneDeep(properties);

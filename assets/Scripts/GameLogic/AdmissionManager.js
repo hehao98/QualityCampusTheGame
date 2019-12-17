@@ -28,7 +28,7 @@ AdmissionManager.prototype.getExpectedTalentForNewStudents = function () {
     const overallSatisfaction = nStudent ? _.meanBy(Globals.SATISFACTIONS,
         (satisfaction) => Globals.studentManager.getOverallIndex(satisfaction)) : 0.46;
     return (4 * overallSatisfaction - 1) / 3;
-}
+};
 
 AdmissionManager.prototype.admit = function () {
     const nStudent = Globals.studentManager.students.length;
