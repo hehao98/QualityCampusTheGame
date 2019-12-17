@@ -62,7 +62,14 @@ Building.prototype.updateEffectString = function () {
 
     for (let i = 0; i < effectKeys.length; ++i) {
         if (_.has(this, effectKeys[i])) {
-            effectString += effectKeyTranslation[i] + "：" + this[effectKeys[i]] + "\n";
+            let postfix = "";
+            let prefix = "";
+            if (effectKeys[i] === "income") 
+                postfix = "万";
+            if (effectKeys[i] === "income" && this[effectKeys[i]] >= 0) 
+                prefix = "+";
+            effectString += effectKeyTranslation[i] + "：" + prefix 
+                + this[effectKeys[i]].toFixed(2) + postfix + "\n";
         }
     }
     
