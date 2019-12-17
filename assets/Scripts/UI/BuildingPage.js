@@ -53,6 +53,7 @@ cc.Class({
         componentPrefab: cc.Prefab,
         componentLayout: cc.Node,
         addComponentPanel: cc.Node,
+        componentSpecificationPrefab: cc.Prefab
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -312,6 +313,26 @@ cc.Class({
 
     showAddComponentPanel() {
         this.addComponentPanel.active = !this.addComponentPanel.active;
+        if (this.addComponentPanel.active) {
+            let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
+            let componentChineseName = ["休息区", "自习区", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
+            this.addComponentPanel.removeAllChildren();
+            for (let i = 0; i < componentTypeArr.length; ++i) {
+                let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];
+                if (componentProperties["userAdditionAllowed"] === true) {
+                    // console.log("component" + componentProperties["name"]);
+                    let node = cc.instantiate(this.componentSpecificationPrefab);
+                    let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
+                    componentName.string = componentChineseName[i];
+                    let fund = node.getChildByName("ResourceInfo").getChildByName("FundLabel").getComponent(cc.Label);
+                    fund.string = componentProperties["fundToCurrentTier"];
+                    let item = node.getComponent(ComponentSpecificationItem);
+                    item.componentType = componentTypeArr[i];
+                    item.buildingPage = this;
+                    this.addComponentPanel.addChild(node);
+                } 
+            }
+        }
     },
 
     deleteComponent() {

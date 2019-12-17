@@ -13,7 +13,10 @@ cc.Class({
 
     properties: () => ({
         button: cc.Button,
-        buildingPage: require("BuildingPage"),
+        buildingPage: {
+            default: null,
+            type: require("BuildingPage")
+        },
         componentType: null
     }),
     // LIFE-CYCLE CALLBACKS:
