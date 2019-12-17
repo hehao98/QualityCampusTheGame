@@ -70,6 +70,7 @@ let GlobalVariables = {
     // * these variables will be made global
     SATISFACTIONS: [
         "relaxationSatisfaction",
+        "cleaningSatisfaction",
         "studySatisfaction",
     ],
     INDEXES: [
@@ -77,6 +78,7 @@ let GlobalVariables = {
         "careerIndex",
         "researchIndex",
         "relaxationSatisfaction",
+        "cleaningSatisfaction",
         "studySatisfaction",
     ],
 };

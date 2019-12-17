@@ -60,9 +60,9 @@ BuildingManager.prototype.add = function (properties) {
     building.upgradingEndTime = 0;
 
     // * add components if any
-    for (let componentProperties of this.componentsProperties) {
+    for (let componentProperties of properties.componentsProperties || []) {
         let revisedComponentProperties = _.cloneDeep(componentProperties);
-        revisedComponentProperties.id = revised.id;
+        revisedComponentProperties.buildingID = revised.id;
         this.addComponent(revisedComponentProperties);
     }
 
@@ -141,13 +141,11 @@ BuildingManager.prototype.addComponent = function (properties) {
     if (target === undefined) {
         throw new ReferenceError("Building ID not exists.");
     }
+
     // * check funding
     if (!properties.freeOfCharge) {
-        const fund = BuildingComponentSpecifications[
-            properties.componentName][0].defaultProperties.fundToCurrentTier;
-        if (!fund) {
-            return Globals.ERR_NOT_ENOUGH_RESOURCES;
-        }
+        const fund = BuildingComponentSpecifications[properties.componentName][
+            0].defaultProperties.fundToCurrentTier || 0;
         const success = Globals.game.fund.use(fund);
         if (!success) {
             return Globals.ERR_NOT_ENOUGH_RESOURCES;

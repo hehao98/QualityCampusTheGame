@@ -10,19 +10,45 @@
   "buildings": [
     {
       "type": "teaching",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "noRepair"
+        }
+      ]
     },
     {
       "type": "teaching",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "highHCHO"
+        },
+        {
+          "componentName": "crowdedByDesign"
+        }
+      ]
     },
     {
       "type": "cafeteria",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "dirtyFood"
+        }
+      ]
     },
     {
       "type": "dorm",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "buildingAtNight"
+        },
+        {
+          "componentName": "unstableWaterTemperature"
+        }
+      ]
     }
   ],
   "professorNumber": 5,
