@@ -61,7 +61,19 @@ let BuildingComponentSpecifications = {
         //     },
         // },
     },
-
+    cafe: {
+        0: {
+            defaultProperties: {
+                name: "咖啡厅",
+                income: 100,
+                fundToCurrentTier: 2000,
+                description: "品质校园需要更多的咖啡厅！",
+                picturePath: "",
+                iconPath: "",
+                userAdditionAllowed: true,
+            },
+        },
+    },
     noRepair: {
         0: {
             defaultProperties: {

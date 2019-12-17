@@ -113,6 +113,9 @@ Building.prototype.loadSpecifications = function () {
                 }
                 modifiers[property] *= (1 + component[property]);
             }
+            if (property === "income") {
+                this.income += component[property];
+            }
         }
     }
     for (let target in modifiers) {
