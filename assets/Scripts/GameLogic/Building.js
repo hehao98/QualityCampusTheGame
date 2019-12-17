@@ -120,7 +120,10 @@ Building.prototype.loadSpecifications = function () {
     }
     for (let target in modifiers) {
         if (this[target]) {
-            this[target] *= modifiers[target];
+            this[target] = this[target] * modifiers[target];
+            if (Globals.INDEXES.includes(target)) {
+                this[target] = _.min([1.0, this[target]]);
+            }
         }
     }
 

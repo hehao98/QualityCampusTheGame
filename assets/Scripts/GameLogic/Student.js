@@ -1,6 +1,7 @@
 // Student abstruct all in-game students
 // let StudentSpecifications = require("StudentSpecifications");
 const RelaxationSatisfacion = require("RelaxationSatisfacion");
+const CleaningSatisfaction = require("CleaningSatisfaction");
 const StudySatisfaction = require("StudySatisfaction");
 const StudyIndex = require("StudyIndex");
 const CareerIndex = require("CareerIndex");
@@ -26,6 +27,8 @@ class Student {
         this.talent = properties.talent || 1.0;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
+                { studentID: this.id }),
+            cleaningSatisfaction: new CleaningSatisfaction(
                 { studentID: this.id }),
             studySatisfaction: new StudySatisfaction(
                 { studentID: this.id }),

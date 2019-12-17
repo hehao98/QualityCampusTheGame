@@ -7,13 +7,13 @@ let BuildingSpecifications = {
         0: {
             defaultProperties: {
                 capacity: 100,
-                relaxationSatisfaction: 0.3,
-                cleaningSatisfaction: 0.3,
-                studySatisfaction: 0.3,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                studySatisfaction: 0.5,
                 fundToCurrentTier: 5000,
                 income: -10,
                 description: "连非洲来的留学生都忍不住对住里面的学生深表同情。",
-                effects: "休闲满意度：0.3\n清洁满意度：0.3\n学习满意度：0.3\n维护费：10万",
+                effects: "休闲满意度：0.5\n清洁满意度：0.5\n学习满意度：0.5\n维护费：10万",
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
@@ -22,13 +22,13 @@ let BuildingSpecifications = {
         1: {
             defaultProperties: {
                 capacity: 150,
-                relaxationSatisfaction: 0.4,
-                cleaningSatisfaction: 0.4,
-                studySatisfaction: 0.4,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                studySatisfaction: 0.5,
                 fundToCurrentTier: 3000,
                 income: -20,
                 description: "两位白发苍苍的老人在楼下说：“嘿！这楼还和我们当年住的一模一样！”。",
-                effects: "休闲满意度：0.4\n清洁满意度：0.4\n学习满意度：0.4\n维护费：20万",
+                effects: "休闲满意度：0.5\n清洁满意度：0.5\n学习满意度：0.5\n维护费：20万",
                 picturePath: "Pictures/dorm",
                 iconPath: "Icons/dorm",
             },
@@ -106,9 +106,9 @@ let BuildingSpecifications = {
         0: {
             defaultProperties: {
                 capacity: 50,
-                relaxationSatisfaction: 0.3,
-                cleaningSatisfaction: 0.3,
-                studySatisfaction: 0.3,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                studySatisfaction: 0.5,
                 fundToCurrentTier: 5000,
                 income: -10,
                 description: "虽然黑板、投影仪和桌椅都有不少问题，但是至少可以拿来上课。",
@@ -121,9 +121,9 @@ let BuildingSpecifications = {
         1: {
             defaultProperties: {
                 capacity: 100,
-                relaxationSatisfaction: 0.4,
-                cleaningSatisfaction: 0.4,
-                studySatisfaction: 0.4,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
+                studySatisfaction: 0.5,
                 fundToCurrentTier: 6000,
                 income: -20,
                 description: "要是有人在抖腿的话，整排桌子都会跟着一起晃。",
@@ -207,8 +207,8 @@ let BuildingSpecifications = {
         0: {
             defaultProperties: {
                 capacity: 100,
-                relaxationSatisfaction: 0.3,
-                cleaningSatisfaction: 0.3,
+                relaxationSatisfaction: 0.5,
+                cleaningSatisfaction: 0.5,
                 fundToCurrentTier: 5000,
                 income: 100,
                 description: "虽然学校一直不承认，但似乎总有学生吃完之后会拉肚子。",
@@ -221,7 +221,7 @@ let BuildingSpecifications = {
         1: {
             defaultProperties: {
                 capacity: 150,
-                relaxationSatisfaction: 0.4,
+                relaxationSatisfaction: 0.5,
                 cleaningSatisfaction: 0.6,
                 fundToCurrentTier: 8000,
                 income: 200,

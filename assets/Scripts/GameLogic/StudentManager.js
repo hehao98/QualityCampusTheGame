@@ -80,12 +80,12 @@ StudentManager.prototype.getStudentById = function (id) {
 
 
 /**
- * @param {Number} tick
+ * routine update
  */
-StudentManager.prototype.update = function (tick) {
-    const inDayTime = tick % Globals.TICKS_DAY;
+StudentManager.prototype.update = function () {
+    const inDayTime = Globals.tick % Globals.TICKS_DAY;
 
-    if (tick % Globals.TICKS_SEMESTER === 0) {
+    if (Globals.tick % Globals.TICKS_SEMESTER === 0) {
         this.reassign();
     }
 
@@ -95,7 +95,11 @@ StudentManager.prototype.update = function (tick) {
 
     }
     // update satisfactions for all students
-    // done in updateSatisfaction
+    // execute in updateSatisfaction()
+
+    if ((Globals.tick + 1) % (2 * Globals.TICKS_SEMESTER) === 0) {
+        this.graduate();
+    }
 };
 
 /**
@@ -111,6 +115,23 @@ StudentManager.prototype.updateSatisfaction = function () {
             student.indexes[type].update(current);
         }
     }
+};
+
+/**
+ */
+StudentManager.prototype.graduate = function () {
+    const meanTalent = _.meanBy(this.students,
+        (student) => student.talent);
+    let nGraduations = 0;
+    for (let student of this.students) {
+        if (Math.random() < 0.25 + (student.talent - meanTalent) / 10) {
+            student.uponGraduation = true;
+            nGraduations++;
+        }
+    }
+    _.remove(this.students, (student) => student.updateSatisfaction);
+    utilities.log(nGraduations + " students graduated", "info");
+    return nGraduations;
 };
 
 /**

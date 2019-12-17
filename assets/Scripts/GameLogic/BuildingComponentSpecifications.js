@@ -114,7 +114,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 4000,
-                name: "屡教不改",
+                name: "屡败屡战",
                 description: "该餐厅因食品安全问题被长期投诉，真诚道歉，永不悔改。",
                 cleaningSatisfaction: -0.2,
                 picturePath: "",
