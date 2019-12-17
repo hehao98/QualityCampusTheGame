@@ -28,7 +28,7 @@ AdmissionManager.prototype.admit = function () {
     const overallSatisfaction = nStudent ? _.meanBy(Globals.SATISFACTIONS,
         (satisfaction) => Globals.studentManager.getOverallIndex(satisfaction)) : 0.46;
 
-    for (let i = 0; i < this.admissionTarget; ++i) {
+    for (let i = 0; i < this.admissionTarget - nStudent; ++i) {
         Globals.studentManager.add({ talent: (4 * overallSatisfaction - 1) / 3 });
     }
 };
