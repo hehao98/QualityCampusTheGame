@@ -22,26 +22,12 @@ let selectedCompType = null;
 const _ = require("lodash");
 let ComponentSpecificationItem = require("ComponentSpecificationItem");
 let ComponentItem = require("ComponentItem");
+let buildingTypeLevels = new Array();
 
 cc.Class({
     extends: cc.Component,
 
     properties: () => ({
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         pageView: {
             default: null,
             type: cc.PageView,
@@ -59,6 +45,7 @@ cc.Class({
         componentSpecificationPrefab: cc.Prefab,
         deleteComponentButton: cc.Button,
         deleteComponentButtonLabel: cc.Label,
+        upgradeBuildingButtonLabel: cc.Label
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -69,7 +56,6 @@ cc.Class({
 
     start() {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
-        let buildingTypeLevels = new Array();
         buildingTypeLevels["dorm"] = 6;
         buildingTypeLevels["teaching"] = 6;
         buildingTypeLevels["cafeteria"] = 5;
@@ -161,6 +147,12 @@ cc.Class({
         buildingDescription.string = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["description"];
         let buildingEffects = node.getChildByName("Effects").getComponent(cc.Label);
         buildingEffects.string = building.effects;
+        if (building.tier === buildingTypeLevels[building.type] - 1) {
+            this.upgradeBuildingButtonLabel.string = "已满级";
+        } else {
+            let upgradeFund = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["fundToCurrentTier"];
+            this.upgradeBuildingButtonLabel.string = "升级(" + upgradeFund + "万)";
+        }
         this.selectedComponentId = -1;
         this.deleteComponentButtonLabel.string = "删除组件";
         this.showSelectedBuildingComponent(id);
