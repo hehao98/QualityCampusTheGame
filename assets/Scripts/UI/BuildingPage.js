@@ -18,6 +18,7 @@ let BuildingPicturesDict = new Array();
 let infoPicturesDict = new Array();
 let selectedBuildingId = 0;
 const _ = require("lodash");
+let ComponentSpecificationItem = require("ComponentSpecificationItem");
 
 cc.Class({
     extends: cc.Component,
@@ -291,32 +292,30 @@ cc.Class({
                 }
             );
             if (componentProperties["userAdditionAllowed"] === true) {
-                console.log("component" + componentProperties["name"]);
+                // console.log("component" + componentProperties["name"]);
                 let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.dealWithComponent, this);
+                node.on("click", this.deleteComponent, this);
                 node.name = componentTypeArr[i];
-                let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
+                let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
                 componentName.string = componentChineseName[i];
-                let resourceInfoNode = node.getChildByName("ResourceInfo");
-                let componentFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
-                componentFund.string = componentProperties["fundToCurrentTier"];
                 this.componentLayout.addChild(node);
             } else if (target !== undefined) {
                 let node = cc.instantiate(this.componentPrefab);
-                node.on("click", this.dealWithComponent, this);
+                node.on("click", this.deleteComponent, this);
                 node.name = componentTypeArr[i];
-                let componentName = node.getChildByName("ComponentNameLabel").getComponent(cc.Label);
+                let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
                 componentName.string = componentChineseName[i];
-                let resourceInfoNode = node.getChildByName("ResourceInfo");
-                let componentFund = resourceInfoNode.getChildByName("FundLabel").getComponent(cc.Label);
-                componentFund.string = componentProperties["fundToRemove"];
                 this.componentLayout.addChild(node);
             }
         }
     },
 
-    addComponent() {
+    showAddComponentPanel() {
         this.addComponentPanel.active = !this.addComponentPanel.active;
+    },
+
+    deleteComponent() {
+
     },
     
     dealWithComponent(button) {
@@ -360,5 +359,22 @@ cc.Class({
                 this
             );
         }
+    },
+
+    addComponent(componentType) {
+        this.popupManager.showMessageBox(
+            "是否要添加该组件",
+            () => {
+                const result = this.game.buildingManager.addComponent({ buildingID: selectedBuildingId, componentName: componentType });
+                if (result === Globals.OK) {
+                    this.popupManager.showPopup("组件添加成功");
+                } else {
+                    this.popupManager.showPopup("资金不足，组件添加失败");
+                }
+            },
+            () => {
+            },
+            this
+        );
     }
 });

@@ -165,7 +165,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 259.8076211353316
+      "z": 294.44863728670913
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -20152,7 +20152,7 @@
       "__id__": 749
     },
     "componentPrefab": {
-      "__uuid__": "ee1f72e6-ecdb-4c36-9911-fd25c0d5955d"
+      "__uuid__": "372ffcca-4168-4f8e-81c3-f735fe6d8a4b"
     },
     "componentLayout": {
       "__id__": 612
