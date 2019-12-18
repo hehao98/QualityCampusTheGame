@@ -34,12 +34,12 @@ let EventSpecifications = {
                         },
                         consequence: function(game) {
                             game.fund.use(10);
-                            game.studentManager.students.forEach(s => {
-                                s.indexes.studySatisfaction += 0.1;
-                                if (s.index.studySatisfaction >= 1) {
-                                    s.index.studySatisfaction = 1;
-                                }
-                            });
+                            //game.studentManager.students.forEach(s => {
+                            //    s.indexes.studySatisfaction += 0.1;
+                            //    if (s.index.studySatisfaction >= 1) {
+                            //        s.index.studySatisfaction = 1;
+                            //    }
+                            //});
                         }
                     }
                 ]
@@ -58,10 +58,7 @@ let EventSpecifications = {
                         name: "置之不理",
                         description: "网民的记忆和金鱼差不多，不用管他们（会对我们的学术声誉产生影响）",
                         prerequisite: null,
-                        consequence: function(game) {
-                            game.careerIndex = Math.min(0, game.careerIndex - 100);
-                            game.researchIndex = Math.min(0, game.researchIndex - 100);
-                        }
+                        consequence: function(game) {}
                     },
                     {
                         name: "花钱撤下热搜",

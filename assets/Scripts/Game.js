@@ -46,6 +46,7 @@ let Game = cc.Class({
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
         fund: Object,
+        fixedFundModifierId: 0,
         buildingManager: Object,
         studentManager: Object,
         scheduleManager: Object,
@@ -84,9 +85,7 @@ let Game = cc.Class({
         Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
         this.fund.value = this.initialData.json.startFund;
-        this.initialData.json.fundModifiers.forEach(modifier => {
-            this.fund.addModifier(modifier);
-        });
+        this.fixedFundModifierId = this.fund.addModifier(this.initialData.json.fundModifier);
 
         this.gameObjectives = this.initialData.json.gameObjectives;
         this.worldRankFlagTriggers = [400, 300, 200, 100, 50, 30, 10, 1];
@@ -292,7 +291,12 @@ let Game = cc.Class({
                         }
                     ]
                 );
+                this.fund.setModifierAmount(
+                    this.fixedFundModifierId, 
+                    this.gameObjectives[this.currentObjective].newFixedFund
+                );
                 this.currentObjective++;
+
             }
         }
     },

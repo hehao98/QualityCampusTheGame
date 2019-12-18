@@ -1,12 +1,10 @@
 {
   "initialStudentNumber": 100,
   "startFund": 50000,
-  "fundModifiers": [
-    {
-      "type": "fixed",
-      "amount": 10
-    }
-  ],
+  "fundModifier": {
+    "type": "fixed",
+    "amount": 500
+  },
   "buildings": [
     {
       "type": "teaching",
@@ -61,62 +59,67 @@
     {
       "name": "成为世界五流大学！",
       "nameShort": "世界五流！",
-      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界五流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
+      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界五流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！中央已经决定给你更多的国家经费！",
       "thresholds": {
         "teachIndex": 0.3,
         "careerIndex": 0.0,
         "researchIndex": 0.0,
         "studentSatisfaction": 0.4,
         "professorNumber": 6
-      }
+      },
+      "newFixedFund": 1000
     },
     {
       "name": "成为世界四流大学！",
       "nameShort": "世界四流！",
-      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界四流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
+      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界四流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！中央已经决定给你更多的国家经费！",
       "thresholds": {
         "teachIndex": 0.4,
         "careerIndex": 0.1,
         "researchIndex": 0.0,
         "studentSatisfaction": 0.5,
         "professorNumber": 10
-      }
+      },
+      "newFixedFund": 2000
     },
     {
       "name": "成为世界三流大学！",
       "nameShort": "世界三流！",
-      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界三流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
+      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界三流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！中央已经决定给你更多的国家经费！",
       "thresholds": {
         "teachIndex": 0.5,
         "careerIndex": 0.2,
         "researchIndex": 0.0,
         "studentSatisfaction": 0.6,
         "professorNumber": 15
-      }
+      },
+      "newFixedFund": 3000
     },
     {
       "name": "成为世界二流大学！",
       "nameShort": "世界二流！",
-      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界二流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
+      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界二流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！中央已经决定给你更多的国家经费！",
       "thresholds": {
         "teachIndex": 0.6,
         "careerIndex": 0.4,
         "researchIndex": 0.2,
         "studentSatisfaction": 0.7,
         "professorNumber": 20
-      }
+      },
+      "newFixedFund": 4000
     },
     {
       "name": "成为世界一流大学！",
       "nameShort": "世界一流！",
-      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界一流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
+      "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界一流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！中央已经决定给你更多的国家经费！",
       "thresholds": {
         "teachIndex": 0.8,
         "careerIndex": 0.7,
         "researchIndex": 0.7,
         "studentSatisfaction": 0.8,
         "professorNumber": 25
-      }
+      },
+      "newFixedFund": 5000
     }
   ]
 }
