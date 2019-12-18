@@ -40,10 +40,19 @@ cc.Class({
         this.admissionNumberLabel.string = "计划招生/最大容量：" 
             + this.game.admissionManager.admissionTarget
             + "/" + this.game.buildingManager.getMaxStudentCapacity();
+        this.studentQualityLabel.string = "新生水平：" + this.game.admissionManager.getExpectedTalentForNewStudents().toFixed(3);
     },
 
     updateAdmissionStrategy(slider) {
         let maxStudent = this.game.buildingManager.getMaxStudentCapacity();
         this.game.admissionManager.setTarget(Math.floor(maxStudent * slider.progress));
+    },
+
+    increaseAdmissionTarget() {
+        this.game.admissionManager.setTarget(this.game.admissionManager.admissionTarget + 10);
+    },
+
+    decreaseAdmissionTarget() {
+        this.game.admissionManager.setTarget(this.game.admissionManager.admissionTarget - 10);
     }
 });
