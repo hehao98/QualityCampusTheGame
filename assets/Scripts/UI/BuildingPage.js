@@ -346,8 +346,14 @@ cc.Class({
         let income = componentProperties["income"] || 0;
         let fund = componentProperties["fundToCurrentTier"] || 0;
         let description = componentProperties["description"];
+        if (studySat.length > 0 && studySat[0] !== "-") {
+            studySat = "+" + studySat;
+        }
+        if (relaxSat.length > 0 && relaxSat[0] !== "-") {
+            relaxSat = "+" + relaxSat;
+        }
         this.popupManager.showMessageBox(
-            "是否要添加该组件，组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n收入：" + income + "万",
+            "是否要添加该组件，组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：" + relaxSat + "\n学习满意度：" + studySat + "\n收入：" + income + "万",
             () => {
                 const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {

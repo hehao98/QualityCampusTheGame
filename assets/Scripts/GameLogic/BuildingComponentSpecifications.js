@@ -66,6 +66,7 @@ let BuildingComponentSpecifications = {
             defaultProperties: {
                 name: "品质校园的咖啡厅",
                 income: 100,
+                relaxationSatisfaction: -0.1,
                 fundToCurrentTier: 2000,
                 description: "品质校园需要更多的咖啡厅！",
                 picturePath: "",
