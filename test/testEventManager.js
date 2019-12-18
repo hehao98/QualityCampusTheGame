@@ -5,6 +5,9 @@ describe("EventManager", function() {
     let game = {
         studentManager: {
             getOverallIndex: function(str) { return 0.1; }
+        },
+        professorManager: {
+            number: 5,
         }
     };
 
