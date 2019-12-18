@@ -242,6 +242,12 @@ let utilities = {
         }
         return cur;
     },
+
+    numberToPercentage(number) {
+        let percentageNumber = number * 100;
+        let percent = percentageNumber + ".00%";
+        return percent;
+    },
 };
 
 module.exports = utilities;

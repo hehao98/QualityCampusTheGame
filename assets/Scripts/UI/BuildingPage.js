@@ -335,13 +335,13 @@ cc.Class({
     
     addComponent(componentType) {
         let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
-        let studySat = componentProperties["studySatisfaction"] || 0;
-        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
+        let studySat = utilities.numberToPercentage(componentProperties["studySatisfaction"] || 0);
+        let relaxSat = utilities.numberToPercentage(componentProperties["relaxationSatisfaction"] || 0);
         let income = componentProperties["income"] || 0;
         let fund = componentProperties["fundToCurrentTier"] || 0;
         let description = componentProperties["description"];
         this.popupManager.showMessageBox(
-            "是否要添加该组件，该组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n收入：" + income + "万",
+            "是否要添加该组件，组件将消耗：" + fund +"万\n带来如下加成：\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n收入：" + income + "万",
             () => {
                 const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
@@ -359,10 +359,10 @@ cc.Class({
 
     deleteComponent() {
         let componentProperties = BuildingComponentSpecifications[this.selectedCompType][0]["defaultProperties"];
-        let capacity = componentProperties["capacity"] || 0;
-        let studySat = componentProperties["studySatisfaction"] || 0;
-        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
-        let cleanSat = componentProperties["cleaningSatisfaction"] || 0;
+        let capacity = utilities.numberToPercentage(componentProperties["capacity"] || 0);
+        let studySat = utilities.numberToPercentage(componentProperties["studySatisfaction"] || 0);
+        let relaxSat = utilities.numberToPercentage(componentProperties["relaxationSatisfaction"] || 0);
+        let cleanSat = utilities.numberToPercentage(componentProperties["cleaningSatisfaction"] || 0);
         let fund = componentProperties["fundToRemove"];
         let description = componentProperties["description"];
         let text = null;
@@ -404,13 +404,13 @@ cc.Class({
 
     showSelectedComponentInfo(componentType) {
         let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
-        let capacity = componentProperties["capacity"] || 0;
-        let studySat = componentProperties["studySatisfaction"] || 0;
-        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
-        let cleanSat = componentProperties["cleaningSatisfaction"] || 0;
+        let capacity = utilities.numberToPercentage(componentProperties["capacity"] || 0);
+        let studySat = utilities.numberToPercentage(componentProperties["studySatisfaction"] || 0);
+        let relaxSat = utilities.numberToPercentage(componentProperties["relaxationSatisfaction"] || 0);
+        let cleanSat = utilities.numberToPercentage(componentProperties["cleaningSatisfaction"] || 0);
         let income = componentProperties["income"] || 0;
         this.popupManager.showInfoBox(
-            "组件信息：" + "\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n清洁满意度：" + cleanSat + "\n容量：" + capacity+ "\n收入：" + income + "万",
+            "组件信息：" + "\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n清洁满意度：+" + cleanSat + "\n容量：" + capacity+ "\n收入：" + income + "万",
             () => {
             },
             this
