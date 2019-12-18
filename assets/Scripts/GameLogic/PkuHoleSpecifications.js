@@ -13,6 +13,7 @@ let PkuHoleSpecifications = {
                     return game.studentManager.getOverallIndex("studySatisfaction") < 0.33;
                 },
                 candidates: [
+                    "不想学习",
                     "啊实在是太难了学不进去了",
                     "我想退学",
                     "摸鱼一时爽，考后火葬场",
@@ -26,6 +27,7 @@ let PkuHoleSpecifications = {
                         && game.studentManager.getOverallIndex("studySatisfaction") >= 0.33;
                 },
                 candidates: [
+                    "我要学习",
                     "我要学习，不能再刷手机了",
                     "迷茫，不知道自己能不能适应这个专业",
                     "高数期中60，我还真没见过像我这么菜的",
@@ -39,6 +41,8 @@ let PkuHoleSpecifications = {
                 },
                 candidates: [
                     "今天又是认真学习的一天呢",
+                    "我热爱学习",
+                    "学习使我快乐",
                     "X院的XXX不要再卖弱了行不行，大家都知道您很聚了",
                     "我今天读了3000页英文文献，好开心呀",
                     "心に残っているのは勉強だけ",
@@ -59,14 +63,16 @@ let PkuHoleSpecifications = {
                 candidates: [
                     "又挂科了，好难受啊",
                     "高数期中只有20分，我还是去跳楼算了",
-                    "我要怎么办才能死掉呢，好想死啊",
+                    "怎么学都学不会",
+                    "我怎么这么笨呢",
                     "担心毕业找不到工作",
-                    "申请季全聚德就是我"
+                    "申请季全聚德就是我",
+                    "这些课也太难了吧",
                 ]
             },
             {
                 trigger: function(game) {
-                    return game.studentManager.getOverallIndex("studyIndex") <= 0.66
+                    return game.studentManager.getOverallIndex("studyIndex") <= 0.5
                         && game.studentManager.getOverallIndex("studyIndex") >= 0.33;
                 },
                 candidates: [
@@ -79,9 +85,11 @@ let PkuHoleSpecifications = {
             },
             {
                 trigger: function(game) {
-                    return game.studentManager.getOverallIndex("studyIndex") > 0.66;
+                    return game.studentManager.getOverallIndex("studyIndex") > 0.5;
                 },
                 candidates: [
+                    "我好聚啊",
+                    "身边都是学霸，压力好大",
                     "又中了一篇文章，太棒了",
                     "绩点成等差数列每学期递增，开心",
                     "大佬们是不是都绩点3.9呀",
@@ -98,7 +106,7 @@ let PkuHoleSpecifications = {
         events: [
             {
                 trigger: function(game) {
-                    return game.studentManager.getOverallIndex("relaxationSatisfaction") < 0.33;
+                    return game.studentManager.getOverallIndex("relaxationSatisfaction") < 0.5;
                 },
                 candidates: [
                     "感觉自己睡也睡不好，吃也吃不好，要秃了",
@@ -110,11 +118,24 @@ let PkuHoleSpecifications = {
             },
             {
                 trigger: function(game) {
+                    return game.studentManager.getOverallIndex("relaxationSatisfaction") >= 0.5
+                        && game.studentManager.getOverallIndex("relaxationSatisfaction") <= 0.66;
+                },
+                candidates: [
+                    "食堂勉勉强强还能吃吧",
+                    "宿舍勉强还能住吧",
+                    "其实我觉得食堂还不错",
+                    "其实我觉得宿舍还不错",
+                ]
+            },
+            {
+                trigger: function(game) {
                     return game.studentManager.getOverallIndex("relaxationSatisfaction") > 0.66;
                 },
                 candidates: [
                     "吹爆我们的食堂",
                     "开心",
+                    "宿舍和食堂也太好了吧，每天都能吃好睡好",
                 ]
             }
         ]
