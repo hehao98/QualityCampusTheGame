@@ -284,7 +284,7 @@ cc.Class({
 
     showSelectedBuildingComponent(id) {
         let componentTypeArr = ["relax", "studyArea", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
-        let componentChineseName = {"relax": "休息区", "studyArea": "自习区", "cafe": "咖啡厅", "noRepair": "皇帝的新修理工", "buildingAtNight": "夜间施工", "unstableWaterTemperature": "薛定谔的水温", "dirtyFood": "屡教不改", "highHCHO": "高效人肉除甲醛", "crowdedByDesign": "摩肩接踵"};
+        let componentChineseName = {"relax": "有隔音效果的休息区", "studyArea": "方便学习的自习区", "cafe": "品质校园的咖啡厅", "noRepair": "大量设备损坏", "buildingAtNight": "附近有夜间施工", "unstableWaterTemperature": "薛定谔的浴室水温", "dirtyFood": "食品安全问题屡教不改", "highHCHO": "甲醛超标", "crowdedByDesign": "过于拥挤"};
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
         this.componentLayout.removeAllChildren();
@@ -315,7 +315,7 @@ cc.Class({
         this.addComponentPanel.active = true;
         if (this.addComponentPanel.active) {
             let componentTypeArr = ["relax", "studyArea", "cafe", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
-            let componentChineseName = ["休息区", "自习区", "咖啡厅", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
+            let componentChineseName = ["有隔音效果的休息区", "方便学习的自习区", "品质校园的咖啡厅", "大量设备损坏", "附近有夜间施工", "薛定谔的浴室水温", "食品安全问题屡教不改", "甲醛超标", "过于拥挤"];
             this.addComponentLayout.removeAllChildren();
             for (let i = 0; i < componentTypeArr.length; ++i) {
                 let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];

@@ -2,7 +2,7 @@ let BuildingComponentSpecifications = {
     relax: {
         0: {
             defaultProperties: {
-                name: "休息区",
+                name: "有隔音效果的休息区",
                 relaxationSatisfaction: +0.10,
                 fundToCurrentTier: 1500,
                 description: "加强了建筑隔音效果。",
@@ -33,7 +33,7 @@ let BuildingComponentSpecifications = {
     studyArea: {
         0: {
             defaultProperties: {
-                name: "自习区",
+                name: "方便学习的自习区",
                 studySatisfaction: +0.10,
                 fundToCurrentTier: 2000,
                 description: "自习区",
@@ -64,7 +64,7 @@ let BuildingComponentSpecifications = {
     cafe: {
         0: {
             defaultProperties: {
-                name: "咖啡厅",
+                name: "品质校园的咖啡厅",
                 income: 100,
                 fundToCurrentTier: 2000,
                 description: "品质校园需要更多的咖啡厅！",
@@ -78,7 +78,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 800,
-                name: "皇帝的新修理工",
+                name: "大量设备损坏",
                 description: "该建筑内大量设施损坏而不见修理。",
                 capacity: -0.3,
                 picturePath: "",
@@ -90,7 +90,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 2000,
-                name: "夜间施工",
+                name: "附近有夜间施工",
                 description: "该建筑附近有工地夜间施工，学生难以安眠。",
                 relaxationSatisfaction: -0.3,
                 picturePath: "",
@@ -102,7 +102,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 1500,
-                name: "薛定谔的水温",
+                name: "薛定谔的浴室水温",
                 description: "浴室水温忽高忽低。小概率导致学生感冒/烧伤。",
                 cleaningSatisfaction: -0.2,
                 picturePath: "",
@@ -114,7 +114,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 4000,
-                name: "屡败屡战",
+                name: "食品安全问题屡教不改",
                 description: "该餐厅因食品安全问题被长期投诉，真诚道歉，永不悔改。",
                 cleaningSatisfaction: -0.2,
                 picturePath: "",
@@ -126,7 +126,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 800,
-                name: "高效人肉除甲醛",
+                name: "甲醛超标",
                 description: "该建筑内甲醛超标。",
                 cleaningSatisfaction: -0.2,
                 picturePath: "",
@@ -138,7 +138,7 @@ let BuildingComponentSpecifications = {
         0: {
             defaultProperties: {
                 fundToRemove: 1000,
-                name: "摩肩接踵",
+                name: "过于拥挤",
                 description: "该建筑设计存在缺陷，导致实际容量下降。" +
                     "可能的原因有座椅拥挤，桌面狭小，桌面晃动严重；" +
                     "水房龙头紧贴，水花飞溅；排队空间狭小或与建筑安全出入口重叠。",
