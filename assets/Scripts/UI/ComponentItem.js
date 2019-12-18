@@ -29,7 +29,6 @@ cc.Class({
         let that = this;
         this.button = this.getComponent(cc.Button);
         this.button.node.on(cc.Node.EventType.TOUCH_END, function (event) {
-            console.log("selcom" + that.componentType);
             that.buildingPage.handleComponent(that.componentType, that.id);
         });
     },
