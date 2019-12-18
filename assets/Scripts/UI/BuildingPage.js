@@ -42,6 +42,7 @@ cc.Class({
         componentPrefab: cc.Prefab,
         componentLayout: cc.Node,
         addComponentPanel: cc.Node,
+        addComponentLayout: cc.Node,
         componentSpecificationPrefab: cc.Prefab,
         deleteComponentButton: cc.Button,
         deleteComponentButtonLabel: cc.Label,
@@ -129,7 +130,7 @@ cc.Class({
     },
 
     showSelectedBuildingInfo(id) {
-        if (this.addComponentPanel.active) {
+        if (this.addComponentPanel.active && this.selectedBuildingId !== id) {
             this.addComponentPanel.active = !this.addComponentPanel.active;
         }
         this.selectedBuildingId = id;
@@ -311,11 +312,11 @@ cc.Class({
     },
 
     showAddComponentPanel() {
-        this.addComponentPanel.active = !this.addComponentPanel.active;
+        this.addComponentPanel.active = true;
         if (this.addComponentPanel.active) {
             let componentTypeArr = ["relax", "studyArea", "cafe", "noRepair", "buildingAtNight", "unstableWaterTemperature", "dirtyFood", "highHCHO", "crowdedByDesign"];
             let componentChineseName = ["休息区", "自习区", "咖啡厅", "皇帝的新修理工", "夜间施工", "薛定谔的水温", "屡教不改", "高效人肉除甲醛", "摩肩接踵"];
-            this.addComponentPanel.removeAllChildren();
+            this.addComponentLayout.removeAllChildren();
             for (let i = 0; i < componentTypeArr.length; ++i) {
                 let componentProperties = BuildingComponentSpecifications[componentTypeArr[i]][0]["defaultProperties"];
                 if (componentProperties["userAdditionAllowed"] === true) {
@@ -327,10 +328,14 @@ cc.Class({
                     let item = node.getComponent(ComponentSpecificationItem);
                     item.componentType = componentTypeArr[i];
                     item.buildingPage = this;
-                    this.addComponentPanel.addChild(node);
+                    this.addComponentLayout.addChild(node);
                 } 
             }
         }
+    },
+
+    closeAddComponentPanel() {
+        this.addComponentPanel.active = false;
     },
     
     addComponent(componentType) {
