@@ -45,7 +45,8 @@ cc.Class({
         componentSpecificationPrefab: cc.Prefab,
         deleteComponentButton: cc.Button,
         deleteComponentButtonLabel: cc.Label,
-        upgradeBuildingButtonLabel: cc.Label
+        upgradeBuildingButtonLabel: cc.Label,
+        componentBackground: cc.Node,
     }),
 
     // LIFE-CYCLE CALLBACKS:
@@ -301,6 +302,11 @@ cc.Class({
             item.buildingPage = this;
             item.id = i;
             this.componentLayout.addChild(node);
+        }
+        if (building.components.length === 0) {
+            this.componentBackground.active = true;
+        } else {
+            this.componentBackground.active = false;
         }
     },
 
