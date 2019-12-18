@@ -165,7 +165,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 259.8076211353316
+      "z": 258.9415957315472
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -28927,6 +28927,7 @@
     "dialogBoxPrefab": {
       "__uuid__": "040bd978-f012-4f92-8d3b-c47b0ab230e1"
     },
+    "infoBoxPrefab": null,
     "_id": "c2holMlzVMV5w1hjVOg37b"
   },
   {
