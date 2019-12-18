@@ -6,6 +6,7 @@ cc.Class({
         popupPrefab: cc.Prefab,
         messageBoxPrefab: cc.Prefab,
         dialogBoxPrefab: cc.Prefab,
+        infoBoxPrefab: cc.Prefab,
     },
 
     /**
@@ -94,6 +95,33 @@ cc.Class({
                         dialogBox.destroy();
                     });
                 }
+                break;
+            }
+        });
+    },
+
+    /**
+     * Show a message to the player
+     * @param {String} message the message to be displayed on the message box
+     * @param {Function} okCallback the function to call when OK button is pressed
+     * @param {Object} thisPointer specify this in the callbacks
+     */
+    showInfoBox(message, okCallback, thisPointer) {
+        let messageBox = cc.instantiate(this.infoBoxPrefab);
+        messageBox.parent = this.node;
+
+        let label = messageBox.getComponentInChildren(cc.Label);
+        label.string = message;
+
+        let buttons = messageBox.getComponentsInChildren(cc.Button);
+        buttons.forEach(button => {
+            switch (button.node.name) {
+            case "OkButton":
+                button.node.on("click", okCallback, thisPointer);
+                button.node.on("click", function() {
+                    messageBox.destroyAllChildren();
+                    messageBox.destroy();
+                });
                 break;
             }
         });

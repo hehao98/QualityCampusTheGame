@@ -393,5 +393,21 @@ cc.Class({
         this.selectedCompType = componentType;
         this.selectedComponentId = id;
         this.showSelectedBuildingComponent(this.selectedBuildingId);
+        this.showSelectedComponentInfo(componentType);
+    },
+
+    showSelectedComponentInfo(componentType) {
+        let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
+        let capacity = componentProperties["capacity"] || 0;
+        let studySat = componentProperties["studySatisfaction"] || 0;
+        let relaxSat = componentProperties["relaxationSatisfaction"] || 0;
+        let cleanSat = componentProperties["cleaningSatisfaction"] || 0;
+        let income = componentProperties["income"] || 0;
+        this.popupManager.showInfoBox(
+            "组件信息：" + "\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n清洁满意度：" + cleanSat + "\n容量：" + capacity+ "\n收入：" + income + "万",
+            () => {
+            },
+            this
+        );
     }
 });
