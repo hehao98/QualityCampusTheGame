@@ -5,7 +5,7 @@ let Globals = require("GlobalVariables");
 let EventSpecifications = {
     studySatisfactionEvents: {
         minCoolTick: 100,
-        maxCoolTick: 200,
+        maxCoolTick: 500,
         nextTriggerTick: 0,
         events: [
             {
@@ -15,7 +15,7 @@ let EventSpecifications = {
                 timeoutTick: 0,
                 defaultActionId: 0,
                 trigger: function(game) {
-                    return game.studentManager.getOverallIndex("studySatisfaction") < 0.2;
+                    return game.studentManager.getOverallIndex("studySatisfaction") < 0.5;
                 },
                 action: [
                     {
@@ -61,6 +61,43 @@ let EventSpecifications = {
                         consequence: function(game) {
                             game.careerIndex = Math.min(0, game.careerIndex - 100);
                             game.researchIndex = Math.min(0, game.researchIndex - 100);
+                        }
+                    },
+                    {
+                        name: "花钱撤下热搜",
+                        description: "（消耗资金100万）避免此事件进一步造成负面影响",
+                        prerequisite: function(game) {
+                            return game.fund.value >= 100;
+                        },
+                        consequence: function(game) {
+                            game.fund.use(100);
+                        }
+                    },
+                ]
+            },
+        ]
+    },
+    otherEvents: {
+        minCoolTick: 100,
+        maxCoolTick: 500,
+        nextTriggerTick: 0,
+        events: [
+            {
+                name: "震惊！某博导竟然脚踩n条船，还和学生结婚！",
+                description: "最近，在X博上的控诉显示，我们学校的某位博导竟然打着自己情商低找不到女朋友的幌子，同时与多名女性交往。他甚至还和自己的学生结婚，绿了自己的另一个学生。我们该怎么办？",
+                timeout: 100,
+                timeoutTick: 0,
+                defaultActionId: 0,
+                trigger: function(game) {
+                    return game.professorManager.number >= 10;
+                },
+                action: [
+                    {
+                        name: "将其开除",
+                        description: "（教师数-1）决不能姑息这样的行为",
+                        prerequisite: null,
+                        consequence: function(game) {
+                            game.professorManager.number--;
                         }
                     },
                     {
