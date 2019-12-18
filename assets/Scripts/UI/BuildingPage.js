@@ -346,7 +346,7 @@ cc.Class({
                 const result = this.game.buildingManager.addComponent({ buildingID: this.selectedBuildingId, componentName: componentType });
                 if (result === Globals.OK) {
                     this.popupManager.showPopup("组件添加成功");
-                    this.showSelectedBuildingComponent(this.selectedBuildingId);
+                    this.showSelectedBuildingInfo(this.selectedBuildingId);
                 } else {
                     this.popupManager.showPopup("资金不足，组件添加失败");
                 }
