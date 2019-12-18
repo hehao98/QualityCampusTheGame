@@ -292,7 +292,7 @@ cc.Class({
             let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
             componentName.string = componentChineseName[building.components[i].type];
             let nodeCover = node.getChildByName("Cover").getComponent(cc.Sprite);
-            if (i === this.selectedComponentId) {
+            if (building.components[i].id === this.selectedComponentId) {
                 nodeCover.node.active = true;
             } else {
                 nodeCover.node.active = false;
@@ -300,7 +300,7 @@ cc.Class({
             let item = node.getComponent(ComponentItem);
             item.componentType = building.components[i].type;
             item.buildingPage = this;
-            item.id = i;
+            item.id = building.components[i].id;
             this.componentLayout.addChild(node);
         }
         if (building.components.length === 0) {
@@ -381,7 +381,7 @@ cc.Class({
                     this.popupManager.showPopup("组件移除成功");
                     this.selectedComponentId = -1;
                     this.deleteComponentButtonLabel.string = "删除组件";
-                    this.showSelectedBuildingComponent(this.selectedBuildingId);
+                    this.showSelectedBuildingInfo(this.selectedBuildingId);
                 } else {
                     this.popupManager.showPopup("资金不足，组件移除失败");
                 }
@@ -408,9 +408,18 @@ cc.Class({
         let studySat = utilities.numberToPercentage(componentProperties["studySatisfaction"] || 0);
         let relaxSat = utilities.numberToPercentage(componentProperties["relaxationSatisfaction"] || 0);
         let cleanSat = utilities.numberToPercentage(componentProperties["cleaningSatisfaction"] || 0);
+        if (studySat.length > 0 && studySat[0] !== "-") {
+            studySat = "+" + studySat;
+        }
+        if (relaxSat.length > 0 && relaxSat[0] !== "-") {
+            relaxSat = "+" + relaxSat;
+        }
+        if (cleanSat.length > 0 && cleanSat[0] !== "-") {
+            cleanSat = "+" + cleanSat;
+        }
         let income = componentProperties["income"] || 0;
         this.popupManager.showInfoBox(
-            "组件信息：" + "\n休闲满意度：+" + relaxSat + "\n学习满意度：+" + studySat + "\n清洁满意度：+" + cleanSat + "\n容量：" + capacity+ "\n收入：" + income + "万",
+            "组件信息：" + "\n休闲满意度：" + relaxSat + "\n学习满意度：" + studySat + "\n清洁满意度：" + cleanSat + "\n容量：" + capacity+ "\n收入：" + income + "万",
             () => {
             },
             this
