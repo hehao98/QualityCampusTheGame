@@ -45,8 +45,8 @@ describe("Utilities", function() {
     });
 
     it("should convert number to percentage", function() {
-        assert.strictEqual(Utilities.numberToRoman(0.1), "10.00%");
-        assert.strictEqual(Utilities.numberToRoman(0.2), "20.00%");
-        assert.strictEqual(Utilities.numberToRoman(0), "0.00%");
+        assert.strictEqual(Utilities.numberToPercentage(0.1), "10.00%");
+        assert.strictEqual(Utilities.numberToPercentage(0.2), "20.00%");
+        assert.strictEqual(Utilities.numberToPercentage(0), "0.00%");
     });
 });
