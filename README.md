@@ -35,3 +35,12 @@ See GameDesignDocument.md.
 ## Contributing
 
 See CONTRIBUTING.md.
+
+## Screenshots
+
+![screenshot](https://hehao98.github.io/assets/quality-campus-sim/screenshot1.png)
+![screenshot](https://hehao98.github.io/assets/quality-campus-sim/screenshot2.png)
+![screenshot](https://hehao98.github.io/assets/quality-campus-sim/screenshot3.png)
+![screenshot](https://hehao98.github.io/assets/quality-campus-sim/screenshot4.png)
+![screenshot](https://hehao98.github.io/assets/quality-campus-sim/screenshot5.png)
+
