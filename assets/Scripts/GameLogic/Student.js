@@ -1,10 +1,13 @@
 // Student abstruct all in-game students
 // let StudentSpecifications = require("StudentSpecifications");
-let RelaxationSatisfacion = require("RelaxationSatisfacion");
-let StudySatisfaction = require("StudySatisfaction");
-let StudyIndex = require("StudyIndex");
-let utilities = require("utilities");
-let _ = require("lodash");
+const RelaxationSatisfacion = require("RelaxationSatisfacion");
+const CleaningSatisfaction = require("CleaningSatisfaction");
+const StudySatisfaction = require("StudySatisfaction");
+const StudyIndex = require("StudyIndex");
+const CareerIndex = require("CareerIndex");
+const ResearchIndex = require("ResearchIndex");
+const utilities = require("utilities");
+const _ = require("lodash");
 
 /**
  *  
@@ -16,21 +19,30 @@ class Student {
      * 
      * @param {Object} properties
      * @param {Number} properties.id
-     * @param {Schedule} properties.schedule
+     * @param {Number} properties.talent
      */
     constructor(properties) {
         // properties
         this.id = properties.id;
-        this.schedule = properties.schedule;
-        this.talent = 0.28;
+        this.talent = properties.talent || 1.0;
         this.indexes = {
             relaxationSatisfaction: new RelaxationSatisfacion(
+                { studentID: this.id }),
+            cleaningSatisfaction: new CleaningSatisfaction(
                 { studentID: this.id }),
             studySatisfaction: new StudySatisfaction(
                 { studentID: this.id }),
             studyIndex: new StudyIndex({
                 studentID: this.id,
                 value: this.talent * 0.45
+            }),
+            careerIndex: new CareerIndex({
+                studentID: this.id,
+                value: 0
+            }),
+            researchIndex: new ResearchIndex({
+                studentID: this.id,
+                value: 0
             }),
         };
         this.where = undefined;

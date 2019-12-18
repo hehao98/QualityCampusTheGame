@@ -12,34 +12,32 @@ class StudentManager {
 
     /**
      * 
-     * @param {ScheduleManager} properties.scheduleManager
-     * @param {BuildingManager} properties.buildingManager
+     * @param {Resource} properties.fund
      */
-    constructor(properties) {
+    constructor(properties = {}) {
         // properties
         this.nextStudentID = 0;
         // this.nextBuildingComponentID = 0;
         this.students = [];
-        this.scheduleManager = properties.scheduleManager;
-        this.buildingManager = properties.buildingManager;
+        this.fundModifierId = Globals.game.fund.addModifier({ type: "student", amount: 0 });
 
         // constructor left-overs
     }
 
 }
 
-// methods
+// * methods
 
 /**
- *  - schedule assigned to this student
+ * @param {Number} properties.talent
  * 
  */
-StudentManager.prototype.add = function (properties) {
+StudentManager.prototype.add = function (properties = {}) {
     let propertiesRevised = _.cloneDeep(properties);
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
     this.students.push(student);
-
+    Globals.game.fund.setModifierAmount(this.fundModifierId, this.students.length * 1);
 };
 
 /**
@@ -47,18 +45,18 @@ StudentManager.prototype.add = function (properties) {
  * beginning of a semester
  * 
  */
-StudentManager.prototype.reassign = function (properties) {
+StudentManager.prototype.reassign = function (properties = {}) {
     // remove old
     for (let student of this.students) {
         if (student.schedule != undefined) {
-            this.scheduleManager.remove(student.schedule.id);
+            Globals.scheduleManager.remove(student.schedule.id);
             student.schedule = undefined;
         }
     }
 
     // assign new
     for (let student of this.students) {
-        student.assignSchedule(this.scheduleManager.getNewSchedule({
+        student.assignSchedule(Globals.scheduleManager.getNewSchedule({
             studentID: student.id,
         }));
     }
@@ -82,13 +80,13 @@ StudentManager.prototype.getStudentById = function (id) {
 
 
 /**
- * @param {Number} tick
+ * routine update
  */
-StudentManager.prototype.update = function (tick) {
-    const inDayTime = tick % Globals.TICKS_DAY;
+StudentManager.prototype.update = function () {
+    const inDayTime = Globals.tick % Globals.TICKS_DAY;
 
-    if (tick % Globals.TICKS_SEMESTER === 0) {
-        this.reassign({});
+    if (Globals.tick % Globals.TICKS_SEMESTER === 0) {
+        this.reassign();
     }
 
     // students leave old building and arrive at new building
@@ -97,7 +95,11 @@ StudentManager.prototype.update = function (tick) {
 
     }
     // update satisfactions for all students
-    // done in updateSatisfaction
+    // execute in updateSatisfaction()
+
+    if ((Globals.tick + 1) % (2 * Globals.TICKS_SEMESTER) === 0) {
+        this.graduate();
+    }
 };
 
 /**
@@ -106,13 +108,30 @@ StudentManager.prototype.update = function (tick) {
 StudentManager.prototype.updateSatisfaction = function () {
     for (let student of this.students) {
         for (let type in student.indexes) {
-            let current = this.buildingManager.getSatisfaction(
+            let current = Globals.buildingManager.getSatisfaction(
                 student.where, type);
             utilities.log("sat update (undef. if no.): " + student.where +
                 " " + current, "debug");
             student.indexes[type].update(current);
         }
     }
+};
+
+/**
+ */
+StudentManager.prototype.graduate = function () {
+    const meanTalent = _.meanBy(this.students,
+        (student) => student.talent);
+    let nGraduations = 0;
+    for (let student of this.students) {
+        if (Math.random() < 0.25 + (student.talent - meanTalent) / 10) {
+            student.uponGraduation = true;
+            nGraduations++;
+        }
+    }
+    _.remove(this.students, (student) => student.updateSatisfaction);
+    utilities.log(nGraduations + " students graduated", "info");
+    return nGraduations;
 };
 
 /**
@@ -141,6 +160,7 @@ StudentManager.prototype.debugPrint = function () {
         this.getOverallIndex("studySatisfaction") +
         " " + this.getOverallIndex("livingConditionSatisfaction") +
         " " + this.getOverallIndex("studyIndex"));
+    utilities.log(this);
     console.log("------------------------------------------------------");
 };
 

@@ -10,37 +10,64 @@
   "buildings": [
     {
       "type": "teaching",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "noRepair"
+        }
+      ]
     },
     {
       "type": "teaching",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "highHCHO"
+        },
+        {
+          "componentName": "crowdedByDesign"
+        }
+      ]
     },
     {
       "type": "cafeteria",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "dirtyFood"
+        }
+      ]
     },
     {
       "type": "dorm",
-      "freeOfCharge": true
+      "freeOfCharge": true,
+      "componentsProperties": [
+        {
+          "componentName": "buildingAtNight"
+        },
+        {
+          "componentName": "unstableWaterTemperature"
+        }
+      ]
     }
   ],
   "professorNumber": 5,
-  "professorTeachLevel": 1,
-  "professorAcademicLevel": 1,
-  "professorCareerLevel": 1,
+  "professorTeachLevel": 0,
+  "professorAcademicLevel": 0,
+  "professorCareerLevel": 0,
   "welcomeMessage": "经过一些不可描述的过程，你现在成为了{univname}的校长辣！你现在的首要任务是提升世界排名，把你的学校建设成世界一流大学！同时你还提出了《品质校园》计划，所以维持校园的生活品质和学生的满意度也是很重要的！\n\n在这个过程中，你需要建造和升级校园里的建筑，制定招生策略，提升生源水平，提升教师素质，以及处理突发事件。长远规划和实时决策在这个游戏中同等重要！\n\n游戏界面的上方显示了当前的时间、经费和游戏进展情况，你可以在界面上方调整游戏内时间的流逝速度。\n\n剩下的部分分为游戏进展、建筑管理、师生管理、舆论事件和教程/设置五个界面，可以用于查看当前学校的详细状况，以及进行各种操作。\n\n期待您作为校长的表现！",
+  "gameOverMessage": "GAME OVER!!!\n\n震惊！{univname}背负巨额赤字又是为何？究竟是人性的扭曲还是道德的沦丧？\n\n据XX社报道，{univname}因为经费花光而且还欠了很多钱而陷入困境。{univname}的校长被认为具有不可推卸的责任，目前已被警方控制。据说这位校长刚来的时候，曾经声称要把{univname}建成世界一流大学。",
   "gameObjectives": [
     {
       "name": "成为世界五流大学！",
       "nameShort": "世界五流！",
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界五流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
-        "teachIndex": 100,
-        "careerIndex": 100,
-        "researchIndex": 100,
-        "studentSatisfaction": 0.6,
-        "professorSatisfaction": 60
+        "teachIndex": 0.3,
+        "careerIndex": 0.0,
+        "researchIndex": 0.0,
+        "studentSatisfaction": 0.4,
+        "professorNumber": 6
       }
     },
     {
@@ -48,11 +75,11 @@
       "nameShort": "世界四流！",
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界四流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
-        "teachIndex": 500,
-        "careerIndex": 500,
-        "researchIndex": 500,
-        "studentSatisfaction": 0.6,
-        "professorSatisfaction": 60
+        "teachIndex": 0.4,
+        "careerIndex": 0.1,
+        "researchIndex": 0.0,
+        "studentSatisfaction": 0.5,
+        "professorNumber": 10
       }
     },
     {
@@ -60,11 +87,11 @@
       "nameShort": "世界三流！",
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界三流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
-        "teachIndex": 1000,
-        "careerIndex": 1000,
-        "researchIndex": 1000,
-        "studentSatisfaction": 0.7,
-        "professorSatisfaction": 70
+        "teachIndex": 0.5,
+        "careerIndex": 0.2,
+        "researchIndex": 0.0,
+        "studentSatisfaction": 0.6,
+        "professorNumber": 15
       }
     },
     {
@@ -72,11 +99,11 @@
       "nameShort": "世界二流！",
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界二流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
-        "teachIndex": 2000,
-        "careerIndex": 2000,
-        "researchIndex": 2000,
+        "teachIndex": 0.6,
+        "careerIndex": 0.4,
+        "researchIndex": 0.2,
         "studentSatisfaction": 0.7,
-        "professorSatisfaction": 70
+        "professorNumber": 20
       }
     },
     {
@@ -84,11 +111,11 @@
       "nameShort": "世界一流！",
       "achieveMessage": "恭喜！随着大学这两年不断地发展，中央已经钦定了，{univname}已经成为了世界一流大学！\n\n{univname}的不仅世界排名不断提升，学生的出路也越来越好，大家都非常看好{univname}的发展！",
       "thresholds": {
-        "teachIndex": 10000,
-        "careerIndex": 10000,
-        "researchIndex": 10000,
+        "teachIndex": 0.8,
+        "careerIndex": 0.7,
+        "researchIndex": 0.7,
         "studentSatisfaction": 0.8,
-        "professorSatisfaction": 80
+        "professorNumber": 25
       }
     }
   ]

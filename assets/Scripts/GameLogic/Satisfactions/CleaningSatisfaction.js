@@ -11,7 +11,7 @@ class CleaningSatisfaction extends PassiveSatisfaction {
 
     constructor(properties) {
         // deligate
-        super(properties);
+        super(properties || {});
         // properties
 
         // constructor left-overs

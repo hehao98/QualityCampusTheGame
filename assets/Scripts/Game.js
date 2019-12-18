@@ -1,15 +1,14 @@
 // Core manager class.
 // Serve as the entry point for managing all kinds of game logic
 
-let assert = require("assert");
 let Globals = require("GlobalVariables");
 let utilities = require("utilities");
 let Resource = require("Resource");
 let WorldRankManager = require("WorldRankManager");
 let BuildingManager = require("BuildingManager");
 let StudentManager = require("StudentManager");
+let ProfessorManager = require("ProfessorManager");
 let ScheduleManager = require("ScheduleManager");
-let BuildingSpecifications = require("BuildingSpecifications");
 let AdmissionManager = require("AdmissionManager");
 let PkuHoleManager = require("PkuHoleManager");
 let EventManager = require("EventManager");
@@ -40,14 +39,9 @@ let Game = cc.Class({
         teachIndex: 0,
         careerIndex: 0,
         studentSatisfaction: 0,
-        professorSatisfaction: 0,
+        professorNumber: 0,
         worldRankFlagTriggers: [],
         worldRankFlags: [],
-
-        // Other Properties that will be read by event manager
-        studyIndex: 0,
-        relaxationSatisfaction: 0,
-        studySatisfaction: 0,
 
         // Classes that manages game logic
         difficulty: Globals.DIFFICULTY_NORMAL,
@@ -55,6 +49,7 @@ let Game = cc.Class({
         buildingManager: Object,
         studentManager: Object,
         scheduleManager: Object,
+        professorManager: Object,
         worldRankManager: Object,
         pkuHoleManager: Object,
         eventManager: Object,
@@ -67,7 +62,9 @@ let Game = cc.Class({
         pkuHolePanel: require("PkuHolePanel"),
         eventPanel: require("EventPanel"),
         studentPanel: require("StudentPanel"),
+        professorPanel: require("ProfessorPanel"),
         resourceDetailPanel: require("ResourceDetailPanel"),
+        configPanel: require("ConfigPanel"),
         popupManager: require("PopupManager"),
     }),
 
@@ -76,7 +73,7 @@ let Game = cc.Class({
     onLoad() {
         // Set game reference in window
         // so that it can be accessed in Chrome console for debugging
-        window.game = this;
+        Globals.game = window.game = this;
 
         // Copy initial data to Globals
         // Must be done before the initilization of all game objects!
@@ -84,7 +81,6 @@ let Game = cc.Class({
 
         // Initialize all game objects from here
         // Initialize Resource System
-        // TODO ES6
         Globals.tick = this.currentTick;
         this.fund = new Resource({ name: "fund" });
         this.fund.value = this.initialData.json.startFund;
@@ -101,22 +97,29 @@ let Game = cc.Class({
             universityData: this.universityData
         });
 
-        this.buildingManager = new BuildingManager();
-
-        this.scheduleManager = new ScheduleManager({
-            buildingManager: this.buildingManager
-        });
+        Globals.buildingManager = this.buildingManager =
+            new BuildingManager();
+        Globals.scheduleManager = this.scheduleManager =
+            new ScheduleManager();
         Globals.studentManager = this.studentManager =
-            new StudentManager({
-                scheduleManager: this.scheduleManager,
-                buildingManager: this.buildingManager,
-            });
+            new StudentManager();
         Globals.AdmissionManager = this.admissionManager =
-            new AdmissionManager({});
+            new AdmissionManager();
+
+        this.professorManager = new ProfessorManager({
+            fund: this.fund,
+            studentManager: this.studentManager,
+            initialData: this.initialData.json,
+        });
 
         this.pkuHoleManager = new PkuHoleManager({ game: this });
         this.eventManager = new EventManager({ game: this });
 
+        // * university level modifiers
+        Globals.universityLevelModifiers = {
+            careerTrainingProvided: 0,
+            researchTrainingProvided: 0,
+        };
         this.universityName = Globals.universityName;
         // Init game logic
         this.worldRankManager.addPlayerUniversity(
@@ -128,16 +131,13 @@ let Game = cc.Class({
 
         this.buildingManager.init({
             difficulty: this.difficulty,
-            fund: this.fund,
         });
-
         this.studentManager.init(this.difficulty);
-
         this.admissionManager.setTarget(
             Globals.initialData.initialStudentNumber);
-        this.admissionManager.admit();
         this.pkuHoleManager.init();
         this.eventManager.init();
+
     },
 
     start() {
@@ -157,7 +157,7 @@ let Game = cc.Class({
             [
                 {
                     string: "开始！",
-                    callback: function() {
+                    callback: function () {
                         this.isPaused = false;
                     },
                     thisPointer: this,
@@ -165,7 +165,7 @@ let Game = cc.Class({
                 },
                 {
                     string: "查看详细教程",
-                    callback: function() {
+                    callback: function () {
                         window.open("https://hehao98.github.io/posts/2019/12/quality-campus-tutorial/");
                     },
                     thisPointer: this,
@@ -181,56 +181,73 @@ let Game = cc.Class({
     },
 
     update(dt) {
-    // dt is in seconds
-    // Manage time
+        // dt is in seconds
+        // Manage time
         if (!this.isPaused) {
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
-
                 utilities.log(this.currentTick);
 
                 this.updateGameSystem();
 
                 this.updateGameObjective();
 
+                // Finally Update all UIs
+                this.refreshUI();
+
                 this.timeString = utilities.getTickString(this.currentTick);
                 Globals.tick = ++this.currentTick;
 
-                // Finally Update all UIs
-                this.refreshUI();
+                if (this.fund.value < 0) {
+                    this.gameOver();
+                }
             }
         }
     },
 
     updateGameSystem() {
         // Update corresponding game logic
+        
         this.fund.updateResource(this.currentTick);
-            
+        this.admissionManager.update();
         this.studentManager.update(this.currentTick);
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
         this.studentManager.debugPrint();
         this.buildingManager.debugPrint();
-        this.studyIndex = this.studentManager.getOverallIndex("studyIndex");
-        this.studySatisfaction = this.studentManager.getOverallIndex(
+        // this.buildingManager.debugPrint();
+
+        // Update game objective values
+        let professorBuff = this.professorManager.getEffect();
+        this.teachIndex = (1 + professorBuff.teachIndexBoost)
+            * this.studentManager.getOverallIndex("studyIndex");
+        this.careerIndex = (1 + professorBuff.careerIndexBoost)
+            * this.studentManager.getOverallIndex("careerIndex");
+        this.researchIndex = (1 + professorBuff.researchIndexBoost)
+            * this.studentManager.getOverallIndex("researchIndex");
+        let studySatisfaction = this.studentManager.getOverallIndex(
             "studySatisfaction"
         );
-        this.relaxationSatisfaction = this.studentManager.getOverallIndex(
+        let relaxationSatisfaction = this.studentManager.getOverallIndex(
             "relaxationSatisfaction"
         );
-        // Overall satisfaction is the average value of all detailed satisfactions
-        this.studentSatisfaction = (this.relaxationSatisfaction + this.studySatisfaction) / 2;
+        this.studentSatisfaction = (relaxationSatisfaction + studySatisfaction) / 2;
+        this.professorNumber = this.professorManager.number;
+
+        // Update event system
         this.pkuHoleManager.update(this.currentTick);
         this.eventManager.update(this.currentTick);
+
+        // Update world rank
         if (this.currentTick % Globals.TICKS_WEEK === 0) {
             this.worldRankManager.updateRanking();
             // If the player have achieved a new ranking, popup
             this.worldRankFlagTriggers.forEach((targetRank, idx) => {
-                let ranking = this.worldRankManager.getCurrentRanking(this.universityName);
+                let ranking = this.worldRankManager.getPlayerRanking();
                 if (ranking < targetRank && this.worldRankFlags[idx] === false) {
-                    this.popupManager.showPopup("恭喜" + this.universityName 
-                        + "进入世界前" 
+                    this.popupManager.showPopup("恭喜" + this.universityName
+                        + "进入世界前"
                         + targetRank
                         + "名"
                     );
@@ -243,7 +260,7 @@ let Game = cc.Class({
     updateGameObjective() {
         // After all game logic HAVE been updated
         // see whether we can update our game objectives
-        if (this.currentObjective + 1 < this.gameObjectives.length) {
+        if (this.currentObjective < this.gameObjectives.length) {
             let nextObjective = this.gameObjectives[this.currentObjective];
             let flag = true;
             Object.keys(nextObjective.thresholds).forEach(key => {
@@ -259,7 +276,7 @@ let Game = cc.Class({
                     [
                         {
                             string: "好的！",
-                            callback: function() {
+                            callback: function () {
                                 this.isPaused = false;
                             },
                             thisPointer: this,
@@ -267,7 +284,7 @@ let Game = cc.Class({
                         },
                         {
                             string: "再接再厉",
-                            callback: function() {
+                            callback: function () {
                                 this.isPaused = false;
                             },
                             thisPointer: this,
@@ -275,7 +292,6 @@ let Game = cc.Class({
                         }
                     ]
                 );
-
                 this.currentObjective++;
             }
         }
@@ -289,7 +305,9 @@ let Game = cc.Class({
             if (this.pkuHolePanel) this.pkuHolePanel.updatePanel();
             if (this.eventPanel) this.eventPanel.updatePanel();
             if (this.studentPanel) this.studentPanel.updatePanel();
+            if (this.professorPanel) this.professorPanel.updatePanel();
             if (this.resourceDetailPanel) this.resourceDetailPanel.updatePanel();
+            if (this.configPanel) this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 if (this.worldRankPanel) this.worldRankPanel.updateInfo();
             }
@@ -300,11 +318,38 @@ let Game = cc.Class({
             this.buildingPage.updateBuildingListInfo();
             this.eventPanel.updatePanel();
             this.studentPanel.updatePanel();
+            this.professorPanel.updatePanel();
             this.resourceDetailPanel.updatePanel();
+            this.configPanel.updatePanel();
             if (this.currentTick % Globals.TICKS_WEEK === 0) {
                 this.worldRankPanel.updateInfo();
             }
         }
+    },
+
+    gameOver() {
+        this.isPaused = true;
+        this.popupManager.showDialogBox(
+            utilities.replaceAll(this.initialData.json.gameOverMessage, "{univname}", this.universityName),
+            [
+                {
+                    string: "回到主菜单",
+                    callback: function () {
+                        cc.director.loadScene("MainMenu");
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                },
+                {
+                    string: "辣鸡游戏！不玩了！",
+                    callback: function () {
+                        window.close();
+                    },
+                    thisPointer: this,
+                    destroyDialog: true,
+                }
+            ]
+        );
     },
 
     // callback for buttons that control time elapse
