@@ -63,6 +63,7 @@ cc.Class({
         buildingTypeLevels["cafeteria"] = 5;
         buildingTypeLevels["lab"] = 3;
         buildingTypeLevels["careerCenter"] = 3;
+        let buildingLists = this.game.buildingManager.getBuildingLists();
         for (let i = 0; i < buildingTypeArr.length; ++i) {
             let iconUrl = "Icons/" + buildingTypeArr[i];
             let that = this;
@@ -81,18 +82,18 @@ cc.Class({
             let levels = buildingTypeLevels[buildingTypeArr[i]];
             for (let j = 0; j < levels; j++) {
                 let url = "Pictures/" + buildingTypeArr[i] + j;
+                let that = this;
+                let defaultBuildingId = 0;
                 cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
                     infoPicturesDict[buildingTypeArr[i] + j] = spriteFrame;
+                    if (buildingLists.length > 0 && buildingTypeArr[i] === buildingLists[defaultBuildingId].type && j === buildingLists[defaultBuildingId].tier) {
+                        that.showSelectedBuildingInfo(0);
+                    }
                 });
             }
         }
 
         this.updateBuildingListInfo();
-        let buildingLists = this.game.buildingManager.getBuildingLists();
-        let buildingListSize = buildingLists.length;
-        if (buildingListSize > 0) {
-            this.showSelectedBuildingInfo(0);
-        }
     },
 
     updateBuildingListInfo() {
