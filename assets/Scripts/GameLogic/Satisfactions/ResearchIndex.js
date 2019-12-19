@@ -28,9 +28,9 @@ ResearchIndex.prototype.debugPrint = function () {
  */
 ResearchIndex.prototype.update = function () {
     const student = Globals.studentManager.getStudentById(this.studentID);
-    const dailyGain = Globals.universityLevelModifiers.careerTrainingProvided *
-        _.max([0, student.indexes.studyIndex.value - 0.3]) /
-        (8 * Globals.TICKS_SEMESTER);
+    const dailyGain = Globals.universityLevelModifiers.researchTrainingProvided *
+         student.indexes.studyIndex.value  /
+        (16 * Globals.TICKS_SEMESTER);
     this.value = this.value + dailyGain;
 };
 
