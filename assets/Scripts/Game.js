@@ -186,7 +186,8 @@ let Game = cc.Class({
             this.timeSinceLastUpdate += dt;
             if (this.timeSinceLastUpdate >= this.speedModifier) {
                 this.timeSinceLastUpdate -= this.speedModifier;
-                utilities.log(this.currentTick);
+                
+                // utilities.log(this.currentTick);
 
                 this.updateGameSystem();
 
@@ -213,8 +214,7 @@ let Game = cc.Class({
         this.studentManager.update(this.currentTick);
         this.buildingManager.update(this.currentTick);
         this.studentManager.updateSatisfaction();
-        this.studentManager.debugPrint();
-        this.buildingManager.debugPrint();
+        // this.studentManager.debugPrint();
         // this.buildingManager.debugPrint();
 
         // Update game objective values
