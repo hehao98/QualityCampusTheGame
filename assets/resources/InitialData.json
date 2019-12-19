@@ -3,7 +3,7 @@
   "startFund": 50000,
   "fundModifier": {
     "type": "fixed",
-    "amount": 500
+    "amount": 250
   },
   "buildings": [
     {
@@ -67,7 +67,7 @@
         "studentSatisfaction": 0.4,
         "professorNumber": 6
       },
-      "newFixedFund": 1000
+      "newFixedFund": 500
     },
     {
       "name": "成为世界四流大学！",
@@ -80,7 +80,7 @@
         "studentSatisfaction": 0.5,
         "professorNumber": 10
       },
-      "newFixedFund": 2000
+      "newFixedFund": 1000
     },
     {
       "name": "成为世界三流大学！",
@@ -93,7 +93,7 @@
         "studentSatisfaction": 0.6,
         "professorNumber": 15
       },
-      "newFixedFund": 3000
+      "newFixedFund": 1500
     },
     {
       "name": "成为世界二流大学！",
@@ -106,7 +106,7 @@
         "studentSatisfaction": 0.7,
         "professorNumber": 20
       },
-      "newFixedFund": 4000
+      "newFixedFund": 2000
     },
     {
       "name": "成为世界一流大学！",
@@ -119,7 +119,7 @@
         "studentSatisfaction": 0.8,
         "professorNumber": 25
       },
-      "newFixedFund": 5000
+      "newFixedFund": 3000
     }
   ]
 }

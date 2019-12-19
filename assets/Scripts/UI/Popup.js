@@ -14,7 +14,7 @@ cc.Class({
 
     start () {
         let action = cc.moveTo(1, this.endPosition.x, this.endPosition.y);
-        action.easing(cc.easeIn(3.0));
+        action.easing(cc.easeSineOut(3.0));
         this.node.runAction(action);
         this.scheduleOnce(function() {
             this.node.destroyAllChildren();

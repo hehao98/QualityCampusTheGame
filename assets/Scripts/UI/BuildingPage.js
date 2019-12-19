@@ -33,6 +33,11 @@ cc.Class({
             type: cc.PageView,
         },
         game: require("Game"),
+        maxBuildingNumber: 20,
+        maxComponentNumber: 6,
+        buildingItemPool: [cc.Node],
+        componentItemPool: [cc.Node],
+        buildingNumberLabel: cc.Label,
         contentPanel: cc.Node,
         itemPrefab: cc.Prefab,
         buildingInfoPage: cc.Node,
@@ -53,6 +58,21 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        this.contentPanel.removeAllChildren();
+        for (let i = 0; i < this.maxBuildingNumber; ++i) {
+            let buildingItem = cc.instantiate(this.itemPrefab);
+            this.contentPanel.addChild(buildingItem);
+            this.buildingItemPool.push(buildingItem);
+            buildingItem.active = false;
+        }
+
+        this.componentLayout.removeAllChildren();
+        for (let i = 0; i < this.maxComponentNumber; ++i) {
+            let componentItem = cc.instantiate(this.componentPrefab);
+            this.componentLayout.addChild(componentItem);
+            this.componentItemPool.push(componentItem);
+            componentItem.active = false;
+        }
         Globals.UI.buildingListPageView = this.pageView;
     },
 
@@ -77,6 +97,7 @@ cc.Class({
             let that = this;
             cc.loader.loadRes(pictureUrl, cc.SpriteFrame, function (err, spriteFrame) {
                 BuildingPicturesDict[buildingTypeArr[i]] = spriteFrame;
+                that.initBuildNewBuildingPage();
             });
 
             let levels = buildingTypeLevels[buildingTypeArr[i]];
@@ -93,16 +114,22 @@ cc.Class({
             }
         }
 
+        this.initBuildNewBuildingPage();
         this.updateBuildingListInfo();
     },
 
     updateBuildingListInfo() {
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let buildingListSize = buildingLists.length;
-        this.contentPanel.removeAllChildren();
+        this.buildingNumberLabel.string = buildingListSize + "/" + this.maxBuildingNumber;
+
+        for (let i = 0; i < this.maxBuildingNumber; ++i) {
+            this.buildingItemPool[i].active = false;
+        }
+
         for (let i = 0; i < buildingListSize; ++i) {
             let building = buildingLists[i];
-            let node = cc.instantiate(this.itemPrefab);
+            let node = this.buildingItemPool[i];
             let buildingItem = node.getComponent(BuildingItem);
             buildingItem.id = building.id;
             buildingItem.buildingPage = this;
@@ -123,10 +150,10 @@ cc.Class({
                     this.checkIsUpgrading(buildingProgressBar, building);
                 }
             }
-            this.contentPanel.addChild(node);
             if (building.upgradingEndTime !== 0 && Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
                 this.showSelectedBuildingInfo(this.selectedBuildingId);
             }
+            node.active = true;
         }
     },
 
@@ -164,10 +191,10 @@ cc.Class({
     // update (dt) {},
     changeToBuildNewBuildingPage(event, customEventData) {
         this.pageView.scrollToPage(Number.parseInt(customEventData), 1);
-        this.showBuildNewBuildingPage();
+        // this.showBuildNewBuildingPage();
     },
 
-    showBuildNewBuildingPage() {
+    initBuildNewBuildingPage() {
         let buildingTypeArr = ["dorm", "teaching", "cafeteria", "lab", "careerCenter"];
         let buildingChineseName = ["宿舍", "教学楼", "食堂", "实验室", "职业发展中心"];
         this.layoutPanel.removeAllChildren();
@@ -247,6 +274,12 @@ cc.Class({
     },
 
     addBuilding(button) {
+        let buildingLists = this.game.buildingManager.getBuildingLists();
+        let buildingListSize = buildingLists.length;
+        if (buildingListSize >= this.maxBuildingNumber) {
+            this.popupManager.showPopup("当前建筑数量已达上限！");
+            return;
+        }
         this.popupManager.showMessageBox(
             "是否要添加新建筑",
             () => {
@@ -288,9 +321,13 @@ cc.Class({
         let componentChineseName = {"relax": "有隔音效果的休息区", "studyArea": "方便学习的自习区", "cafe": "品质校园的咖啡厅", "noRepair": "大量设备损坏", "buildingAtNight": "附近有夜间施工", "unstableWaterTemperature": "薛定谔的浴室水温", "dirtyFood": "食品安全问题屡教不改", "highHCHO": "甲醛超标", "crowdedByDesign": "过于拥挤"};
         let buildingLists = this.game.buildingManager.getBuildingLists();
         let building = buildingLists[id];
-        this.componentLayout.removeAllChildren();
+
+        for (let i = 0; i < this.maxComponentNumber; ++i) {
+            this.componentItemPool[i].active = false;
+        }
+        
         for (let i = 0; i < building.components.length; ++i) {
-            let node = cc.instantiate(this.componentPrefab);
+            let node = this.componentItemPool[i];
             let componentName = node.getChildByName("NameLabel").getComponent(cc.Label);
             componentName.string = componentChineseName[building.components[i].type];
             let nodeCover = node.getChildByName("Cover").getComponent(cc.Sprite);
@@ -303,13 +340,13 @@ cc.Class({
             item.componentType = building.components[i].type;
             item.buildingPage = this;
             item.id = building.components[i].id;
-            this.componentLayout.addChild(node);
+            node.active = true;   
         }
-        if (building.components.length === 0) {
-            this.componentBackground.active = true;
-        } else {
-            this.componentBackground.active = false;
-        }
+        // if (building.components.length === 0) {
+        //     this.componentBackground.active = true;
+        // } else {
+        //     this.componentBackground.active = false;
+        // }
     },
 
     showAddComponentPanel() {
@@ -340,12 +377,19 @@ cc.Class({
     },
     
     addComponent(componentType) {
+        let building = this.game.buildingManager.getBuildingById(this.selectedBuildingId);
         let componentProperties = BuildingComponentSpecifications[componentType][0]["defaultProperties"];
         let studySat = utilities.numberToPercentage(componentProperties["studySatisfaction"] || 0);
         let relaxSat = utilities.numberToPercentage(componentProperties["relaxationSatisfaction"] || 0);
         let income = componentProperties["income"] || 0;
         let fund = componentProperties["fundToCurrentTier"] || 0;
         let description = componentProperties["description"];
+
+        if (building.components.length >= this.maxComponentNumber) {
+            this.popupManager.showPopup("当前组件数已达到上限，无法继续添加！");
+            return;
+        }
+
         if (studySat.length > 0 && studySat[0] !== "-") {
             studySat = "+" + studySat;
         }

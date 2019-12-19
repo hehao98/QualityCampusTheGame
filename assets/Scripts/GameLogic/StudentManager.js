@@ -37,7 +37,7 @@ StudentManager.prototype.add = function (properties = {}) {
     propertiesRevised["id"] = this.nextStudentID++;
     let student = new Student(propertiesRevised);
     this.students.push(student);
-    Globals.game.fund.setModifierAmount(this.fundModifierId, this.students.length * 1);
+    Globals.game.fund.setModifierAmount(this.fundModifierId, this.students.length * 5);
 };
 
 /**

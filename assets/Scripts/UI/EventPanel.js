@@ -3,6 +3,7 @@ cc.Class({
 
     properties: () => ({
         game: require("Game"),
+        popupManager: require("PopupManager"),
         prefab: cc.Prefab,
         contentPoolSize: 5,
         contentPool: [cc.Node],
@@ -21,6 +22,14 @@ cc.Class({
             this.contentPool.push(node);
             this.contentPanel.addChild(node);
         }
+
+        let that = this;
+        this.game.eventManager.eventStartCallback = function() {
+            that.popupManager.showPopup("发生了突发事件！");
+        };
+        this.game.eventManager.eventEndCallback = function() {
+            that.popupManager.showPopup("突发事件被解决了！");
+        };
     },
 
     updatePanel() {
