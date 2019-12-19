@@ -165,7 +165,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 279.7262054223737
+      "z": 278.86018001858923
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -4419,8 +4419,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "教师满意度",
-    "_N$string": "教师满意度",
+    "_string": "教师数量",
+    "_N$string": "教师数量",
     "_fontSize": 25,
     "_lineHeight": 30,
     "_enableWrapText": true,
