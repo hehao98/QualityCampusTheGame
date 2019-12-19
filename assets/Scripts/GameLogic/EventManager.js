@@ -17,6 +17,8 @@ class EventManager {
         this.nextEventId = 0;
         this.currentEvents = [];
         this.currentEventTypes = new Set();
+        this.eventStartCallback = function() {};
+        this.eventEndCallback = function() {};
         // constructor left-overs
     }
 }
@@ -54,6 +56,7 @@ EventManager.prototype.update = function(tick) {
         for (let event of spec.events) {
             if (event.trigger(this.game)) {
                 let thisEvent = _.cloneDeep(event);
+                this.eventStartCallback();
                 thisEvent.timeoutTick = tick + thisEvent.timeout;
                 thisEvent.id = this.nextEventId++;
                 thisEvent.type = type;
@@ -92,6 +95,7 @@ EventManager.prototype.resolveEvent = function(eventId, actionId) {
     this.currentEvents[index].action[actionId].consequence(this.game);
     this.currentEventTypes.delete(this.currentEvents[index].type);
     this.currentEvents = this.currentEvents.filter(e => e.id !== eventId);
+    this.eventEndCallback();
 };
 
 module.exports = EventManager;

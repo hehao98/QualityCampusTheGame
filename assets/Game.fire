@@ -32967,6 +32967,9 @@
     "game": {
       "__id__": 125
     },
+    "popupManager": {
+      "__id__": 772
+    },
     "prefab": {
       "__uuid__": "a622862a-602c-4e18-9b8d-aef8c32cfd61"
     },
