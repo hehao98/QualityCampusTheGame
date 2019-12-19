@@ -244,8 +244,8 @@ let utilities = {
     },
 
     numberToPercentage(number) {
-        let percentageNumber = number * 100;
-        let percent = percentageNumber + ".00%";
+        let percentageNumber = (number * 100).toFixed(2);
+        let percent = percentageNumber + "%";
         return percent;
     },
 };

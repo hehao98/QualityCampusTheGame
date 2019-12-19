@@ -14,6 +14,7 @@ class PkuHoleManager {
         this.posts = []; // ordered from most recent to old
         this.postPoolSize = 30;
         this.nextPostID = 0;
+        this.updateUICallback = function() {};
         // constructor left-overs
     }
 }
@@ -67,6 +68,7 @@ PkuHoleManager.prototype.addPost = function(content, tick) {
         this.posts.pop();
     }
     this.posts.unshift(newPost);
+    this.updateUICallback();
 };
 
 module.exports = PkuHoleManager;

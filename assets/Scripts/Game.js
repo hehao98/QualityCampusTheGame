@@ -188,7 +188,6 @@ let Game = cc.Class({
                 this.timeSinceLastUpdate -= this.speedModifier;
                 
                 // utilities.log(this.currentTick);
-
                 this.updateGameSystem();
 
                 this.updateGameObjective();
@@ -196,9 +195,9 @@ let Game = cc.Class({
                 // Finally Update all UIs
                 this.refreshUI();
 
-                this.timeString = utilities.getTickString(this.currentTick);
                 Globals.tick = ++this.currentTick;
-
+                this.timeString = utilities.getTickString(this.currentTick);
+                
                 if (this.fund.value < 0) {
                     this.gameOver();
                 }

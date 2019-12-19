@@ -21,26 +21,31 @@ cc.Class({
             this.contentPool.push(node);
             this.contentPanel.addChild(node);
         }
+
+        let that = this;
+        this.game.pkuHoleManager.updateUICallback = function () {
+            that.contentPool.forEach(node => node.active = false);
+            that.game.pkuHoleManager.posts.forEach((post, idx) => {
+                that.contentPool[idx].active = true;
+                let labels = that.contentPool[idx].getComponentsInChildren(cc.Label);
+                labels.forEach(label => {
+                    switch (label.node.name) {
+                    case "PkuHoleNumber":
+                        label.string = "#" + post.id;
+                        break;
+                    case "PkuHoleContent":
+                        label.string = post.content;
+                        break;
+                    case "PkuHoleTime":
+                        label.string = post.date;
+                        break;
+                    }
+                });
+            }, that);
+        };
     },
 
     updatePanel() {
-        this.contentPool.forEach(node => node.active = false);
-        this.game.pkuHoleManager.posts.forEach((post, idx) => {
-            this.contentPool[idx].active = true;
-            let labels = this.contentPool[idx].getComponentsInChildren(cc.Label);
-            labels.forEach(label => {
-                switch (label.node.name) {
-                case "PkuHoleNumber":
-                    label.string = "#" + post.id;
-                    break;
-                case "PkuHoleContent":
-                    label.string = post.content;
-                    break;
-                case "PkuHoleTime":
-                    label.string = post.date;
-                    break;
-                }
-            });
-        }, this);
+        
     }
 });
