@@ -282,8 +282,9 @@ BuildingManager.prototype.getSatisfaction = function (buildingID, type) {
 
     // revision by crowdness
     let crowdCoefficients = target.nStudent / target.capacity;
-    satisfaction = _.min([1, satisfaction *
-        (Math.log(-crowdCoefficients + 2) / Math.E + 1)]);
+    satisfaction = crowdCoefficients >= 1.99 ? 0 :
+        _.min([1, satisfaction *
+            (Math.log(-crowdCoefficients + 2) / Math.E + 1)]);
 
     utilities.log(target, "debug");
     utilities.log(type + " sat: " + satisfaction + " " +
