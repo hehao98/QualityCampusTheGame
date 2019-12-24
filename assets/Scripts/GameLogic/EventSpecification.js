@@ -9,8 +9,8 @@ let EventSpecifications = {
         nextTriggerTick: 0,
         events: [
             {
-                name: "有人跳楼了！",
-                description: "住在28号楼的同学们无不听到了一声巨响，有学生选择了结束他的生命！",
+                name: "有同学患上了严重抑郁症！",
+                description: "因各方面条件太差，有学生患上了严重抑郁症",
                 timeout: 100,
                 timeoutTick: 0,
                 defaultActionId: 0,
@@ -20,7 +20,7 @@ let EventSpecifications = {
                 action: [
                     {
                         name: "封锁全部消息",
-                        description: "虽然学生可能不会对此非常满意，但是这样可以有效避免类似的事情再次发生",
+                        description: "虽然学生可能不会对此非常满意，但是这样可以有效减少悲观情绪蔓延",
                         prerequisite: null,
                         consequence: function(game) {
                             EventSpecifications.studySatisfactionEvents.nextTriggerTick += 200;
