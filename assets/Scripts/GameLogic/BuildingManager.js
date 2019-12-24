@@ -298,7 +298,7 @@ BuildingManager.prototype.getSatisfaction = function (buildingID, type) {
  * @param {Number} tick
  */
 BuildingManager.prototype.update = function (tick) {
-    const inDayTime = tick % Globals.TICKS_DAY;
+    const inDayTime = (tick + 1) % Globals.TICKS_DAY;
     // if (tick % Globals.TICKS_SEMESTER === 0) {
     // }
     for (let building of this.buildings) {
