@@ -41198,8 +41198,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "（学业能力大于0.3时才会开始积累）",
-    "_N$string": "（学业能力大于0.3时才会开始积累）",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 18,
     "_lineHeight": 40,
     "_enableWrapText": true,
