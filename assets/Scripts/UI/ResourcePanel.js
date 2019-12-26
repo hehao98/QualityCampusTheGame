@@ -42,6 +42,7 @@ cc.Class({
         let total = this.game.worldRankManager.getUniversityCount();
         this.worldRankLabel.string = rank + "/" + total;
 
-        this.statusLabel.string = "目标：" + this.game.gameObjectives[this.game.currentObjective].nameShort;
+        if (this.game.currentObjective < this.game.gameObjectives.length)
+            this.statusLabel.string = "目标：" + this.game.gameObjectives[this.game.currentObjective].nameShort;
     },
 });
