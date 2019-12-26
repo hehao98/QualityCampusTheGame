@@ -150,7 +150,7 @@ cc.Class({
                     this.checkIsUpgrading(buildingProgressBar, building);
                 }
             }
-            if (building.upgradingEndTime !== 0 && Globals.tick === building.upgradingEndTime + 1 && building.id === selectedBuildingId) {
+            if (building.upgradingEndTime !== 0 && Globals.tick === building.upgradingEndTime && building.id === this.selectedBuildingId) {
                 this.showSelectedBuildingInfo(this.selectedBuildingId);
             }
             node.active = true;
