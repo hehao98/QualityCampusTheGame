@@ -180,7 +180,7 @@ cc.Class({
         if (building.tier === buildingTypeLevels[building.type] - 1) {
             this.upgradeBuildingButtonLabel.string = "已满级";
         } else {
-            let upgradeFund = BuildingSpecifications[building.type][building.tier]["defaultProperties"]["fundToCurrentTier"];
+            let upgradeFund = BuildingSpecifications[building.type][building.tier + 1]["defaultProperties"]["fundToCurrentTier"];
             this.upgradeBuildingButtonLabel.string = "升级(" + upgradeFund + "万)";
         }
         this.selectedComponentId = -1;
