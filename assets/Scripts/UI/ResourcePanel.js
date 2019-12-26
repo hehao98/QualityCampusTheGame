@@ -32,9 +32,9 @@ cc.Class({
         }
         this.fundChangeLabel.string = "(" + suffix + value + "万)";
 
-        this.researchIndexLabel.string = Utilities.numberToPercentage(this.game.researchIndex.toFixed(2));
-        this.teachIndexLabel.string = Utilities.numberToPercentage(this.game.teachIndex.toFixed(2));
-        this.careerIndexLabel.string = Utilities.numberToPercentage(this.game.careerIndex.toFixed(2));
+        this.researchIndexLabel.string = Utilities.numberToPercentage(this.game.researchIndex, 1);
+        this.teachIndexLabel.string = Utilities.numberToPercentage(this.game.teachIndex, 1);
+        this.careerIndexLabel.string = Utilities.numberToPercentage(this.game.careerIndex, 1);
         this.studentNumberLabel.string = this.game.studentManager.students.length;
         this.professorNumberLabel.string = this.game.professorManager.number;
 

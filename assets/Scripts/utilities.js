@@ -243,8 +243,10 @@ let utilities = {
         return cur;
     },
 
-    numberToPercentage(number) {
-        let percentageNumber = (number * 100).toFixed(2);
+    numberToPercentage(number, effectiveNumber) {
+        if (effectiveNumber == undefined)
+            effectiveNumber = 2;
+        let percentageNumber = (number * 100).toFixed(effectiveNumber);
         let percent = percentageNumber + "%";
         return percent;
     },
