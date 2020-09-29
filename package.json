@@ -4,7 +4,7 @@
   "description": "The University Campus Simulation Game",
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "chai": "^4.2.0",
